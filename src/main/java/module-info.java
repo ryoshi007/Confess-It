@@ -6,6 +6,8 @@ module com.example.confessit {
     requires validatorfx;
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
+    requires java.sql;
+    requires mysql.connector.java;
 
     opens com.confessit to javafx.fxml;
     exports com.confessit;
