@@ -38,25 +38,29 @@ public class Post {
     }
 
     /***
-     *
-     * @return the tagID
+     * get the tagID
+     * @return tagID
      */
     public int getTagID() {
         return tagID;
     }
 
     /***
-     *
+     * set the tagID
      * @param tagID is the primary key of the post
      */
     public void setTagID(int tagID) {
         this.tagID = tagID;
     }
 
+    /***
+     * get the Date
+     * @return date
+     */
     public Date getDate() {
         return date;
     }
-
+    
     public void setDate(Date date) {
         this.date = date;
     }
