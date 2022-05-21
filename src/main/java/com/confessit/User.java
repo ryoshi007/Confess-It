@@ -15,7 +15,7 @@ public class User {
     private char gender;
     private String description;
     private ArrayList<Integer> history = new ArrayList<>();
-    private String role;
+    private int role;
     private ArrayList<Integer> archive = new ArrayList<>();
 
     public User() {
@@ -30,9 +30,9 @@ public class User {
      * @param dateOfBirth date of birth of the user
      * @param gender gender of the user
      * @param description description of the user
-     * @param role role of the user account (Admin or User)
+     * @param role role of the user account (1 = Admin or 0 = User)
      */
-    public User(String username, String email, String password, Date dateOfBirth, char gender, String description, String role) {
+    public User(String username, String email, String password, Date dateOfBirth, char gender, String description, int role) {
         this.username = username;
         this.email = email;
         this.password = password;
@@ -147,17 +147,17 @@ public class User {
 
     /**
      * get the role of the user
-     * @return role
+     * @return role (1 = Admin or 0 = User)
      */
-    public String getRole() {
+    public int getRole() {
         return role;
     }
 
     /**
      * set the role of the user
-     * @param role role (Admin or User)
+     * @param role role (1 = Admin or 0 = User)
      */
-    public void setRole(String role) {
+    public void setRole(int role) {
         this.role = role;
     }
 
