@@ -18,6 +18,10 @@ public class User {
     private String role;
     private ArrayList<Integer> archive = new ArrayList<>();
 
+    public User() {
+
+    }
+
     /**
      *
      * @param username username of the user account
@@ -33,7 +37,6 @@ public class User {
         this.email = email;
         this.password = password;
         this.dateOfBirth = dateOfBirth;
-        this.gender = gender;
         this.description = description;
         this.role = role;
     }
@@ -100,22 +103,6 @@ public class User {
      */
     public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
-    }
-
-    /**
-     * get the gender of the user
-     * @return gender
-     */
-    public char getGender() {
-        return gender;
-    }
-
-    /**
-     * set the gender of the user
-     * @param gender gender of the user
-     */
-    public void setGender(char gender) {
-        this.gender = gender;
     }
 
     /**

@@ -20,7 +20,7 @@ public class HelloApplication extends Application {
 
     public static void main(String[] args) {
         cli();
-//        launch();
+        launch();
     }
 
     public static void cli() {
@@ -32,6 +32,7 @@ public class HelloApplication extends Application {
 
         Scanner scanner = new Scanner(System.in);
         int input = scanner.nextInt();
+        scanner.nextLine();
         boolean isAuthenticated = false;
 
         if (input == 1) {
@@ -41,8 +42,13 @@ public class HelloApplication extends Application {
             System.out.print("Password: ");
             String inputPassword = scanner.nextLine();
 
+            LogInController logInController = new LogInController();
+            isAuthenticated = logInController.validateLogin(inputEmail,inputPassword);
+
+            if (isAuthenticated) {
+                System.out.println("Login successful");
+            }
             //Fetch username and password from the database, if true let the user in
-            isAuthenticated = true;
         } else {
             System.out.println();
             //Function related to Sign In
