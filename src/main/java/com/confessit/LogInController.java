@@ -10,7 +10,7 @@ import java.sql.Statement;
 
 public class LogInController {
 
-    public boolean validateLogin(String loginEmail, String loginPassword) {
+    public boolean validateLogin(String login, String password) {
 
         Connection connectDB = null;
         Statement statement = null;
@@ -20,12 +20,12 @@ public class LogInController {
             DatabaseConnection connection = new DatabaseConnection();
             connectDB = connection.getConnection();
             statement = connectDB.createStatement();
-            queryResult = statement.executeQuery("SELECT * FROM user WHERE email = '" + loginEmail + "' AND password ='" + loginPassword + "'");
+            queryResult = statement.executeQuery("SELECT * FROM user WHERE email = '" + login + "' AND password ='" + password + "'");
             // if the query result is not empty
             if (queryResult.next()) {
                 String retrievedEmail = queryResult.getString("email");
                 String retrievedPassword = queryResult.getString("password");
-                if (retrievedEmail.equals(loginEmail) && retrievedPassword.equals(loginPassword)) {
+                if (retrievedEmail.equals(login) && retrievedPassword.equals(password)) {
                     // if email and password matches
                     // create a User object that stores the current user's information
                     User currentUser = new User();
@@ -34,8 +34,8 @@ public class LogInController {
                     currentUser.setPassword(retrievedPassword);
                     currentUser.setDateOfBirth(queryResult.getDate("dateofbirth"));
                     currentUser.setDescription(queryResult.getString("description"));
-                    currentUser.setRole(queryResult.getString("role"));
-
+                    currentUser.setRole(queryResult.getInt("role"));
+                    System.out.println(currentUser.getDateOfBirth());
                     return true;
 
                 }
