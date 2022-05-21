@@ -8,6 +8,7 @@ module com.example.confessit {
     requires org.kordamp.bootstrapfx.core;
     requires java.sql;
     requires mysql.connector.java;
+    requires json.simple;
 
     opens com.confessit to javafx.fxml;
     exports com.confessit;
