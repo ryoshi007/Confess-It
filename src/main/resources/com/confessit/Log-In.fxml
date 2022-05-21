@@ -4,12 +4,16 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane prefHeight="1200.0" prefWidth="1660.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.confessit.LogInController">
    <children>
       <ImageView fitHeight="145.0" fitWidth="200.0" layoutX="24.0" layoutY="98.0">
          <image>
-            <Image url="@../../fxml-resources/log-in-page-background.png" />
+            <Image url="@../../../fxml-resources/log-in-page-background.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="36.0" layoutY="296.0">
+         <image>
+            <Image url="@../../../fxml-resources/logo_final.png" />
          </image>
       </ImageView>
    </children>
