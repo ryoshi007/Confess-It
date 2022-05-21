@@ -133,7 +133,7 @@ public class HelloApplication extends Application {
                 signUpController.createUserAccount(inputEmail,inputUsername,inputPassword);
                 System.out.println("Your account is successfully created");
             } else {
-                // if password and confirm password are the different
+                // if password and confirm password are different
                 System.out.println("Password and confirm password are different");
             }
         }
