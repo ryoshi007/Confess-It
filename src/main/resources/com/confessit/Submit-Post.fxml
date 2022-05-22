@@ -54,9 +54,9 @@
             <Font name="System Bold" size="53.0" />
          </font>
       </Text>
-      <Text layoutX="538.0" layoutY="677.0" opacity="0.31" strokeType="OUTSIDE" strokeWidth="0.0" text="Only one image is allowed" wrappingWidth="438.109375">
+      <Text layoutX="530.0" layoutY="677.0" opacity="0.31" strokeType="OUTSIDE" strokeWidth="0.0" text="Only one image is allowed" wrappingWidth="438.109375">
          <font>
-            <Font name="System Bold" size="19.0" />
+            <Font name="System Bold" size="21.0" />
          </font>
       </Text>
    </children>
