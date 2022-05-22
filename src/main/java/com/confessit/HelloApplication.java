@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicReferenceArray;
 
 public class HelloApplication extends Application {
     @Override
@@ -69,7 +70,6 @@ public class HelloApplication extends Application {
                 MainPageController mainPage = new MainPageController();
                 ArrayList<Post> recentPosts = mainPage.retrieveRecentPost(4);
 
-                System.out.println(recentPosts.size());
                 for (int i = 4; i - 4 < recentPosts.size(); i++) {
                     System.out.println(i + ". " + recentPosts.get(i - 4) + "\n");
                 }
@@ -97,30 +97,48 @@ public class HelloApplication extends Application {
                         System.out.println("4. Post ID");
                         System.out.print("\nInput: ");
 
+                        SearchPost searchPost = new SearchPost();
+                        ArrayList<Post> results = null;
                         input = scanner.nextInt();
+                        scanner.nextLine();
                         switch (input) {
                             case 1:
-                                //Search via keyword
+                                System.out.print("Keyword: ");
+                                String keyword = scanner.nextLine();
+                                results = searchPost.search("content", keyword);
                                 break;
                             case 2:
-                                //Search via date time
+                                System.out.print("Date (yyyy-mm-dd): ");
+                                String inputDate = scanner.nextLine();
+                                System.out.print("Time (0-23): ");
+                                String inputTime = scanner.nextLine();
+                                results = searchPost.search("datetime", inputDate + " " + inputTime);
                                 break;
                             case 3:
-                                //Search via Date
+                                System.out.print("Date (yyyy-mm-dd): ");
+                                String date = scanner.nextLine();
+                                results = searchPost.search("datetime", date);
                                 break;
                             default:
-                                //Search via Post ID
+                                System.out.print("Tag ID: ");
+                                String tagid = scanner.nextLine();
+                                results = searchPost.search("tagid", tagid);
                                 break;
+                        }
 
+                        System.out.println();
+                        for (int i = 1; i <= results.size(); i++) {
+                            System.out.println(i + ". " + results.get(i - 1) + "\n");
                         }
                         break;
+
                     case 3:
                         AdminPageController adminPage = new AdminPageController();
 
                         //A retrieval of submitted post, for testing purpose
                         ArrayList<Post> pendingPost = adminPage.retrieveSubmittedPost();
-                        for (int i = 0; i < pendingPost.size(); i++) {
-                            System.out.println(i + ". " + pendingPost.get(i));
+                        for (int i = 1; i <= pendingPost.size(); i++) {
+                            System.out.println(i + ". " + pendingPost.get(i - 1));
                             System.out.println("\n-----------------------------------");
                         }
 
