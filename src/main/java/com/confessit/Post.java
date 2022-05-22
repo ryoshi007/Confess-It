@@ -1,11 +1,13 @@
 package com.confessit;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Post {
+    private int index;
     private int tagID;
-    private Date date;
-    private Date time;
+    private Date datetime;
     private String content;
     private String picturePath;
     private int like;
@@ -14,10 +16,10 @@ public class Post {
     private boolean isApproved;
 
     /***
-     *
-     * @param tagID is the primary key of the post. It is unique and use for retrieval purpose.
-     * @param date is the date when the post is submitted.
-     * @param time is the time when the post is submitted.
+     * Constructor for a submitted post with picture
+     * @param index is the unique identifier for the post, used for administrative purpose
+     * @param tagID is the unique key of the post. It is unique and use for retrieval purpose.
+     * @param datetime is the date and time when the post is submitted.
      * @param content is the content in the post.
      * @param picturePath is the file path that leads to the picture.
      * @param like is the amount of like that the post received.
@@ -25,10 +27,11 @@ public class Post {
      * @param comment is the comment that the post received.
      * @param isApproved is the status of the post, True if the post is approved by the administrator, False if otherwise.
      */
-    public Post(int tagID, Date date, Date time, String content, String picturePath, int like, int dislike, Json comment, boolean isApproved) {
+    public Post(int index, int tagID, Date datetime, String content, String picturePath, int like, int dislike,
+                Json comment, boolean isApproved) {
+        this.index = index;
         this.tagID = tagID;
-        this.date = date;
-        this.time = time;
+        this.datetime = datetime;
         this.content = content;
         this.picturePath = picturePath;
         this.like = like;
@@ -37,14 +40,35 @@ public class Post {
         this.isApproved = isApproved;
     }
 
-    public Post(int tagID, Date date, Date time, String content, int like, int dislike, boolean isApproved) {
+    /***
+     * Constructor for a submitted post without picture
+     * @param index is the unique identifier for the post, used for administrative purpose
+     * @param tagID is the unique key of the post. It is unique and use for retrieval purpose.
+     * @param datetime is the date and time when the post is submitted.
+     * @param content is the content in the post.
+     * @param like is the amount of like that the post received.
+     * @param dislike is the amount of dislike that the post received.
+     * @param comment is the comment that the post received.
+     * @param isApproved is the status of the post, True if the post is approved by the administrator, False if otherwise.
+     */
+    public Post(int index, int tagID, Date datetime, String content, int like, int dislike, Json comment,
+                boolean isApproved) {
+        this.index = index;
         this.tagID = tagID;
-        this.date = date;
-        this.time = time;
+        this.datetime = datetime;
         this.content = content;
         this.like = like;
         this.dislike = dislike;
+        this.comment = comment;
         this.isApproved = isApproved;
+    }
+
+    /***
+     * To get the index of the post
+     * @return the index
+     */
+    public int getIndex() {
+        return index;
     }
 
     /***
@@ -65,35 +89,19 @@ public class Post {
 
     /***
      * get the Date when the post is submitted
-     * @return date
+     * @return datetime
      */
-    public Date getDate() {
-        return date;
+    public Date getDatetime() {
+        return datetime;
     }
 
 
     /***
      * set the Date
-     * @param date
+     * @param datetime
      */
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    /***
-     * get the time when the post is submitted
-     * @return
-     */
-    public Date getTime() {
-        return time;
-    }
-
-    /***
-     * set the time
-     * @param time
-     */
-    public void setTime(Date time) {
-        this.time = time;
+    public void setDate(Date datetime) {
+        this.datetime = datetime;
     }
 
     /***
@@ -190,5 +198,15 @@ public class Post {
      */
     public void setApproved(boolean approved) {
         isApproved = approved;
+    }
+
+    public String toString() {
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        String date = dateFormat.format(datetime);
+        DateFormat timeFormat = new SimpleDateFormat("hh:MM:ss");
+        String time = timeFormat.format(datetime);
+
+        return "Index: " + index + "\nTag ID: " + tagID + "\nDate: " + date + "\nTime: " + time + "\nContent: " + content + "\nFile Path: "
+                + picturePath + "\nLike Amount: " + like + "\nDislike Amount: " + dislike + "\nComment: " + comment;
     }
 }
