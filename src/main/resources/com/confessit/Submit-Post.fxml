@@ -1,14 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.confessit.SubmitPostController"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.confessit.SubmitPostController">
+   <children>
+      <ImageView fitHeight="1200.0" fitWidth="1660.0" layoutX="-7.0">
+         <image>
+            <Image url="@../../../fxml-resources/SubmitPost_Background.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="104.0" fitWidth="116.0" layoutX="74.0" layoutY="141.0">
+         <image>
+            <Image url="@../../../fxml-resources/SubmitPost_reverseButton.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="414.0" fitWidth="449.0" layoutX="13.0" layoutY="785.0">
+         <image>
+            <Image url="@../../../fxml-resources/SubmitPost_icon.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="61.0" fitWidth="199.0" layoutX="809.0" layoutY="1062.0">
+         <image>
+            <Image url="@../../../fxml-resources/SubmitPost_submitButton.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="136.0" fitWidth="1041.0" layoutX="437.0" layoutY="907.0">
+         <image>
+            <Image url="@../../../fxml-resources/SubmitPost_submissionCaution.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="223.0" fitWidth="348.0" layoutX="900.0" layoutY="656.0">
+         <image>
+            <Image url="@../../../fxml-resources/SubmitPost_sampleImage.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="51.0" fitWidth="255.0" layoutX="231.0" layoutY="640.0">
+         <image>
+            <Image url="@../../../fxml-resources/SubmitPost_chooseImageButton.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="271.0" fitWidth="1232.0" layoutX="208.0" layoutY="340.0">
+         <image>
+            <Image url="@../../../fxml-resources/SubmitPost_submissionTab.png" />
+         </image>
+      </ImageView>
+      <Text layoutX="212.0" layoutY="271.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Confession" wrappingWidth="438.109375">
+         <font>
+            <Font name="System Bold" size="53.0" />
+         </font>
+      </Text>
+      <Text layoutX="538.0" layoutY="677.0" opacity="0.31" strokeType="OUTSIDE" strokeWidth="0.0" text="Only one image is allowed" wrappingWidth="438.109375">
+         <font>
+            <Font name="System Bold" size="19.0" />
+         </font>
+      </Text>
+   </children>
 </AnchorPane>
