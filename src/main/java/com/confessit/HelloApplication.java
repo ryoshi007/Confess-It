@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class HelloApplication extends Application {
@@ -56,14 +57,15 @@ public class HelloApplication extends Application {
                 System.out.println("Interface\n--------------------------------------------------");
                 System.out.println("1. Submit a post");
                 System.out.println("2. Search a post");
+                System.out.println("3. Check pending posts");
 
-                System.out.println("\n\n----------------------------------------------------");
+                System.out.println("\n----------------------------------------------------");
                 System.out.println("Today's Confession");
 
                 //Fetch 3 random confession from the database
-                System.out.println("3. ");
                 System.out.println("4. ");
                 System.out.println("5. ");
+                System.out.println("6. ");
                 System.out.print("\nInput: ");
                 input = scanner.nextInt();
 
@@ -74,7 +76,6 @@ public class HelloApplication extends Application {
                         System.out.print("Content: ");
                         scanner.nextLine();
                         String content = scanner.nextLine();
-                        System.out.println(content);
                         submitController.submitPost(content);
                         //Fetch the data from database to ensure everything is correct
                         break;
@@ -106,9 +107,38 @@ public class HelloApplication extends Application {
                         }
                         break;
                     case 3:
-                        //Print detail of a post
+                        AdminPageController adminPage = new AdminPageController();
+
+                        //A retrieval of submitted post, for testing purpose
+                        ArrayList<Post> pendingPost = adminPage.retrieveSubmittedPost();
+                        for (int i = 0; i < pendingPost.size(); i++) {
+                            System.out.println(i + ". " + pendingPost.get(i));
+                            System.out.println("\n-----------------------------------");
+                        }
+
+                        System.out.println("\nOption: ");
+                        System.out.println("a. Approve");
+                        System.out.println("b. Delete");
+                        System.out.print("\nInput: ");
+
+                        scanner.nextLine();
+                        String pendingOption = scanner.nextLine();
+                        if (pendingOption.equalsIgnoreCase("a")) {
+                            System.out.print("Index: ");
+                            int inputID = scanner.nextInt();
+                            adminPage.approve(inputID);
+                        } else if (pendingOption.equalsIgnoreCase("b")) {
+                            System.out.print("Index: ");
+                            int inputID = scanner.nextInt();
+                            adminPage.delete(inputID);
+                        }
+
+
                         break;
                     case 4:
+                        //Print detail of a post
+                        break;
+                    case 5:
                         //Print detail of a post
                         break;
                     default:
@@ -142,5 +172,9 @@ public class HelloApplication extends Application {
                 System.out.println("Password and confirm password are different");
             }
         }
+    }
+
+    public static void pendingPostOptions(Post post) {
+
     }
 }
