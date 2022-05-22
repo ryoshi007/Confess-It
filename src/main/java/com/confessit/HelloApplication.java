@@ -70,7 +70,12 @@ public class HelloApplication extends Application {
                 switch (input) {
                     case 1:
                         //Function related to Add Post
-
+                        SubmitPostController submitController = new SubmitPostController();
+                        System.out.print("Content: ");
+                        scanner.nextLine();
+                        String content = scanner.nextLine();
+                        System.out.println(content);
+                        submitController.submitPost(content);
                         //Fetch the data from database to ensure everything is correct
                         break;
 
