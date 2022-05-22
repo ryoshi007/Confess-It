@@ -52,21 +52,26 @@ public class HelloApplication extends Application {
             }
 
             //Fetch the data from database to ensure everything is correct
-            //Implement the password hashing function here
+
             if (isAuthenticated) {
-                System.out.println("Interface\n--------------------------------------------------");
+                System.out.println("\nInterface\n--------------------------------------------------");
                 System.out.println("1. Submit a post");
                 System.out.println("2. Search a post");
                 System.out.println("3. Check pending posts");
-
-                System.out.println("\n----------------------------------------------------");
-                System.out.println("Today's Confession");
+                System.out.println("----------------------------------------------------");
+                System.out.println("Today's Confession\n");
 
                 //Fetch 3 random confession from the database
-                System.out.println("4. ");
-                System.out.println("5. ");
-                System.out.println("6. ");
-                System.out.print("\nInput: ");
+
+                MainPageController mainPage = new MainPageController();
+                ArrayList<Post> recentPosts = mainPage.retrieveRecentPost(4);
+
+                System.out.println(recentPosts.size());
+                for (int i = 4; i - 4 < recentPosts.size(); i++) {
+                    System.out.println(i + ". " + recentPosts.get(i - 4) + "\n");
+                }
+
+                System.out.print("Input: ");
                 input = scanner.nextInt();
 
                 switch (input) {
@@ -132,17 +137,9 @@ public class HelloApplication extends Application {
                             int inputID = scanner.nextInt();
                             adminPage.delete(inputID);
                         }
-
-
-                        break;
-                    case 4:
-                        //Print detail of a post
-                        break;
-                    case 5:
-                        //Print detail of a post
                         break;
                     default:
-                        //Print detail of a post
+                        System.out.println("Thanks for using the app");
                         break;
                 }
             } else {
@@ -190,7 +187,4 @@ public class HelloApplication extends Application {
         }
     }
 
-    public static void pendingPostOptions(Post post) {
-
-    }
 }
