@@ -152,6 +152,7 @@ public class HelloApplication extends Application {
         } else {
             System.out.println();
 
+            SignUpController signUp = new SignUpController();
             //Function related to Sign In
             System.out.print("Email: ");
             String inputEmail = scanner.nextLine();
@@ -161,6 +162,21 @@ public class HelloApplication extends Application {
             String inputPassword = scanner.nextLine();
             System.out.print("Confirm Password: ");
             String inputConfirmPassword = scanner.nextLine();
+
+            while(!signUp.verifyCorrectEmail(inputEmail) || !signUp.verifyStrongPassword(inputPassword)) {
+                if (!signUp.verifyCorrectEmail(inputEmail)) {
+                    System.out.println("Please ensure your email has the correct format.\n");
+                    System.out.print("Email: ");
+                    inputEmail = scanner.nextLine();
+                } else if (!signUp.verifyStrongPassword(inputPassword)) {
+                    System.out.println("Please ensure your password has minimum length of 8, contains at least " +
+                            "1 lowercase, 1 uppercase, 1 special character and 1 digit.\n");
+                    System.out.print("Password: ");
+                    inputPassword = scanner.nextLine();
+                    System.out.print("Confirm Password: ");
+                    inputConfirmPassword = scanner.nextLine();
+                }
+            }
 
             if (inputPassword.equals(inputConfirmPassword)) {
                 // if password and confirm password are the same

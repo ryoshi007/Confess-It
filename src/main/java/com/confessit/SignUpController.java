@@ -14,6 +14,11 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class SignUpController {
 
@@ -72,8 +77,43 @@ public class SignUpController {
     }
 
     /***
+     * Validate the email inputted by the user is in correct format
+     * @param emailInput the email inputted by the user
+     * @return a boolean value to verify the email has the correct format
+     */
+    public boolean verifyCorrectEmail(String emailInput) {
+        String emailRegex = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
+        Pattern emailPattern = Pattern.compile(emailRegex, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = emailPattern.matcher(emailInput);
+        return matcher.find();
+    }
+
+    /***
+     * Verify the password inputted by the user is strong
+     * @param passwordInput the password inputted by the user
+     * @return a boolean value to verify the password is strong
+     */
+    public boolean verifyStrongPassword(String passwordInput) {
+        boolean hasLower = false, hasUpper = false, hasDigit = false, specialChar = false, minLength = false;
+        Set<Character> set = new HashSet<>(Arrays.asList('!', '@', '#', '$', '%', '^', '&', '*', '(', ')',
+                '-', '+'));
+        for (char i : passwordInput.toCharArray()) {
+            if (Character.isLowerCase(i)) hasLower = true;
+            if (Character.isUpperCase(i)) hasUpper = true;
+            if (Character.isDigit(i)) hasDigit = true;
+            if (set.contains(i)) specialChar = true;
+        }
+
+        if (passwordInput.toCharArray().length >= 8) {
+            minLength = true;
+        }
+
+        return (hasLower && hasUpper && hasDigit && specialChar && minLength);
+    }
+
+    /***
      * Generate a secure password by implementing PBKDF2 algorithm
-     * @param originalPassword is the password inputted by the user
+     * @param originalPassword the password inputted by the user
      * @return an encrypted password
      * @throws NoSuchAlgorithmException
      * @throws InvalidKeySpecException
