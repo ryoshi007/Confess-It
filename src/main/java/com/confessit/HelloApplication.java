@@ -43,12 +43,15 @@ public class HelloApplication extends Application {
             System.out.print("Password: ");
             String inputPassword = scanner.nextLine();
 
+            User currentUser = new User();
+
             //Fetch username and password from the database, if true let the user in
             LogInController logInController = new LogInController();
             isAuthenticated = logInController.validateLogin(inputEmail,inputPassword);
 
             if (isAuthenticated) {
                 System.out.println("Login successful");
+                currentUser = logInController.fetchUserInformation(inputEmail);
             }
 
             //Fetch the data from database to ensure everything is correct
