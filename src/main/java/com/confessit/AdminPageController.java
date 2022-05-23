@@ -18,6 +18,10 @@ public class AdminPageController {
         }
     }
 
+    /***
+     * Retrieve all submitted post
+     * @return an array list consists of submitted post
+     */
     public ArrayList<Post> retrieveSubmittedPost() {
         ArrayList<Post> postList = new ArrayList<>();
         Connection connectDB = null;

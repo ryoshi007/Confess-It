@@ -203,7 +203,7 @@ public class Post {
     public String toString() {
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         String date = dateFormat.format(datetime);
-        DateFormat timeFormat = new SimpleDateFormat("hh:MM:ss");
+        DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
         String time = timeFormat.format(datetime);
 
         return "Index: " + index + "\nTag ID: " + tagID + "\nDate: " + date + "\nTime: " + time + "\nContent: " + content + "\nFile Path: "

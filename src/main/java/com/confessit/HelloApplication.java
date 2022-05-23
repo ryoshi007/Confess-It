@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicReferenceArray;
 
 public class HelloApplication extends Application {
     @Override
@@ -43,30 +44,37 @@ public class HelloApplication extends Application {
             System.out.print("Password: ");
             String inputPassword = scanner.nextLine();
 
+            User currentUser = new User();
+
             //Fetch username and password from the database, if true let the user in
             LogInController logInController = new LogInController();
             isAuthenticated = logInController.validateLogin(inputEmail,inputPassword);
 
             if (isAuthenticated) {
                 System.out.println("Login successful");
+                currentUser = logInController.fetchUserInformation(inputEmail);
             }
 
             //Fetch the data from database to ensure everything is correct
-            //Implement the password hashing function here
+
             if (isAuthenticated) {
-                System.out.println("Interface\n--------------------------------------------------");
+                System.out.println("\nInterface\n--------------------------------------------------");
                 System.out.println("1. Submit a post");
                 System.out.println("2. Search a post");
                 System.out.println("3. Check pending posts");
-
-                System.out.println("\n----------------------------------------------------");
-                System.out.println("Today's Confession");
+                System.out.println("----------------------------------------------------");
+                System.out.println("Today's Confession\n");
 
                 //Fetch 3 random confession from the database
-                System.out.println("4. ");
-                System.out.println("5. ");
-                System.out.println("6. ");
-                System.out.print("\nInput: ");
+
+                MainPageController mainPage = new MainPageController();
+                ArrayList<Post> recentPosts = mainPage.retrieveRecentPost(4);
+
+                for (int i = 4; i - 4 < recentPosts.size(); i++) {
+                    System.out.println(i + ". " + recentPosts.get(i - 4) + "\n");
+                }
+
+                System.out.print("Input: ");
                 input = scanner.nextInt();
 
                 switch (input) {
@@ -89,30 +97,48 @@ public class HelloApplication extends Application {
                         System.out.println("4. Post ID");
                         System.out.print("\nInput: ");
 
+                        SearchPost searchPost = new SearchPost();
+                        ArrayList<Post> results = null;
                         input = scanner.nextInt();
+                        scanner.nextLine();
                         switch (input) {
                             case 1:
-                                //Search via keyword
+                                System.out.print("Keyword: ");
+                                String keyword = scanner.nextLine();
+                                results = searchPost.search("content", keyword);
                                 break;
                             case 2:
-                                //Search via date time
+                                System.out.print("Date (yyyy-mm-dd): ");
+                                String inputDate = scanner.nextLine();
+                                System.out.print("Time (0-23): ");
+                                String inputTime = scanner.nextLine();
+                                results = searchPost.search("datetime", inputDate + " " + inputTime);
                                 break;
                             case 3:
-                                //Search via Date
+                                System.out.print("Date (yyyy-mm-dd): ");
+                                String date = scanner.nextLine();
+                                results = searchPost.search("datetime", date);
                                 break;
                             default:
-                                //Search via Post ID
+                                System.out.print("Tag ID: ");
+                                String tagid = scanner.nextLine();
+                                results = searchPost.search("tagid", tagid);
                                 break;
+                        }
 
+                        System.out.println();
+                        for (int i = 1; i <= results.size(); i++) {
+                            System.out.println(i + ". " + results.get(i - 1) + "\n");
                         }
                         break;
+
                     case 3:
                         AdminPageController adminPage = new AdminPageController();
 
                         //A retrieval of submitted post, for testing purpose
                         ArrayList<Post> pendingPost = adminPage.retrieveSubmittedPost();
-                        for (int i = 0; i < pendingPost.size(); i++) {
-                            System.out.println(i + ". " + pendingPost.get(i));
+                        for (int i = 1; i <= pendingPost.size(); i++) {
+                            System.out.println(i + ". " + pendingPost.get(i - 1));
                             System.out.println("\n-----------------------------------");
                         }
 
@@ -132,17 +158,9 @@ public class HelloApplication extends Application {
                             int inputID = scanner.nextInt();
                             adminPage.delete(inputID);
                         }
-
-
-                        break;
-                    case 4:
-                        //Print detail of a post
-                        break;
-                    case 5:
-                        //Print detail of a post
                         break;
                     default:
-                        //Print detail of a post
+                        System.out.println("Thanks for using the app");
                         break;
                 }
             } else {
@@ -190,7 +208,4 @@ public class HelloApplication extends Application {
         }
     }
 
-    public static void pendingPostOptions(Post post) {
-
-    }
 }
