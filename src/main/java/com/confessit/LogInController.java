@@ -34,7 +34,8 @@ public class LogInController {
             if (queryResult.next()) {
                 String retrievedEmail = queryResult.getString("email");
                 String retrievedPassword = queryResult.getString("password");
-                if (retrievedEmail.equals(email) && validatePassword(password, retrievedPassword)) {
+                SecurePassword secure = new SecurePassword();
+                if (retrievedEmail.equals(email) && secure.validatePassword(password, retrievedPassword)) {
                     // if email and password matches
                     return true;
                 }
@@ -71,43 +72,6 @@ public class LogInController {
             }
         }
         return false;
-    }
-
-    /***
-     * Validate the user-inputted password with the retrieved password from the database
-     * @param inputPassword is the password inputted by the user
-     * @param correctPassword is the password retrieved from the database
-     * @return the boolean value whether the user-inputted password matches with the retrieved password
-     */
-    private boolean validatePassword(String inputPassword, String correctPassword) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        String[] parts = correctPassword.split(":");
-        int iterations = Integer.parseInt(parts[0]);
-
-        byte[] salt = fromHex(parts[1]);
-        byte[] hash = fromHex(parts[2]);
-
-        PBEKeySpec spec = new PBEKeySpec(inputPassword.toCharArray(), salt, iterations, hash.length * 8);
-        SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
-        byte[] testHash = skf.generateSecret(spec).getEncoded();
-
-        int diff = hash.length ^ testHash.length;
-        for (int i = 0; i < hash.length && i < testHash.length; i++) {
-            diff |= hash[i] ^ testHash[i];
-        }
-        return diff == 0;
-    }
-
-    /***
-     * Convert hex string into byte array
-     * @param hex is the string that made up of hex values
-     * @return the byte array
-     */
-    private byte[] fromHex(String hex) {
-        byte[] bytes = new byte[hex.length() / 2];
-        for (int i = 0; i < bytes.length; i++) {
-            bytes[i] = (byte) Integer.parseInt(hex.substring(2 * i, 2 * i + 2), 16);
-        }
-        return bytes;
     }
 
     public User fetchUserInformation(String email) {
