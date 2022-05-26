@@ -9,6 +9,7 @@ module com.example.confessit {
     requires java.sql;
     requires mysql.connector.java;
     requires json.simple;
+    requires me.xdrop.fuzzywuzzy;
 
     opens com.confessit to javafx.fxml;
     exports com.confessit;

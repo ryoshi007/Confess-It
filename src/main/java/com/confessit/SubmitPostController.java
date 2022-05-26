@@ -1,12 +1,9 @@
 package com.confessit;
 
 import javafx.fxml.FXML;
-
+import me.xdrop.fuzzywuzzy.FuzzySearch;
 import java.sql.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.*;
 
 public class SubmitPostController {
 
@@ -83,14 +80,124 @@ public class SubmitPostController {
     }
 
     /***
-     * An algorithm that will detect the similarity of the submission's content with existing one, if it exceeds
-     * 80% of the similarity checker, the submission wil be rejected. Also, if the content is less than the length of 20,
-     * the submission will be rejected. Lastly, if the content is a repetition for a letter or a word,
-     * i.e self-similarity checker exceeds 60%, it will be rejected.
+     * A method consists of serial steps to determine whether the content is meaningful and not a spam.
+     * The first if statement checks whether the length of string exceed 25 or not.
+     * The second if statement checks for the entropy score of the content.
+     * Basically if the entropy score is lower than 2.75, the content is classified as a spam.
+     * The third if statement checks whether there is a similar content that has been posted before.
      * @param content the strings of the submission post
-     * @return boolean value, true if content is non-spam, false otherwise.
+     * @return boolean value, true if content is non-spam and meaning, false otherwise.
      */
-    public static boolean spamDetect(String content) {
+    public boolean detectSpam(String content) {
+        if (content.length() < 25) {
+            return false;
+        }
+        if (calculateEntropy(content) < 2.75) {
+            return false;
+        }
+        return !isSimilar(content);
+    }
+
+    /***
+     * Retrieve contents of each approved post in an array list of string
+     * @return string array that consists of contents of each approved post
+     */
+    private ArrayList<String> retrieveContent() {
+        ArrayList<String> contentList = new ArrayList<>();
+        Connection connectDB = null;
+        Statement statement = null;
+        ResultSet queryResult = null;
+
+        try {
+            DatabaseConnection connection = new DatabaseConnection();
+            connectDB = connection.getConnection();
+            statement = connectDB.createStatement();
+            String sql = "SELECT * FROM post WHERE approval = 1 ORDER BY tagid";
+            queryResult = statement.executeQuery(sql);
+
+            while(queryResult.next()) {
+                String content = queryResult.getString("content");
+                contentList.add(content);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        } finally {
+            if (queryResult != null) {
+                try {
+                    queryResult.close();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (statement != null) {
+                try {
+                    statement.close();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (connectDB != null) {
+                try {
+                    connectDB.close();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return contentList;
+    }
+
+    /***
+     * This is a method that will check the repetition of each string in a sentence and give score based on it.
+     * The method applies the concept of Shannon's Entropy - a measure of uncertainty associated with random variables.
+     * The more randomness the sentence is, the higher the score will be returned.
+     * Example = "aaaaaaaaaaaaaaaaaaaaaa" will return 0, but a legit sentence will give score higher than 2.5
+     * @return the entropy score of the sentence
+     */
+    private double calculateEntropy(String content) {
+        String[] split = content.split(" ");
+        List<String> values = List.of(split);
+        Map<String, Integer> map = new HashMap<>();
+
+        // count the occurrences of each value
+        for (String sequence : values) {
+            if (!map.containsKey(sequence)) {
+                map.put(sequence, 0);
+            }
+            map.put(sequence, map.get(sequence) + 1);
+        }
+
+        // calculate the entropy
+        double result = 0.0;
+        for (String sequence : map.keySet()) {
+            double frequency = (double) map.get(sequence) / values.size();
+            result -= frequency * (Math.log(frequency) / Math.log(2));
+        }
+
+        return result;
+    }
+
+    /***
+     * This is a method that will compare the submitted content with the contents from approved posts.
+     * It utilises FuzzySearch library from the me.xdrop.fuzzywuzzy repository.
+     * weightedRatio will compare two strings and return score above 90 if both strings have highly-similar contents.
+     * @param content is the string of the submitted post
+     * @return true if the similarity score is above 90, else false
+     */
+    private boolean isSimilar(String content) {
+        ArrayList<String> contentsFromOthers = retrieveContent();
+        int score;
+        for (String contentsFromOther : contentsFromOthers) {
+            score = FuzzySearch.weightedRatio(contentsFromOther, content);
+            if (score > 90) {
+                return true;
+            }
+        }
         return false;
     }
 
