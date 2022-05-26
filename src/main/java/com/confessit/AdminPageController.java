@@ -161,4 +161,18 @@ public class AdminPageController {
             }
         }
     }
+
+    /***
+     * Automatically approve or disapprove a submitted post based on the sentiment analysis
+     */
+    public void vacationMode() {
+        ArrayList<Post> submittedPost = retrieveSubmittedPost();
+        SentimentPipeline nlp = new SentimentPipeline();
+        nlp.init();
+        for (Post post : submittedPost) {
+            if (nlp.estimateSentiment(post.getContent()) >= 1.5) {
+                approve(post.getIndex());
+            }
+        }
+    }
 }
