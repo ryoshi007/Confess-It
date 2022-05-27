@@ -1,6 +1,5 @@
 package com.confessit;
 
-import com.mysql.cj.Query;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 
