@@ -25,7 +25,7 @@ public class MainPageController {
             DatabaseConnection connection = new DatabaseConnection();
             connectDB = connection.getConnection();
             statement = connectDB.createStatement();
-            String sql = "SELECT * FROM post WHERE approval = 1 ORDER BY tagid DESC LIMIT " + results;
+            String sql = "SELECT * FROM post WHERE displayStatus = 1 ORDER BY tagid DESC LIMIT " + results;
             queryResult = statement.executeQuery(sql);
 
             while(queryResult.next()) {
@@ -42,12 +42,19 @@ public class MainPageController {
                 Json comment = null;
 
                 boolean approval = queryResult.getBoolean("approval");
+                Date approvalTime = queryResult.getTimestamp("approvalTime");
+                boolean displayStatus = queryResult.getBoolean("displayStatus");
+
+                String replyString = queryResult.getString("replyPosts");
+                Json reply = null;
 
                 Post newPost = null;
                 if (filePath == null) {
-                    newPost = new Post(index, tagID, datetime, content, like, dislike, comment, approval);
+                    newPost = new Post(index, tagID, datetime, content, like, dislike, comment, approval,
+                            approvalTime, displayStatus, reply);
                 } else {
-                    newPost = new Post(index, tagID, datetime, content, like, dislike, comment, approval);
+                    newPost = new Post(index, tagID, datetime, content, like, dislike, comment, approval,
+                            approvalTime, displayStatus, reply);
                 }
                 postList.add(newPost);
             }

@@ -14,6 +14,9 @@ public class Post {
     private int dislike;
     private Json comment;
     private boolean isApproved;
+    private Date approvalTime;
+    private boolean isDisplayed;
+    private Json reply;
 
     /***
      * Constructor for a submitted post with picture
@@ -28,7 +31,7 @@ public class Post {
      * @param isApproved is the status of the post, True if the post is approved by the administrator, False if otherwise.
      */
     public Post(int index, int tagID, Date datetime, String content, String picturePath, int like, int dislike,
-                Json comment, boolean isApproved) {
+                Json comment, boolean isApproved, Date approvalTime, boolean isDisplayed, Json reply) {
         this.index = index;
         this.tagID = tagID;
         this.datetime = datetime;
@@ -38,6 +41,9 @@ public class Post {
         this.dislike = dislike;
         this.comment = comment;
         this.isApproved = isApproved;
+        this.approvalTime = approvalTime;
+        this.isDisplayed = isDisplayed;
+        this.reply = reply;
     }
 
     /***
@@ -52,7 +58,7 @@ public class Post {
      * @param isApproved is the status of the post, True if the post is approved by the administrator, False if otherwise.
      */
     public Post(int index, int tagID, Date datetime, String content, int like, int dislike, Json comment,
-                boolean isApproved) {
+                boolean isApproved, Date approvalTime, boolean isDisplayed, Json reply) {
         this.index = index;
         this.tagID = tagID;
         this.datetime = datetime;
@@ -61,6 +67,66 @@ public class Post {
         this.dislike = dislike;
         this.comment = comment;
         this.isApproved = isApproved;
+        this.approvalTime = approvalTime;
+        this.isDisplayed = isDisplayed;
+        this.reply = reply;
+    }
+
+    /***
+     * To set the date and time when the post is submitted
+     * @param datetime is the submitted time
+     */
+    public void setDatetime(Date datetime) {
+        this.datetime = datetime;
+    }
+
+    /***
+     * To obtain the approval date and time of the post
+     * @return Date object of the approval time
+     */
+    public Date getApprovalTime() {
+        return approvalTime;
+    }
+
+    /***
+     * To set the approval date and time of approved post
+     * @param approvalTime the approval time of post
+     */
+    public void setApprovalTime(Date approvalTime) {
+        this.approvalTime = approvalTime;
+    }
+
+    /***
+     * To set the display status of the approved post
+     * @return the display status of the approved post
+     */
+    public boolean isDisplayed() {
+        return isDisplayed;
+    }
+
+    /***
+     * Set the display status of the approved post
+     * @param displayed is the boolean value, 0 if the post has not been displayed (not popped from the PendingQueue),
+     * 1 otherwise
+     */
+    public void setDisplayed(boolean displayed) {
+        isDisplayed = displayed;
+    }
+
+    /***
+     * To get the reply of the post
+     * @return Json object consists of tag id of the posts that reply to this post
+     */
+    public Json getReply() {
+        return reply;
+    }
+
+    /***
+     * To set the reply of the post
+     * @param reply is Json object containing the tag id of the posts
+     */
+    public void setReply(Json reply) {
+        this.reply = reply;
     }
 
     /***
@@ -206,7 +272,11 @@ public class Post {
         DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
         String time = timeFormat.format(datetime);
 
-        return "Index: " + index + "\nTag ID: " + tagID + "\nDate: " + date + "\nTime: " + time + "\nContent: " + content + "\nFile Path: "
-                + picturePath + "\nLike Amount: " + like + "\nDislike Amount: " + dislike + "\nComment: " + comment;
+        DateFormat approvalFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        String approval = approvalFormat.format(approvalTime);
+
+        return "Index: " + index + "\nTag ID: " + tagID + "\nDate: " + date + "\nTime: " + time + "\nContent: "
+                + content + "\nFile Path: " + picturePath + "\nLike Amount: " + like + "\nDislike Amount: " + dislike
+                + "\nComment: " + comment + "\nApproval Time: " + approval + "\nReply: " + reply;
     }
 }

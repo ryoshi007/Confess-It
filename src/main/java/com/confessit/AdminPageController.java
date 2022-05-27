@@ -2,6 +2,7 @@ package com.confessit;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 public class AdminPageController {
@@ -49,12 +50,19 @@ public class AdminPageController {
                 Json comment = null;
 
                 boolean approval = queryResult.getBoolean("approval");
+                Date approvalTime = queryResult.getTimestamp("approvalTime");
+                boolean displayStatus = queryResult.getBoolean("displayStatus");
+
+                String replyString = queryResult.getString("replyPosts");
+                Json reply = null;
 
                 Post newPost = null;
                 if (filePath == null) {
-                    newPost = new Post(index, tagID, datetime, content, like, dislike, comment, approval);
+                    newPost = new Post(index, tagID, datetime, content, like, dislike, comment, approval,
+                            approvalTime, displayStatus, reply);
                 } else {
-                    newPost = new Post(index, tagID, datetime, content, like, dislike, comment, approval);
+                    newPost = new Post(index, tagID, datetime, content, like, dislike, comment, approval,
+                            approvalTime, displayStatus, reply);
                 }
                 postList.add(newPost);
             }
@@ -101,13 +109,19 @@ public class AdminPageController {
         try {
             DatabaseConnection connection = new DatabaseConnection();
             connectDB = connection.getConnection();
-            String sql = "UPDATE post SET approval = ?, likeNum = ?, dislikeNum = ? WHERE queryIndex = ?";
+            String sql = "UPDATE post SET approval = ?, likeNum = ?, dislikeNum = ?, approvalTime = ?, displayStatus = ? WHERE queryIndex = ?";
             PreparedStatement statement = connection.databaseLink.prepareStatement(sql);
 
             statement.setInt(1, 1);
             statement.setInt(2, 0);
             statement.setInt(3, 0);
-            statement.setInt(4, index);
+
+            Calendar cal = Calendar.getInstance();
+            java.sql.Timestamp timestamp = new java.sql.Timestamp(cal.getTimeInMillis());
+            statement.setTimestamp(4, timestamp);
+
+            statement.setInt(5, 0);
+            statement.setInt(6, index);
 
             statement.executeUpdate();
         } catch (SQLException e) {

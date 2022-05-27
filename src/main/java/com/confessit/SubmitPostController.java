@@ -17,7 +17,7 @@ public class SubmitPostController {
         try {
             DatabaseConnection connection = new DatabaseConnection();
             connectDB = connection.getConnection();
-            String sql = "INSERT INTO post (datetime, content, approval) VALUES (?,?,?,?)";
+            String sql = "INSERT INTO post (datetime, content, approval) VALUES (?,?,?)";
             PreparedStatement statement = connection.databaseLink.prepareStatement(sql);
 
             Calendar cal = Calendar.getInstance();
@@ -25,7 +25,6 @@ public class SubmitPostController {
             statement.setTimestamp(1, timestamp);
             statement.setString(2, content);
             statement.setBoolean(3, false);
-            statement.setInt(4, retrieveNewTagID());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -53,7 +52,7 @@ public class SubmitPostController {
         try {
             DatabaseConnection connection = new DatabaseConnection();
             connectDB = connection.getConnection();
-            String sql = "INSERT INTO post (datetime, content, picfilepath, approval, tagid) VALUES (?,?,?,?,?)";
+            String sql = "INSERT INTO post (datetime, content, picfilepath, approval) VALUES (?,?,?,?)";
             PreparedStatement statement = connection.databaseLink.prepareStatement(sql);
             Calendar cal = Calendar.getInstance();
             java.sql.Timestamp timestamp = new java.sql.Timestamp(cal.getTimeInMillis());
@@ -62,7 +61,6 @@ public class SubmitPostController {
             statement.setString(2, content);
             statement.setString(3, filePath);
             statement.setBoolean(4, false);
-            statement.setInt(5, retrieveNewTagID());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -201,58 +199,4 @@ public class SubmitPostController {
         return false;
     }
 
-    /***
-     * Return the next tag id (latest tag id + 1) for the post
-     * @return the next tag id
-     * @throws SQLException
-     */
-    public int retrieveNewTagID() throws SQLException {
-
-        Connection connectDB = null;
-        Statement statement = null;
-        ResultSet queryResult = null;
-
-        try {
-            DatabaseConnection connection = new DatabaseConnection();
-            connectDB = connection.getConnection();
-            statement = connectDB.createStatement();
-            queryResult = statement.executeQuery("SELECT * FROM post ORDER BY tagid DESC LIMIT 1");
-
-            if (queryResult.next()) {
-                int retrievedTagID = queryResult.getInt("tagid");
-                return retrievedTagID + 1;
-            } else {
-                return 1;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-
-        } finally {
-            if (queryResult != null) {
-                try {
-                    queryResult.close();
-
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (statement != null) {
-                try {
-                    statement.close();
-
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (connectDB != null) {
-                try {
-                    connectDB.close();
-
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return 1;
-    }
 }
