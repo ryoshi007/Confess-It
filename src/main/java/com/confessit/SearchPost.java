@@ -50,12 +50,19 @@ public class SearchPost {
                 Json comment = null;
 
                 boolean approval = queryResult.getBoolean("approval");
+                Date approvalTime = queryResult.getTimestamp("approvalTime");
+                boolean displayStatus = queryResult.getBoolean("displayStatus");
+
+                String replyString = queryResult.getString("replyPosts");
+                Json reply = null;
 
                 Post newPost = null;
                 if (filePath == null) {
-                    newPost = new Post(index, tagID, datetime, content, like, dislike, comment, approval);
+                    newPost = new Post(index, tagID, datetime, content, like, dislike, comment, approval,
+                            approvalTime, displayStatus, reply);
                 } else {
-                    newPost = new Post(index, tagID, datetime, content, like, dislike, comment, approval);
+                    newPost = new Post(index, tagID, datetime, content, like, dislike, comment, approval,
+                            approvalTime, displayStatus, reply);
                 }
                 postList.add(newPost);
             }
