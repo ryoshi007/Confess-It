@@ -60,8 +60,8 @@ public class Json {
      * @param tagID tag ID of a post
      * @return A list containing tag ID of reply posts
      */
-    public static List<Integer> retrieveReplyPostTagID(int tagID) {
-        ArrayList<Integer> storeTagID = new ArrayList<>();
+    public String retrieveReplyPostTagID(int tagID) {
+        String storeTagID = "";
         Connection connectDB = null;
         Statement statement = null;
         ResultSet queryResult = null;
@@ -72,12 +72,7 @@ public class Json {
             statement = connectDB.createStatement();
             queryResult = statement.executeQuery("SELECT replyPosts AS replyPostTagID FROM post WHERE tagid ='" + tagID + "'");
             while(queryResult.next()) {
-                String temp = queryResult.getString("replyPostTagID");
-                temp = temp.replace("[","").replace("]","").replace(",","").replace("\"","");
-                String[] temp1 = temp.split(" ");
-                for (String temp2 : temp1) {
-                    storeTagID.add(Integer.valueOf(temp2));
-                }
+                storeTagID = queryResult.getString("replyPostTagID");
             }
 
         } catch (SQLException e) {
@@ -147,6 +142,147 @@ public class Json {
             }
         }
     }
+
+    /**
+     * Add user comment to a post
+     * @param tagID tag ID of a posst
+     * @param username user's username
+     * @param comment user's comment
+     */
+    public static void addUserComment(int tagID, String username, String comment) {
+        Connection connectDB = null;
+        Statement statement = null;
+        ResultSet queryResult = null;
+        try {
+            DatabaseConnection connection = new DatabaseConnection();
+            connectDB = connection.getConnection();
+            statement = connectDB.createStatement();
+            queryResult = statement.executeQuery("SELECT comment FROM post WHERE tagid = '" + tagID +"'");
+            if (queryResult.next()) {
+                if (queryResult.getString("comment") == null) {
+                    statement.executeUpdate("UPDATE post SET comment = '[]' where tagid = '" + tagID + "'");
+                    statement.executeUpdate("UPDATE post SET comment = JSON_ARRAY_APPEND(comment, '$', '[" + username + "," + comment + "]') WHERE tagid = '" + tagID + "'");
+                } else {
+                    statement.executeUpdate("UPDATE post SET comment = JSON_ARRAY_APPEND(comment, '$', '[" + username + "," + comment + "]') WHERE tagid = '" + tagID + "'");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (connectDB != null) {
+                try {
+                    connectDB.close();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    /**
+     * Retrieve a user's username and comment in a post
+     * @param tagID tag ID of a post
+     * @return return a String that contains user's username and comment
+     */
+    public static String retrieveUserComment(int tagID) {
+        String storeUserComment = "";
+
+        Connection connectDB = null;
+        Statement statement = null;
+        ResultSet queryResult = null;
+
+        try {
+            DatabaseConnection connection = new DatabaseConnection();
+            connectDB = connection.getConnection();
+            statement = connectDB.createStatement();
+            queryResult = statement.executeQuery("SELECT comment AS COMMENT FROM post WHERE tagid ='" + tagID + "'");
+            while(queryResult.next()) {
+                storeUserComment = queryResult.getString("COMMENT");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        } finally {
+            if (queryResult != null) {
+                try {
+                    queryResult.close();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (statement != null) {
+                try {
+                    statement.close();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (connectDB != null) {
+                try {
+                    connectDB.close();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return storeUserComment;
+    }
+
+    /**
+     * Delete a user's comment of a post
+     * @param tagID tag ID of a post
+     * @param username user's username
+     * @param comment user's comment
+     */
+    public static void deleteUserComment(int tagID, String username, String comment) {
+
+        Connection connectDB = null;
+        Statement statement = null;
+
+        try {
+            DatabaseConnection connection = new DatabaseConnection();
+            connectDB = connection.getConnection();
+            statement = connectDB.createStatement();
+            statement.executeUpdate("UPDATE post SET comment = JSON_REMOVE(comment, replace(JSON_SEARCH(comment, 'one', '[" + username + "," + comment + "]'), '\"', '')) WHERE tagid = '" + tagID + "'");
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (connectDB != null) {
+                try {
+                    connectDB.close();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+
+    //---------------------
 
     /***
      * Add the post tag ID into UserHistory.json

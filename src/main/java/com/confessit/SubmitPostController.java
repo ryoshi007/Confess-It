@@ -17,7 +17,7 @@ public class SubmitPostController {
         try {
             DatabaseConnection connection = new DatabaseConnection();
             connectDB = connection.getConnection();
-            String sql = "INSERT INTO post (datetime, content, approval, replyPosts) VALUES (?,?,?,?)";
+            String sql = "INSERT INTO post (datetime, content, approval, replyPosts, comment) VALUES (?,?,?,?,?)";
             PreparedStatement statement = connection.databaseLink.prepareStatement(sql);
 
             Calendar cal = Calendar.getInstance();
@@ -26,6 +26,7 @@ public class SubmitPostController {
             statement.setString(2, content);
             statement.setBoolean(3, false);
             statement.setString(4,"[]");
+            statement.setString(5,"[]");
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -53,7 +54,7 @@ public class SubmitPostController {
         try {
             DatabaseConnection connection = new DatabaseConnection();
             connectDB = connection.getConnection();
-            String sql = "INSERT INTO post (datetime, content, picfilepath, approval, replyPosts) VALUES (?,?,?,?,?)";
+            String sql = "INSERT INTO post (datetime, content, picfilepath, approval, replyPosts, comment) VALUES (?,?,?,?,?,?)";
             PreparedStatement statement = connection.databaseLink.prepareStatement(sql);
             Calendar cal = Calendar.getInstance();
             java.sql.Timestamp timestamp = new java.sql.Timestamp(cal.getTimeInMillis());
@@ -63,6 +64,7 @@ public class SubmitPostController {
             statement.setString(3, filePath);
             statement.setBoolean(4, false);
             statement.setString(5,"[]");
+            statement.setString(6,"[]");
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
