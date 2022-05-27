@@ -9,10 +9,144 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Json {
+
+    /**
+     * Add a reply post tag ID of a post to the database
+     * @param tagID tag ID of a post
+     * @param replyPostTagID tag ID of a reply post
+     */
+    public void insertReplyPostTagID(int tagID, int replyPostTagID) {
+        Connection connectDB = null;
+        Statement statement = null;
+
+        try {
+            DatabaseConnection connection = new DatabaseConnection();
+            connectDB = connection.getConnection();
+            statement = connectDB.createStatement();
+            statement.executeUpdate("UPDATE post SET replyPosts = JSON_ARRAY_APPEND(replyPosts, '$', '" + replyPostTagID + "') WHERE tagid = '" + tagID + "'");
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (connectDB != null) {
+                try {
+                    connectDB.close();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    /**
+     * Retrieve reply post tag IDs of a post
+     * @param tagID tag ID of a post
+     * @return A list containing tag ID of reply posts
+     */
+    public static List<Integer> retrieveReplyPostTagID(int tagID) {
+        ArrayList<Integer> storeTagID = new ArrayList<>();
+        Connection connectDB = null;
+        Statement statement = null;
+        ResultSet queryResult = null;
+
+        try {
+            DatabaseConnection connection = new DatabaseConnection();
+            connectDB = connection.getConnection();
+            statement = connectDB.createStatement();
+            queryResult = statement.executeQuery("SELECT replyPosts AS replyPostTagID FROM post WHERE tagid ='" + tagID + "'");
+            while(queryResult.next()) {
+                String temp = queryResult.getString("replyPostTagID");
+                temp = temp.replace("[","").replace("]","").replace(",","").replace("\"","");
+                String[] temp1 = temp.split(" ");
+                for (String temp2 : temp1) {
+                    storeTagID.add(Integer.valueOf(temp2));
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        } finally {
+            if (queryResult != null) {
+                try {
+                    queryResult.close();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (statement != null) {
+                try {
+                    statement.close();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (connectDB != null) {
+                try {
+                    connectDB.close();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return storeTagID;
+    }
+
+    /**
+     * Delete a reply post tag ID of a post
+     * @param tagID tag ID of a post
+     * @param tagToDelete tag ID of a reply post
+     */
+    public void deleteReplyPostTagID(int tagID, int tagToDelete) {
+        Connection connectDB = null;
+        Statement statement = null;
+
+        try {
+            DatabaseConnection connection = new DatabaseConnection();
+            connectDB = connection.getConnection();
+            statement = connectDB.createStatement();
+            statement.executeUpdate("UPDATE post SET replyPosts = JSON_REMOVE(replyPosts, replace(JSON_SEARCH(replyPosts, 'one','" + tagToDelete + "'), '\"', '')) WHERE tagid = '" + tagID + "'");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (connectDB != null) {
+                try {
+                    connectDB.close();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 
     /***
      * Add the post tag ID into UserHistory.json
