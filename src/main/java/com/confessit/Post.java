@@ -12,13 +12,13 @@ public class Post {
     private String picturePath;
     private int like;
     private int dislike;
-    private Json comment;
+    private String comment;
     private boolean isApproved;
     private Date approvalTime;
     private boolean isDisplayed;
-    private Json reply;
+    private String reply;
 
-    /***
+    /**
      * Constructor for a submitted post with picture
      * @param index is the unique identifier for the post, used for administrative purpose
      * @param tagID is the unique key of the post. It is unique and use for retrieval purpose.
@@ -29,9 +29,12 @@ public class Post {
      * @param dislike is the amount of dislike that the post received.
      * @param comment is the comment that the post received.
      * @param isApproved is the status of the post, True if the post is approved by the administrator, False if otherwise.
+     * @param approvalTime is the time when the post is approved
+     * @param isDisplayed is the status of the approved has been displayed or not
+     * @param reply is the string consists of the tag id of the posts that are replying to this post
      */
     public Post(int index, int tagID, Date datetime, String content, String picturePath, int like, int dislike,
-                Json comment, boolean isApproved, Date approvalTime, boolean isDisplayed, Json reply) {
+                String comment, boolean isApproved, Date approvalTime, boolean isDisplayed, String reply) {
         this.index = index;
         this.tagID = tagID;
         this.datetime = datetime;
@@ -46,7 +49,7 @@ public class Post {
         this.reply = reply;
     }
 
-    /***
+    /**
      * Constructor for a submitted post without picture
      * @param index is the unique identifier for the post, used for administrative purpose
      * @param tagID is the unique key of the post. It is unique and use for retrieval purpose.
@@ -56,9 +59,12 @@ public class Post {
      * @param dislike is the amount of dislike that the post received.
      * @param comment is the comment that the post received.
      * @param isApproved is the status of the post, True if the post is approved by the administrator, False if otherwise.
+     * @param approvalTime is the time when the post is approved
+     * @param isDisplayed is the status of the approved has been displayed or not
+     * @param reply is the string consists of the tag id of the posts that are replying to this post
      */
-    public Post(int index, int tagID, Date datetime, String content, int like, int dislike, Json comment,
-                boolean isApproved, Date approvalTime, boolean isDisplayed, Json reply) {
+    public Post(int index, int tagID, Date datetime, String content, int like, int dislike, String comment,
+                boolean isApproved, Date approvalTime, boolean isDisplayed, String reply) {
         this.index = index;
         this.tagID = tagID;
         this.datetime = datetime;
@@ -72,7 +78,7 @@ public class Post {
         this.reply = reply;
     }
 
-    /***
+    /**
      * To set the date and time when the post is submitted
      * @param datetime is the submitted time
      */
@@ -80,7 +86,7 @@ public class Post {
         this.datetime = datetime;
     }
 
-    /***
+    /**
      * To obtain the approval date and time of the post
      * @return Date object of the approval time
      */
@@ -88,7 +94,7 @@ public class Post {
         return approvalTime;
     }
 
-    /***
+    /**
      * To set the approval date and time of approved post
      * @param approvalTime the approval time of post
      */
@@ -96,7 +102,7 @@ public class Post {
         this.approvalTime = approvalTime;
     }
 
-    /***
+    /**
      * To set the display status of the approved post
      * @return the display status of the approved post
      */
@@ -104,7 +110,7 @@ public class Post {
         return isDisplayed;
     }
 
-    /***
+    /**
      * Set the display status of the approved post
      * @param displayed is the boolean value, 0 if the post has not been displayed (not popped from the PendingQueue),
      * 1 otherwise
@@ -113,23 +119,23 @@ public class Post {
         isDisplayed = displayed;
     }
 
-    /***
+    /**
      * To get the reply of the post
      * @return Json object consists of tag id of the posts that reply to this post
      */
-    public Json getReply() {
+    public String getReply() {
         return reply;
     }
 
-    /***
+    /**
      * To set the reply of the post
      * @param reply is Json object containing the tag id of the posts
      */
-    public void setReply(Json reply) {
+    public void setReply(String reply) {
         this.reply = reply;
     }
 
-    /***
+    /**
      * To get the index of the post
      * @return the index
      */
@@ -137,7 +143,7 @@ public class Post {
         return index;
     }
 
-    /***
+    /**
      * get the tagID of the post
      * @return tagID
      */
@@ -145,15 +151,15 @@ public class Post {
         return tagID;
     }
 
-    /***
+    /**
      * set the tagID
-     * @param tagID
+     * @param tagID is the unique key of the post. It is unique and use for retrieval purpose.
      */
     public void setTagID(int tagID) {
         this.tagID = tagID;
     }
 
-    /***
+    /**
      * get the Date when the post is submitted
      * @return datetime
      */
@@ -164,7 +170,7 @@ public class Post {
 
     /***
      * set the Date
-     * @param datetime
+     * @param datetime is the date and time when the post is submitted.
      */
     public void setDate(Date datetime) {
         this.datetime = datetime;
@@ -172,7 +178,7 @@ public class Post {
 
     /***
      * get the content of the post
-     * @return
+     * @return the post's content
      */
     public String getContent() {
         return content;
@@ -180,7 +186,7 @@ public class Post {
 
     /***
      * set the content
-     * @param content
+     * @param content is the content in the post.
      */
     public void setContent(String content) {
         this.content = content;
@@ -188,7 +194,7 @@ public class Post {
 
     /***
      * get the file path that leads to the picture
-     * @return
+     * @return the file path of the picture
      */
     public String getPicturePath() {
         return picturePath;
@@ -196,7 +202,7 @@ public class Post {
 
     /***
      * set the file path
-     * @param picturePath
+     * @param picturePath is the file path that leads to the picture.
      */
     public void setPicturePath(String picturePath) {
         this.picturePath = picturePath;
@@ -204,7 +210,7 @@ public class Post {
 
     /***
      * get the like amount that the post obtained
-     * @return
+     * @return the amount of like in the form of integer
      */
     public int getLike() {
         return like;
@@ -212,7 +218,7 @@ public class Post {
 
     /***
      * set the like amount
-     * @param like
+     * @param like is the amount of like that the post received.
      */
     public void setLike(int like) {
         this.like = like;
@@ -220,7 +226,7 @@ public class Post {
 
     /***
      * get the dislike amount that the post obtained
-     * @return
+     * @return the dislike amount in the form of integer
      */
     public int getDislike() {
         return dislike;
@@ -228,7 +234,7 @@ public class Post {
 
     /***
      * set the dislike amount
-     * @param dislike
+     * @param dislike is the amount of dislike that the post received.
      */
     public void setDislike(int dislike) {
         this.dislike = dislike;
@@ -236,23 +242,23 @@ public class Post {
 
     /***
      * get the comment that the post received
-     * @return
+     * @return the comment of the post
      */
-    public Json getComment() {
+    public String getComment() {
         return comment;
     }
 
     /***
      * set the comment
-     * @param comment
+     * @param comment is the comment that the post received.
      */
-    public void setComment(Json comment) {
+    public void setComment(String comment) {
         this.comment = comment;
     }
 
     /***
      * set the approval status of the post, True is the post is approved by the admin, False otherwise
-     * @return
+     * @return boolean value of approval status
      */
     public boolean isApproved() {
         return isApproved;
@@ -260,7 +266,7 @@ public class Post {
 
     /***
      * set the approval status of the post
-     * @param approved
+     * @param approved is the status of the post, True if the post is approved by the administrator, False if otherwise.
      */
     public void setApproved(boolean approved) {
         isApproved = approved;

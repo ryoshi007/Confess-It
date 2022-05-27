@@ -36,24 +36,18 @@ public class MainPageController {
                 String filePath = queryResult.getString("picfilepath");
                 int like = queryResult.getInt("likeNum");
                 int dislike = queryResult.getInt("dislikeNum");
-
-                //Implement a method that can convert comment String into Json type
-                String commentString = queryResult.getString("comment");
-                Json comment = null;
-
+                String comment = queryResult.getString("comment");
                 boolean approval = queryResult.getBoolean("approval");
                 Date approvalTime = queryResult.getTimestamp("approvalTime");
                 boolean displayStatus = queryResult.getBoolean("displayStatus");
-
-                String replyString = queryResult.getString("replyPosts");
-                Json reply = null;
+                String reply = queryResult.getString("replyPosts");
 
                 Post newPost = null;
                 if (filePath == null) {
                     newPost = new Post(index, tagID, datetime, content, like, dislike, comment, approval,
                             approvalTime, displayStatus, reply);
                 } else {
-                    newPost = new Post(index, tagID, datetime, content, like, dislike, comment, approval,
+                    newPost = new Post(index, tagID, datetime, content, filePath, like, dislike, comment, approval,
                             approvalTime, displayStatus, reply);
                 }
                 postList.add(newPost);

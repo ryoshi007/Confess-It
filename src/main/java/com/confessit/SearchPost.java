@@ -44,17 +44,11 @@ public class SearchPost {
                 String filePath = queryResult.getString("picfilepath");
                 int like = queryResult.getInt("likeNum");
                 int dislike = queryResult.getInt("dislikeNum");
-
-                //Implement a method that can convert comment String into Json type
-                String commentString = queryResult.getString("comment");
-                Json comment = null;
-
+                String comment= queryResult.getString("comment");
                 boolean approval = queryResult.getBoolean("approval");
                 Date approvalTime = queryResult.getTimestamp("approvalTime");
                 boolean displayStatus = queryResult.getBoolean("displayStatus");
-
-                String replyString = queryResult.getString("replyPosts");
-                Json reply = null;
+                String reply= queryResult.getString("replyPosts");
 
                 Post newPost = null;
                 if (filePath == null) {
