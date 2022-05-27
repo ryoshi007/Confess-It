@@ -184,7 +184,7 @@ public class SubmitPostController {
 
     /***
      * This is a method that will compare the submitted content with the contents from approved posts.
-     * It utilises FuzzySearch library from the me.xdrop.fuzzywuzzy repository.
+     * It utilises FuzzySearch library from me.xdrop.fuzzywuzzy repository.
      * weightedRatio will compare two strings and return score above 90 if both strings have highly-similar contents.
      * @param content is the string of the submitted post
      * @return true if the similarity score is above 90, else false
