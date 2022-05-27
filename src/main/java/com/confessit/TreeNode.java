@@ -29,6 +29,14 @@ public class TreeNode<T> {
         this.children.add(newChild);
     }
 
+    /**
+     * Add a child to the tree
+     * @param child is the TreeNode object
+     */
+    public void addChild(TreeNode child) {
+        this.children.add(child);
+    }
+
     /***
      * Add multiple child nodes to the tree
      * @param children is a list of child node
