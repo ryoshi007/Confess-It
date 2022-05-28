@@ -1,0 +1,52 @@
+/*adding hover effect to user's login and sign up button
+  also seller's login and sign up button*/
+#btn1{
+    -fx-font-weight:bold;
+    -fx-background-color: #457b9d;
+    -fx-background-radius:30;
+    -fx-text-fill:white;
+}
+#btn1:hover{
+    -fx-font-weight:bold;
+    -fx-background-color:white;
+    -fx-background-radius:30;
+    -fx-text-fill: #457b9d;
+    -fx-border-color: #457b9d;
+    -fx-border-radius:30;
+    -fx-border-width:2;
+}
+#btn1:pressed{
+    -fx-font-weight:bold;
+    -fx-background-color:#f1faee;
+    -fx-background-radius:30;
+    -fx-text-fill: #457b9d;
+    -fx-border-color: #457b9d;
+    -fx-border-radius:30;
+    -fx-border-width:3;
+    
+}
+
+/*adding effect to user's createAccountButton(main-login-page) and quitButton(main-register-page)
+  also seller's createAccButton and quitButton(seller-login-page) and quitButton(seller-register-page) */
+#btn2{
+    -fx-background-color: #457b9d;
+    -fx-text-fill:white;
+}
+
+#btn2:hover{
+    -fx-font-weight:bold;
+    -fx-background-color:white;
+    -fx-text-fill: #457b9d;
+    -fx-border-color: #457b9d;
+}
+
+/*adding effect to seller product page*/
+.transparent{
+    -fx-background-color: rgb(0,0,0,0);
+}
+
+.product{
+    -fx-background-radius: 30;
+    -fx-border-radius: 30;
+    -fx-border-color: #c4c4c4;
+}
