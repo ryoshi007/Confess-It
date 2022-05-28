@@ -1,11 +1,14 @@
 package com.confessit;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.*;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-public class AdminPageController {
+public class AdminPageController extends CreateAccount{
 
     /***
      * To display the submitted posts
@@ -182,5 +185,16 @@ public class AdminPageController {
                 approve(post.getIndex());
             }
         }
+    }
+
+    /***
+     * Create an admin account (role = 1)
+     * Insert the information inputted by the user into database for creating account
+     * @param email is the email inputted by the user
+     * @param username is the username inputted by the user
+     * @param password is the password inputted by the user
+     */
+    public void createAdminAccount(String email, String username, String password) {
+        super.createAccount(email, username, password, 1);
     }
 }
