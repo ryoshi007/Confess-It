@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -7,85 +9,104 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <AnchorPane prefHeight="1200.0" prefWidth="1660.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.confessit.SignUpController">
    <children>
-      <ImageView fitHeight="1252.0" fitWidth="1675.0" layoutX="-13.0" layoutY="-10.0">
+      <ImageView fitHeight="1232.0" fitWidth="1660.0" layoutY="-1.0">
          <image>
             <Image url="@../../../fxml-resources/SignUp_Background.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="1087.0" fitWidth="1439.0" layoutX="98.0" layoutY="76.0">
+      <ImageView fitHeight="1097.0" fitWidth="1531.0" layoutX="71.0" layoutY="89.0">
          <image>
             <Image url="@../../../fxml-resources/SignUp_Background1.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="1088.0" fitWidth="602.0" layoutX="938.0" layoutY="76.0">
+      <ImageView fitHeight="1096.0" fitWidth="602.0" layoutX="1001.0" layoutY="90.0">
          <image>
             <Image url="@../../../fxml-resources/SignUp_Background2.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="841.0" fitWidth="891.0" layoutX="759.0" layoutY="388.0">
+      <ImageView fitHeight="830.0" fitWidth="867.0" layoutX="781.0" layoutY="379.0">
          <image>
             <Image url="@../../../fxml-resources/slogan.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="836.0" fitWidth="556.0" layoutX="222.0" layoutY="290.0">
+      <ImageView fitHeight="875.0" fitWidth="663.0" layoutX="166.0" layoutY="250.0">
          <image>
             <Image url="@../../../fxml-resources/SignUp_SignUpBox.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="342.0" fitWidth="341.0" layoutX="38.0" layoutY="11.0">
+      <ImageView fitHeight="256.0" fitWidth="256.0" layoutX="24.0" layoutY="43.0">
          <image>
             <Image url="@../../../fxml-resources/logo_final.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="58.0" fitWidth="387.0" layoutX="320.0" layoutY="444.0">
-         <image>
-            <Image url="@../../../fxml-resources/SignUp_UsernameBar.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="58.0" fitWidth="387.0" layoutX="320.0" layoutY="538.0">
-         <image>
-            <Image url="@../../../fxml-resources/SignUp_EmailAddressBar.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="58.0" fitWidth="387.0" layoutX="320.0" layoutY="630.0">
-         <image>
-            <Image url="@../../../fxml-resources/SignUp_PasswordBar.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="58.0" fitWidth="387.0" layoutX="320.0" layoutY="725.0">
-         <image>
-            <Image url="@../../../fxml-resources/SignUp_ConfirmPasswordBar.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="44.0" fitWidth="199.0" layoutX="400.0" layoutY="817.0">
-         <image>
-            <Image url="@../../../fxml-resources/SignUp_signUpButton.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="45.0" fitWidth="154.0" layoutX="423.0" layoutY="1034.0">
-         <image>
-            <Image url="@../../../fxml-resources/SignUp_LoginInButton.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="514.0" fitWidth="641.0" layoutX="831.0" layoutY="223.0">
+      <ImageView fitHeight="469.0" fitWidth="594.0" layoutX="878.0" layoutY="250.0">
          <image>
             <Image url="@../../../fxml-resources/SignUp_icon.png" />
          </image>
       </ImageView>
-      <Text layoutX="367.0" layoutY="387.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign Up">
+      <Text layoutX="367.0" layoutY="329.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign Up">
          <font>
             <Font name="System Bold" size="72.0" />
          </font>
       </Text>
-      <Text layoutX="347.0" layoutY="988.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Already have an account?">
+      <Text layoutX="347.0" layoutY="973.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Already have an account?">
          <font>
             <Font size="27.0" />
          </font>
       </Text>
-      <Line endX="61.0" endY="-0.1796875" layoutX="699.0" layoutY="978.0" startX="-31.000015258789062" strokeWidth="2.0" />
-      <Line endX="61.0" endY="-0.1796875" layoutX="273.0" layoutY="977.0" startX="-31.000015258789062" strokeWidth="2.0" />
+      <Line endX="61.0" endY="-0.1796875" layoutX="699.0" layoutY="965.0" startX="-31.000015258789062" strokeWidth="2.0" />
+      <Line endX="61.0" endY="-0.1796875" layoutX="273.0" layoutY="963.0" startX="-31.000015258789062" strokeWidth="2.0" />
+      <TextField layoutX="266.0" layoutY="374.0" prefHeight="85.0" prefWidth="496.0">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </TextField>
+      <TextField layoutX="265.0" layoutY="476.0" prefHeight="85.0" prefWidth="496.0">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </TextField>
+      <TextField layoutX="264.0" layoutY="580.0" prefHeight="85.0" prefWidth="496.0">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </TextField>
+      <TextField layoutX="264.0" layoutY="685.0" prefHeight="85.0" prefWidth="496.0">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </TextField>
+      <Text fill="#767171" layoutX="291.0" layoutY="428.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Text>
+      <Text fill="#767171" layoutX="288.0" layoutY="529.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email Address">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Text>
+      <Text fill="#767171" layoutX="287.0" layoutY="634.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password ">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Text>
+      <Text fill="#767171" layoutX="288.0" layoutY="740.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Confirm Password ">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Text>
+      <Button layoutX="420.0" layoutY="797.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="118.0" text="Sign Up">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Button>
+      <Button layoutX="434.0" layoutY="997.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="90.0" text="Login">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
