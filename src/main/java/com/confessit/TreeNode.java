@@ -9,8 +9,8 @@ import java.util.List;
  */
 public class TreeNode<T> {
     private T tagid = null;
-    private List<TreeNode> children = new ArrayList<>();
-    private TreeNode parent = null;
+    private List<TreeNode<T>> children = new ArrayList<>();
+    private TreeNode<T> parent = null;
 
     /***
      * Constructor of the TreeNode
@@ -33,7 +33,7 @@ public class TreeNode<T> {
      * Add a child to the tree
      * @param child is the TreeNode object
      */
-    public void addChild(TreeNode child) {
+    public void addChild(TreeNode<T> child) {
         this.children.add(child);
     }
 
@@ -41,8 +41,8 @@ public class TreeNode<T> {
      * Add multiple child nodes to the tree
      * @param children is a list of child node
      */
-    public void addChildren(List<TreeNode> children) {
-        for (TreeNode node: children) {
+    public void addChildren(List<TreeNode<T>> children) {
+        for (TreeNode<T> node: children) {
             node.setParent(this);
         }
         this.children.addAll(children);
@@ -52,8 +52,16 @@ public class TreeNode<T> {
      * Get the children of the tree
      * @return a list of child nodes
      */
-    public List<TreeNode> getChildren() {
+    public List<TreeNode<T>> getChildren() {
         return children;
+    }
+
+    /**
+     * Remove all children of the tree
+     * Break the connection
+     */
+    public void removeAllChildren() {
+        children = null;
     }
 
     /***
@@ -76,7 +84,7 @@ public class TreeNode<T> {
      * Set the parent of the child nodes
      * @param parent is the node with higher hierarchy
      */
-    public void setParent(TreeNode parent) {
+    public void setParent(TreeNode<T> parent) {
         this.parent = parent;
     }
 
@@ -84,7 +92,7 @@ public class TreeNode<T> {
      * Get the parent of the child nodes
      * @return the higher hierarchy node of the children nodes
      */
-    public TreeNode getParent() {
+    public TreeNode<T> getParent() {
         return parent;
     }
 
@@ -109,8 +117,15 @@ public class TreeNode<T> {
      * @param i is the index position of the child node in the array list
      * @return the child node
      */
-    public TreeNode getChildByIndex(int i) {
+    public TreeNode<T> getChildByIndex(int i) {
         return children.get(i);
     }
 
+    /**
+     * Get the tag ID
+     * @return tag ID
+     */
+    public String toString() {
+        return tagid.toString();
+    }
 }
