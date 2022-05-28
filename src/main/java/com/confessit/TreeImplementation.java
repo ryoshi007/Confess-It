@@ -16,7 +16,7 @@ public class TreeImplementation<T> {
      * Set the root of the tree
      * @param tagID post tag ID
      */
-    public void setRoot(T tagID) {
+    private void setRoot(T tagID) {
         root = new TreeNode<>(tagID);
     }
 
@@ -24,7 +24,8 @@ public class TreeImplementation<T> {
      * Return the root that contains a bunch of children
      * @return root
      */
-    public TreeNode<T> searchChildren() {
+    public TreeNode<T> searchChildren(T tagID) {
+        setRoot(tagID);
         root = searchChildrenHelper(root);
         return root;
     }
@@ -38,7 +39,7 @@ public class TreeImplementation<T> {
     @SuppressWarnings("unchecked")
     private TreeNode<T> searchChildrenHelper(TreeNode<T> parentTagID) {
         Json json = new Json();
-        String stringReplyPostTagID = json.retrieveReplyPostTagID((int) parentTagID.getTagID());
+        String stringReplyPostTagID = json.retrieveReplyPostTagID((Integer) parentTagID.getTagID());
         String [] storeReplyPostTagID = stringReplyPostTagID.replace("[","").replace("]","").replace("\"","").replace(" ","").split(",");
 
         for (int i = 0; i < storeReplyPostTagID.length; i++) {
