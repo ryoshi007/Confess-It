@@ -12,7 +12,6 @@ module com.example.confessit {
     requires me.xdrop.fuzzywuzzy;
     requires stanford.corenlp;
 
-
     opens com.confessit to javafx.fxml;
     exports com.confessit;
 }
