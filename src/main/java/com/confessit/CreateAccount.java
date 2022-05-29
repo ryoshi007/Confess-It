@@ -23,6 +23,7 @@ public class CreateAccount {
      */
     public void createAccount(String email, String username, String password, int role) {
         String securePassword = null;
+
         try {
             SecurePassword secure = new SecurePassword();
             securePassword = secure.generateSecurePassword(password);
@@ -39,15 +40,8 @@ public class CreateAccount {
             connectDB = connection.getConnection();
             statement = connectDB.createStatement();
 
-            queryResult = statement.executeQuery("SELECT email FROM user WHERE email= '" + email + "'");
-            if (queryResult.next()) {
-                // If the email address is in use,
-                System.out.println("The account is in use");
-            } else {
-                // If the email address is not in user
-                statement = connectDB.createStatement();
-                statement.executeUpdate("INSERT INTO user (username, email, password, role) VALUES ('" + username + "','" + email + "','" + securePassword + "','" + role + "')");
-            }
+            statement = connectDB.createStatement();
+            statement.executeUpdate("INSERT INTO user (username, email, password, role) VALUES ('" + username + "','" + email + "','" + securePassword + "','" + role + "')");
 
         } catch (SQLException e) {
             e.printStackTrace();

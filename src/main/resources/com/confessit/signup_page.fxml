@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -36,7 +37,7 @@
             </BorderPane>
             <AnchorPane layoutX="121.0" layoutY="146.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="544.0" prefWidth="422.0" style="-fx-background-color: BDD5EA;">
                <children>
-                  <TextField layoutX="46.0" layoutY="106.0" prefHeight="40.0" prefWidth="330.0" promptText="Username">
+                  <TextField fx:id="username_SignUp" layoutX="46.0" layoutY="106.0" prefHeight="40.0" prefWidth="330.0" promptText="Username">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -46,12 +47,12 @@
                         <Font name="System Bold" size="36.0" />
                      </font>
                   </Text>
-                  <PasswordField layoutX="46.0" layoutY="218.0" prefHeight="40.0" prefWidth="330.0" promptText="Password">
+                  <PasswordField fx:id="password_SignUp" layoutX="46.0" layoutY="218.0" prefHeight="40.0" prefWidth="330.0" promptText="Password">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </PasswordField>
-                  <Button layoutX="114.0" layoutY="339.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="179.0" text="Sign Up" textFill="#495867">
+                  <Button layoutX="114.0" layoutY="355.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#signUpButtonPressed" prefHeight="40.0" prefWidth="179.0" text="Sign Up" textFill="#495867">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -63,21 +64,22 @@
                         <Font name="System Bold" size="16.0" />
                      </font>
                   </Text>
-                  <Button layoutX="114.0" layoutY="463.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="179.0" text="Login" textFill="#495867">
+                  <Button layoutX="114.0" layoutY="463.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#goToLoginButtonPressed" prefHeight="40.0" prefWidth="179.0" text="Login" textFill="#495867">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Button>
-                  <TextField layoutX="46.0" layoutY="162.0" prefHeight="40.0" prefWidth="330.0" promptText="Email Address">
+                  <TextField fx:id="email_SignUp" layoutX="46.0" layoutY="162.0" prefHeight="40.0" prefWidth="330.0" promptText="Email Address">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </TextField>
-                  <PasswordField layoutX="46.0" layoutY="272.0" prefHeight="40.0" prefWidth="330.0" promptText="Confirm Password">
+                  <PasswordField fx:id="confirmPassword_SignUp" layoutX="46.0" layoutY="272.0" prefHeight="40.0" prefWidth="330.0" promptText="Confirm Password">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </PasswordField>
+                  <Label fx:id="messageLabel_SignUp" layoutX="89.0" layoutY="319.0" prefHeight="20.0" prefWidth="243.0" text="Please make sure both passwords are match" textFill="#ff1100" />
                </children>
             </AnchorPane>
          </children>
