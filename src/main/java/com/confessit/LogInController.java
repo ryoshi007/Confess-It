@@ -2,6 +2,7 @@ package com.confessit;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -12,18 +13,15 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.PBEKeySpec;
 import java.io.IOException;
+import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
-public class LogInController {
+public class LogInController implements Initializable {
 
     /**
      * Stage is used to represent a window in a JavaFX desktop application
@@ -58,6 +56,12 @@ public class LogInController {
     @FXML
     private Label messageLabel_Login;
 
+
+    public void initialize(URL url, ResourceBundle rb) {
+        messageLabel_Login.setVisible(false);
+    }
+
+
     /**
      * Direct user to the main page if the email address and password entered by the user are correct
      * @param event Mouse click
@@ -65,20 +69,22 @@ public class LogInController {
      */
     @FXML
     void loginButtonPressed(MouseEvent event) throws IOException {
-        // Hide the "Please enter email address and password" label
-        messageLabel_Login.setVisible(false);
 
         if (!email_Login.getText().isBlank() && !password_Login.getText().isBlank()) {
             // If email address and password entered is not empty,
             // Check the email address and password entered by the user
             if (validateLogin(email_Login.getText(),password_Login.getText())) {
+
                 // If email address and password entered by the user are correct,
                 // Direct user to the main page
-//                root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(".fxml")));
-//                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//                scene = new Scene(root);
-//                stage.setScene(scene);
-//                stage.show();
+                root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Main-Page.fxml")));
+                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+
+            } else {
+                messageLabel_Login.setVisible(true);
             }
         } else {
             // Set "Please enter email address and password" label as visible
@@ -112,7 +118,7 @@ public class LogInController {
      * @param password is the password inputted by the user
      * @return boolean value whether the login is successful or not
      */
-    public boolean validateLogin(String email, String password) {
+    private boolean validateLogin(String email, String password) {
 
         Connection connectDB = null;
         Statement statement = null;
@@ -171,60 +177,5 @@ public class LogInController {
             }
         }
         return false;
-    }
-
-    public User fetchUserInformation(String email) {
-
-        User user = new User();
-
-        Connection connectDB = null;
-        Statement statement = null;
-        ResultSet queryResult = null;
-
-        try {
-            DatabaseConnection connection = new DatabaseConnection();
-            connectDB = connection.getConnection();
-            statement = connectDB.createStatement();
-            queryResult = statement.executeQuery("SELECT * FROM user WHERE email = '" + email + "'");
-            // if the query result is not empty
-            if (queryResult.next()) {
-                user.setEmail(queryResult.getString("email"));
-                user.setUsername(queryResult.getString("username"));
-                user.setPassword(queryResult.getString("password"));
-                user.setDateOfBirth(queryResult.getDate("dateofbirth"));
-                user.setDescription(queryResult.getString("description"));
-                user.setRole(queryResult.getInt("role"));
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-
-        } finally {
-            if (queryResult != null) {
-                try {
-                    queryResult.close();
-
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (statement != null) {
-                try {
-                    statement.close();
-
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (connectDB != null) {
-                try {
-                    connectDB.close();
-
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return user;
     }
 }

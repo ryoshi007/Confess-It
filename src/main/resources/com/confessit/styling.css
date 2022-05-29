@@ -1,11 +1,29 @@
-/*adding hover effect to user's login and sign up button
-  also seller's login and sign up button*/
-#btn1{
-    -fx-font-weight:bold;
-    -fx-background-color: #457b9d;
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
+
+.btn{
+    -fx-font-family: 'Lato', sans-serif;
+    -fx-font-weight: bold;
+    -fx-background-color: #577399;
     -fx-background-radius:30;
     -fx-text-fill:white;
+    -fx-font-size:16;
 }
+
+.title {
+    -fx-font-family: 'Lato', sans-serif;
+    -fx-font-weight: bold;
+}
+
+.text {
+    -fx-font-family: 'Lato', sans-serif;
+}
+
+.input_field {
+    -fx-text-box-border: transparent;
+    -fx-border-radius: 10 10 10 10;
+    -fx-background-radius: 10 10 10 10;
+}
+
 #btn1:hover{
     -fx-font-weight:bold;
     -fx-background-color:white;
@@ -38,15 +56,4 @@
     -fx-background-color:white;
     -fx-text-fill: #457b9d;
     -fx-border-color: #457b9d;
-}
-
-/*adding effect to seller product page*/
-.transparent{
-    -fx-background-color: rgb(0,0,0,0);
-}
-
-.product{
-    -fx-background-radius: 30;
-    -fx-border-radius: 30;
-    -fx-border-color: #c4c4c4;
 }
