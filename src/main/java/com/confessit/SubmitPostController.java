@@ -370,7 +370,6 @@ public class SubmitPostController implements Initializable {
                 alert.showAndWait();
 
                 String picFilePath = filePath;
-                System.out.println(picFilePath);
 
                 //submit method (Currently thinking for reply post)
                 if (picFilePath == null || picFilePath.isBlank()) {

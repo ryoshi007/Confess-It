@@ -141,9 +141,24 @@ public class LogInController implements Initializable {
             if (queryResult.next()) {
                 String retrievedEmail = queryResult.getString("email");
                 String retrievedPassword = queryResult.getString("password");
+
+                String retrievedUsername = queryResult.getString("username");
+
+                //Obtain date
+
+                String retrievedDescription = queryResult.getString("description");
+                int retrievedRole = queryResult.getInt("role");
+
+
                 SecurePassword secure = new SecurePassword();
                 if (retrievedEmail.equals(email) && secure.validatePassword(password, retrievedPassword)) {
                     // If email and password match
+
+                    User user = new User(retrievedUsername, retrievedEmail, retrievedPassword, null,
+                            retrievedDescription, retrievedRole);
+                    UserHolder holder = UserHolder.getInstance();
+                    holder.setUser(user);
+
                     return true;
                 } else {
                     // Pop up a "Please enter correct email address or password." message
