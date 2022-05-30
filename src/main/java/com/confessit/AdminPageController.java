@@ -1,5 +1,14 @@
 package com.confessit;
 
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.sql.*;
@@ -9,6 +18,49 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class AdminPageController extends CreateAccount{
+
+    /**
+     * Stage is used to represent a window in a JavaFX desktop application
+     */
+    private Stage stage;
+
+    /**
+     * Scene is the container for all content in a scene graph
+     */
+    private Scene scene;
+
+    /**
+     * Root provides a solution to the issue of defining a reusable component with FXML
+     */
+    private Parent root;
+
+    @FXML
+    void goToHomepage(MouseEvent event) throws IOException {
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Main-Page.fxml")));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    void goToAdminProfilePage(MouseEvent event) {
+
+    }
+
+    @FXML
+    void goToDeletedPost(MouseEvent event) {
+
+    }
+
+    @FXML
+    void goToLogOut(MouseEvent event) throws IOException {
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("login_page.fxml")));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
 
     /***
      * To display the submitted posts

@@ -273,3 +273,34 @@
     -fx-font-weight: bold;
     -fx-font-size: 15;
 }
+
+#btn2:hover{
+    -fx-font-weight:bold;
+    -fx-background-color:white;
+    -fx-text-fill: #457b9d;
+    -fx-border-color: #457b9d;
+}
+
+/* Admin Page Menu Button */
+
+.admin-page-menu-btn {
+    -fx-background-color: #f7f7ff
+}
+
+.admin-page-menu-btn ImageView {
+    -fx-effect: innershadow( gaussian , black , 7 , 1 , 1 , 1 );
+}
+
+.admin-page-menu-btn:hover {
+    -fx-background-radius:10;
+    -fx-border-radius:10;
+    -fx-background-color: #f7f7ff;
+}
+
+.admin-page-menu-btn:hover ImageView {
+    -fx-effect: innershadow( gaussian , #132335 , 7 , 1 , 1 , 1 );
+}
+
+.admin-page-menu-btn:pressed ImageView {
+    -fx-effect: innershadow( gaussian , #66919a , 7 , 1 , 1 , 1 );
+
