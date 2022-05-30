@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
 
+/* General */
+
 .btn{
     -fx-font-family: 'Lato', sans-serif;
     -fx-font-weight: bold;
@@ -7,6 +9,27 @@
     -fx-background-radius:30;
     -fx-text-fill:white;
     -fx-font-size:16;
+}
+
+.btn:hover {
+    -fx-font-family: 'Lato', sans-serif;
+    -fx-font-weight:bold;
+    -fx-background-color:#1a3d51;
+    -fx-background-radius:30;
+    -fx-text-fill: white;
+    -fx-border-color: #1a3d51;
+    -fx-border-radius:30;
+    -fx-border-width:2;
+}
+
+.btn:pressed {
+    -fx-font-family: 'Lato', sans-serif;
+    -fx-font-weight:bold;
+    -fx-background-color:#30b1c6;
+    -fx-background-radius:30;
+    -fx-border-color: #30b1c6;
+    -fx-border-radius:30;
+    -fx-border-width:3;
 }
 
 .title {
@@ -24,24 +47,76 @@
     -fx-background-radius: 10 10 10 10;
 }
 
-#btn1:hover{
-    -fx-font-weight:bold;
-    -fx-background-color:white;
+/* Submit-Post Page */
+.content-field {
+    -fx-border-radius: 5 5 5 5;
+    -fx-control-inner-background: #f7f7ff;
+    -fx-background-color: #577399;
+}
+
+.submit-post-btn {
+    -fx-font-family: 'Lato', sans-serif;
+    -fx-font-weight: bold;
+    -fx-font-size: 25;
+    -fx-background-color: #bdd5ea;
     -fx-background-radius:30;
-    -fx-text-fill: #457b9d;
-    -fx-border-color: #457b9d;
+    -fx-text-fill: #577399;
+    -fx-font-size:16;
+}
+
+.submit-post-btn:hover {
+    -fx-font-family: 'Lato', sans-serif;
+    -fx-font-weight: bold;
+    -fx-background-color: #1a3d51;
+    -fx-background-radius: 30;
+    -fx-text-fill: white;
+    -fx-border-color: #1a3d51;
     -fx-border-radius:30;
     -fx-border-width:2;
 }
-#btn1:pressed{
+
+.submit-post-btn:pressed {
+    -fx-font-family: 'Lato', sans-serif;
     -fx-font-weight:bold;
-    -fx-background-color:#f1faee;
+    -fx-background-color:#30b1c6;
     -fx-background-radius:30;
-    -fx-text-fill: #457b9d;
-    -fx-border-color: #457b9d;
+    -fx-border-color: #30b1c6;
     -fx-border-radius:30;
     -fx-border-width:3;
-    
+}
+
+
+.submit-post-btn:hover ImageView {
+    -fx-effect: innershadow( gaussian , white , 7 , 1 , 1 , 1 );
+}
+
+.post-id-input {
+     -fx-text-box-border: #577399;
+     -fx-control-inner-background: #f7f7ff;
+     -fx-border-radius: 5 5 5 5;
+}
+
+.submit-delete-btn {
+    -fx-background-color: #e73434;
+    -fx-background-radius:10;
+    -fx-border-radius:10;
+}
+
+.submit-delete-btn:hover {
+    -fx-background-color: #dd5b5b;
+    -fx-border-width:2;
+    -fx-border-color: #dd5b5b;
+}
+
+.submit-delete-btn:pressed {
+    -fx-background-color:red;
+    -fx-border-width:3;
+    -fx-border-color: red;
+}
+
+
+.submit-post-btn:hover ImageView {
+    -fx-effect: innershadow( gaussian , white , 7 , 1 , 1 , 1 );
 }
 
 /*adding effect to user's createAccountButton(main-login-page) and quitButton(main-register-page)

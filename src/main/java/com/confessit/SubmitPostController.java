@@ -1,11 +1,79 @@
 package com.confessit;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import me.xdrop.fuzzywuzzy.FuzzySearch;
+
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.nio.file.Files;
 import java.sql.*;
 import java.util.*;
 
-public class SubmitPostController {
+public class SubmitPostController implements Initializable {
+    private String filePath;
+
+    /**
+     * Stage is used to represent a window in a JavaFX desktop application
+     */
+    private Stage stage;
+
+    /**
+     * Scene is the container for all content in a scene graph
+     */
+    private Scene scene;
+
+    /**
+     * Root provides a solution to the issue of defining a reusable component with FXML
+     */
+    private Parent root;
+
+    @FXML
+    private Button backButton;
+
+    @FXML
+    private Button chooseImageButton;
+
+    @FXML
+    private Button deleteImageButton;
+
+    @FXML
+    private TextArea contentField;
+
+    @FXML
+    private ImageView imagePane;
+
+    @FXML
+    private TextField postIdField;
+
+    @FXML
+    private Button submitButton;
+
+    @FXML
+    private Label empty_warning;
+
+    @FXML
+    private Label false_postid_warning;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        empty_warning.setVisible(false);
+        false_postid_warning.setVisible(false);
+        submitButton.setStyle("-fx-font-size:20");
+        chooseImageButton.setStyle("-fx-font-size:20");
+        deleteImageButton.setVisible(false);
+    }
 
     /***
      * Submit a post without picture for approval
@@ -83,18 +151,18 @@ public class SubmitPostController {
 
     /***
      * A method consists of serial steps to determine whether the content is meaningful and not a spam.
-     * The first if statement checks whether the length of string exceed 25 or not.
+     * The first if statement checks whether the length of string reach the minimum 20 or not.
      * The second if statement checks for the entropy score of the content.
-     * Basically if the entropy score is lower than 2.75, the content is classified as a spam.
+     * Basically if the entropy score is lower than 2.55, the content is classified as a spam.
      * The third if statement checks whether there is a similar content that has been posted before.
      * @param content the strings of the submission post
      * @return boolean value, true if content is non-spam and meaning, false otherwise.
      */
     public boolean detectSpam(String content) {
-        if (content.length() < 25) {
+        if (content.length() <= 20) {
             return false;
         }
-        if (calculateEntropy(content) < 2.75) {
+        if (calculateEntropy(content) < 2.55) {
             return false;
         }
         return !isSimilar(content);
@@ -201,6 +269,139 @@ public class SubmitPostController {
             }
         }
         return false;
+    }
+
+    @FXML
+    void backToMainPage(MouseEvent event) throws IOException {
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Main-Page.fxml")));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    void chooseImage() {
+        try {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Upload an image");
+            fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+            fileChooser.getExtensionFilters().addAll(
+                    new FileChooser.ExtensionFilter("All Images", "*.*"),
+                    new FileChooser.ExtensionFilter("JPG", "*.jpg"),
+                    new FileChooser.ExtensionFilter("PNG", "*.png"),
+                    new FileChooser.ExtensionFilter("JPEG", "*.jpeg")
+            );
+            File selectedFile = fileChooser.showOpenDialog(stage);
+            String mimetype = Files.probeContentType(selectedFile.toPath());
+            if (mimetype != null && mimetype.split("/")[0].equals("image")) {
+                Image image = new Image(selectedFile.toURI().toString(), 1024, 720, false, false);
+                imagePane.setImage(image);
+                imagePane.setFitHeight(150);
+                imagePane.setFitWidth(200);
+
+                deleteImageButton.setVisible(true);
+                filePath = selectedFile.toURI().toString();
+
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Wrong file type");
+                alert.setContentText("Please select file type that are specifically for image.\n\nExample: png, jpeg, jpg and so on.");
+                alert.showAndWait();
+            }
+
+        } catch (NullPointerException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Image is not uploaded");
+            alert.setContentText("Please upload image!");
+            alert.showAndWait();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    void submitPost() {
+        empty_warning.setVisible(false);
+        false_postid_warning.setVisible(false);
+        String postID = "", content = "";
+
+        if (contentField.getText().isBlank()) {
+            if (!postIdField.getText().isBlank()) {
+                postID = postIdField.getText(2, postIdField.getLength());
+                if (!isNumeric(postID)) {
+                    false_postid_warning.setVisible(true);
+                }
+            }
+            empty_warning.setVisible(true);
+
+        } else {
+
+            if (!postIdField.getText().isBlank()) {
+                postID = postIdField.getText(2, postIdField.getLength());
+                if (!isNumeric(postID)) {
+                    false_postid_warning.setVisible(true);
+                } else {
+                    content = "Reply UM" + postID + "\n\n" + contentField.getText();
+                }
+            } else {
+                content = contentField.getText();
+            }
+
+            if (!detectSpam(contentField.getText())) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Error in Submission");
+                alert.setHeaderText("Your submission has been rejected!");
+                alert.setContentText("Due to in violation of our community standards, your submission is not approved "+
+                        "by our system. Please alter your confession content so that it is not a spam, " +
+                        "has a minimum length of 20 and not a copy of previous confession posts.");
+                alert.showAndWait();
+
+            } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Success in Submission");
+                alert.setHeaderText("Your submission has been accepted!");
+                alert.setContentText("Please give a few hours to the admins to approve your post. We can't wait " +
+                        "to see your confession post on the main page. Thank you!");
+                alert.showAndWait();
+
+                String picFilePath = filePath;
+                System.out.println(picFilePath);
+
+//                //submit method (Currently thinking for reply post)
+//                if (picFilePath == null || picFilePath.isBlank()) {
+//                    submitPost(content);
+//                } else {
+//                    submitPost(content, picFilePath);
+//                }
+
+                postIdField.clear();
+                contentField.clear();
+                imagePane.setImage(null);
+                deleteImageButton.setVisible(false);
+                filePath = null;
+            }
+        }
+    }
+
+    private boolean isNumeric(String postID) {
+        boolean isNumeric = true;
+        char[] arrChar = postID.toCharArray();
+        for (char c: arrChar) {
+            if (Character.isDigit(c) == false) {
+                isNumeric = false;
+            }
+        }
+        return isNumeric;
+    }
+
+    @FXML
+    void deleteImage() {
+        imagePane.setImage(null);
+        filePath = null;
+        deleteImageButton.setVisible(false);
     }
 
 }

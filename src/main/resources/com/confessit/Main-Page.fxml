@@ -9,52 +9,52 @@
    <children>
       <ImageView fitHeight="1203.0" fitWidth="1664.0">
          <image>
-            <Image url="@../../../fxml-resources/mainpage_background.png" />
+            <Image url="@../fxml-resources/mainpage_background.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="74.0" fitWidth="74.0" layoutX="1321.0" layoutY="163.0">
          <image>
-            <Image url="@../../../fxml-resources/mainpage_addbutton.png" />
+            <Image url="@../fxml-resources/mainpage_addbutton.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="800.0" fitWidth="1346.0" layoutX="172.0" layoutY="403.0">
          <image>
-            <Image url="@../../../fxml-resources/mainpage_viewConfessionPost.png" />
+            <Image url="@../fxml-resources/mainpage_viewConfessionPost.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="72.0" fitWidth="1188.0" layoutX="243.0" layoutY="278.0">
          <image>
-            <Image url="@../../../fxml-resources/mainpage_searchbar.png" />
+            <Image url="@../fxml-resources/mainpage_searchbar.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="72.0" fitWidth="72.0" layoutX="1490.0" layoutY="165.0">
          <image>
-            <Image url="@../../../fxml-resources/mainpage_personalProfileButton.png" />
+            <Image url="@../fxml-resources/mainpage_personalProfileButton.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="72.0" fitWidth="72.0" layoutX="1403.0" layoutY="164.0">
          <image>
-            <Image url="@../../../fxml-resources/mainpage_homeButton.png" />
+            <Image url="@../fxml-resources/mainpage_homeButton.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="70.0" fitWidth="70.0" layoutX="1571.0" layoutY="167.0">
          <image>
-            <Image url="@../../../fxml-resources/mainpage_exitButton.png" />
+            <Image url="@../fxml-resources/mainpage_exitButton.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="27.0" fitWidth="105.0" layoutX="-40.0" layoutY="116.0">
          <image>
-            <Image url="@../../../fxml-resources/mainpage_bar1.png" />
+            <Image url="@../fxml-resources/mainpage_bar1.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="32.0" fitWidth="1435.0" layoutX="229.0" layoutY="112.0">
          <image>
-            <Image url="@../../../fxml-resources/mainpage_bar2.png" />
+            <Image url="@../fxml-resources/mainpage_bar2.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="352.0" fitWidth="366.0" layoutX="-30.0" layoutY="-52.0">
          <image>
-            <Image url="@../../../fxml-resources/logo_final.png" />
+            <Image url="@../fxml-resources/logo_final.png" />
          </image>
       </ImageView>
    </children>

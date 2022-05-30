@@ -1,63 +1,270 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.confessit.SubmitPostController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.confessit.SubmitPostController">
+   <stylesheets>
+      <URL value="@styling.css" />
+   </stylesheets>
    <children>
-      <ImageView fitHeight="1200.0" fitWidth="1660.0" layoutX="-7.0">
-         <image>
-            <Image url="@../../../fxml-resources/SubmitPost_Background.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="104.0" fitWidth="116.0" layoutX="74.0" layoutY="141.0">
-         <image>
-            <Image url="@../../../fxml-resources/SubmitPost_reverseButton.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="414.0" fitWidth="449.0" layoutX="13.0" layoutY="785.0">
-         <image>
-            <Image url="@../../../fxml-resources/SubmitPost_icon.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="61.0" fitWidth="199.0" layoutX="809.0" layoutY="1062.0">
-         <image>
-            <Image url="@../../../fxml-resources/SubmitPost_submitButton.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="136.0" fitWidth="1041.0" layoutX="437.0" layoutY="907.0">
-         <image>
-            <Image url="@../../../fxml-resources/SubmitPost_submissionCaution.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="223.0" fitWidth="348.0" layoutX="900.0" layoutY="656.0">
-         <image>
-            <Image url="@../../../fxml-resources/SubmitPost_sampleImage.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="51.0" fitWidth="255.0" layoutX="231.0" layoutY="640.0">
-         <image>
-            <Image url="@../../../fxml-resources/SubmitPost_chooseImageButton.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="271.0" fitWidth="1232.0" layoutX="208.0" layoutY="340.0">
-         <image>
-            <Image url="@../../../fxml-resources/SubmitPost_submissionTab.png" />
-         </image>
-      </ImageView>
-      <Text layoutX="212.0" layoutY="271.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Confession" wrappingWidth="438.109375">
+      <Rectangle fill="#495867" height="47.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1280.0" />
+      <Rectangle fill="#577399" height="35.0" layoutX="-360.0" layoutY="407.0" rotate="90.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="755.0" />
+      <Rectangle fill="#577399" height="35.0" layoutY="47.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1280.0" />
+      <Rectangle fill="#577399" height="35.0" layoutX="885.0" layoutY="407.0" rotate="90.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="755.0" />
+      <HBox alignment="CENTER" layoutX="20.0" layoutY="12.0" spacing="20.0">
+         <children>
+            <Circle fill="WHITE" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+            <Circle fill="WHITE" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+            <Circle fill="WHITE" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+         </children>
+      </HBox>
+      <Rectangle fill="#577399" height="35.0" layoutY="765.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1280.0" />
+      <TextArea fx:id="contentField" focusTraversable="false" layoutX="151.0" layoutY="391.0" prefHeight="159.0" prefWidth="966.0" promptText="Enter Confession Here..." style="-fx-wrap-text: true;" styleClass="content-field" stylesheets="@styling.css">
          <font>
-            <Font name="System Bold" size="53.0" />
+            <Font size="18.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="TEXT" />
+         </cursor>
+      </TextArea>
+      <HBox layoutX="340.0" layoutY="110.0" spacing="4.0" styleClass="title" stylesheets="@styling.css">
+         <children>
+            <Text fill="#495867" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="C">
+               <font>
+                  <Font name="System Bold" size="40.0" />
+               </font></Text>
+            <Text fill="#495867" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="O">
+               <font>
+                  <Font name="System Bold" size="40.0" />
+               </font>
+            </Text>
+            <Text fill="#495867" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="N">
+               <font>
+                  <Font name="System Bold" size="40.0" />
+               </font>
+            </Text>
+            <Text fill="#495867" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="F">
+               <font>
+                  <Font name="System Bold" size="40.0" />
+               </font>
+            </Text>
+            <Text fill="#495867" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="E">
+               <font>
+                  <Font name="System Bold" size="40.0" />
+               </font>
+            </Text>
+            <Text fill="#495867" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="S">
+               <font>
+                  <Font name="System Bold" size="40.0" />
+               </font>
+            </Text>
+            <Text fill="#495867" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="S">
+               <font>
+                  <Font name="System Bold" size="40.0" />
+               </font>
+            </Text>
+            <Text fill="#495867" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="I">
+               <font>
+                  <Font name="System Bold" size="40.0" />
+               </font>
+            </Text>
+            <Text fill="#495867" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="O">
+               <font>
+                  <Font name="System Bold" size="40.0" />
+               </font>
+            </Text>
+            <Text fill="#495867" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="N">
+               <font>
+                  <Font name="System Bold" size="40.0" />
+               </font>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0">
+               <font>
+                  <Font name="System Bold" size="40.0" />
+               </font>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0">
+               <font>
+                  <Font name="System Bold" size="40.0" />
+               </font>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0">
+               <font>
+                  <Font name="System Bold" size="40.0" />
+               </font>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0">
+               <font>
+                  <Font name="System Bold" size="40.0" />
+               </font>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0">
+               <font>
+                  <Font name="System Bold" size="40.0" />
+               </font>
+            </Text>
+            <Text fill="#495867" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="S">
+               <font>
+                  <Font name="System Bold" size="40.0" />
+               </font>
+            </Text>
+            <Text fill="#495867" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="U">
+               <font>
+                  <Font name="System Bold" size="40.0" />
+               </font>
+            </Text>
+            <Text fill="#495867" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="B">
+               <font>
+                  <Font name="System Bold" size="40.0" />
+               </font>
+            </Text>
+            <Text fill="#495867" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="M">
+               <font>
+                  <Font name="System Bold" size="40.0" />
+               </font>
+            </Text>
+            <Text fill="#495867" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="I">
+               <font>
+                  <Font name="System Bold" size="40.0" />
+               </font>
+            </Text>
+            <Text fill="#495867" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="S">
+               <font>
+                  <Font name="System Bold" size="40.0" />
+               </font>
+            </Text>
+            <Text fill="#495867" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="S">
+               <font>
+                  <Font name="System Bold" size="40.0" />
+               </font>
+            </Text>
+            <Text fill="#495867" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="I">
+               <font>
+                  <Font name="System Bold" size="40.0" />
+               </font>
+            </Text>
+            <Text fill="#495867" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="O">
+               <font>
+                  <Font name="System Bold" size="40.0" />
+               </font>
+            </Text>
+            <Text fill="#495867" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="N">
+               <font>
+                  <Font name="System Bold" size="40.0" />
+               </font>
+            </Text>
+         </children>
+      </HBox>
+      <Text fill="#132335" layoutX="151.0" layoutY="223.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="Your Confession">
+         <font>
+            <Font name="System Bold" size="30.0" />
          </font>
       </Text>
-      <Text layoutX="530.0" layoutY="677.0" opacity="0.31" strokeType="OUTSIDE" strokeWidth="0.0" text="Only one image is allowed" wrappingWidth="438.109375">
+      <Button fx:id="chooseImageButton" contentDisplay="RIGHT" layoutX="523.0" layoutY="627.0" mnemonicParsing="false" onMouseClicked="#chooseImage" prefHeight="60.0" prefWidth="223.0" styleClass="submit-post-btn" stylesheets="@styling.css" text="Choose Image  ">
+         <graphic>
+            <ImageView>
+               <image>
+                  <Image url="@../fxml-resources/upload-icon.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
          <font>
-            <Font name="System Bold" size="21.0" />
+            <Font size="25.0" />
+         </font></Button>
+      <ImageView fitHeight="192.0" fitWidth="200.0" layoutX="25.0" layoutY="592.0">
+         <image>
+            <Image url="@../fxml-resources/SubmitPost_icon.png" />
+         </image>
+      </ImageView>
+      <Text layoutX="151.0" layoutY="276.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reply Post" wrappingWidth="100.0">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font></Text>
+      <Text layoutX="151.0" layoutY="370.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Content" wrappingWidth="100.0">
+         <font>
+            <Font name="System Bold" size="18.0" />
          </font>
       </Text>
+      <TextField fx:id="postIdField" focusTraversable="false" layoutX="151.0" layoutY="297.0" promptText="Post ID (UMxxxx)" styleClass="post-id-input" stylesheets="@styling.css">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </TextField>
+      <ImageView fx:id="imagePane" fitHeight="150.0" fitWidth="200.0" layoutX="917.0" layoutY="582.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="submitButton" contentDisplay="RIGHT" layoutX="266.0" layoutY="627.0" mnemonicParsing="false" onMouseClicked="#submitPost" prefHeight="60.0" prefWidth="206.0" styleClass="submit-post-btn" stylesheets="@styling.css" text="Submit  ">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <font>
+            <Font size="30.0" />
+         </font>
+         <graphic>
+            <ImageView>
+               <image>
+                  <Image url="@../fxml-resources/submit-icon.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="backButton" alignment="CENTER" contentDisplay="RIGHT" focusTraversable="false" layoutX="56.0" layoutY="102.0" mnemonicParsing="false" onMouseClicked="#backToMainPage" prefHeight="70.0" prefWidth="70.0" styleClass="submit-post-btn" stylesheets="@styling.css">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <font>
+            <Font size="25.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="32.0" fitWidth="37.0" preserveRatio="true">
+               <image>
+                  <Image url="@../fxml-resources/back-icon.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d4e2ee" height="104.0" layoutX="473.0" layoutY="228.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="644.0" />
+      <ImageView fitHeight="53.0" fitWidth="57.0" layoutX="497.0" layoutY="252.0" preserveRatio="true">
+         <image>
+            <Image url="@../fxml-resources/warning-icon.png" />
+         </image>
+      </ImageView>
+      <Text fill="#7f888f" layoutX="573.0" layoutY="263.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Submission that incites violence and criminal behaviour, promotes fraud and hate speech, detected as a spam or contains extreme graphic will be rejected and the user might be banned from our platform." textAlignment="JUSTIFY" wrappingWidth="521.2083740234375">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Label fx:id="empty_warning" focusTraversable="false" layoutX="151.0" layoutY="556.0" styleClass="text" stylesheets="@styling.css" text="Please don't leave content field blank!" textFill="RED" visible="false" />
+      <Label fx:id="false_postid_warning" focusTraversable="false" layoutX="151.0" layoutY="332.0" styleClass="text" stylesheets="@styling.css" text="Please follow the structure - UMxxxx (i.e, UM2022)" textFill="RED" visible="false" />
+      <Button fx:id="deleteImageButton" layoutX="1091.0" layoutY="573.0" mnemonicParsing="false" onMouseClicked="#deleteImage" prefHeight="32.0" prefWidth="34.0" styleClass="submit-delete-btn" stylesheets="@styling.css" visible="false">
+         <graphic>
+            <ImageView fitHeight="24.0" fitWidth="24.0" preserveRatio="true">
+               <image>
+                  <Image url="@../fxml-resources/delete-icon.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
    </children>
 </AnchorPane>

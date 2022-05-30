@@ -95,7 +95,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Label fx:id="messageLabel_Login" layoutX="105.0" layoutY="229.0" prefHeight="20.0" prefWidth="227.0" text="Please enter email address and password" textFill="#ff1100" visible="false" />
+                  <Label fx:id="messageLabel_Login" layoutX="105.0" layoutY="229.0" prefHeight="20.0" prefWidth="227.0" styleClass="text" stylesheets="@styling.css" text="Please enter email address and password" textFill="#ff1100" visible="false" />
                </children>
             </AnchorPane>
          </children>
