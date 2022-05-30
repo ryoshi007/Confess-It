@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: aecee9;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.confessit.ProfilePageController">
+    <stylesheets>
+        <URL value="@styling.css" />
+    </stylesheets>
+   <children>
+      <Group layoutX="287.0" layoutY="-20.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#495867" height="31.0" layoutX="-3.0" layoutY="84.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1284.0" />
+      <ImageView fitHeight="276.0" fitWidth="276.0" layoutX="-42.0" layoutY="-38.0">
+         <image>
+            <Image url="@../fxml-resources/logo_final.png" />
+         </image>
+      </ImageView>
+      <Button layoutX="1211.0" layoutY="20.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="40.0" styleClass="menu-btn" stylesheets="@styling.css">
+         <graphic>
+            <ImageView fitHeight="34.0" fitWidth="34.0" preserveRatio="true">
+               <image>
+                  <Image url="@../fxml-resources/mainpage_exitButton.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <tooltip>
+            <Tooltip text="Log out" />
+         </tooltip>
+      </Button>
+      <Button layoutX="415.0" layoutY="19.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="40.0" styleClass="menu-btn" stylesheets="@styling.css">
+         <graphic>
+            <ImageView fitHeight="36.0" fitWidth="41.0" preserveRatio="true">
+               <image>
+                  <Image url="@../fxml-resources/mainpage_homeButton.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <tooltip>
+            <Tooltip text="Homepage" />
+         </tooltip>
+      </Button>
+      <Button layoutX="549.0" layoutY="20.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="40.0" styleClass="menu-btn" stylesheets="@styling.css">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <tooltip>
+            <Tooltip text="Write confession" />
+         </tooltip>
+         <graphic>
+            <ImageView fitHeight="36.0" fitWidth="41.0" preserveRatio="true">
+               <image>
+                  <Image url="@../fxml-resources/write-icon.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button layoutX="681.0" layoutY="21.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="40.0" styleClass="menu-btn" stylesheets="@styling.css">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <tooltip>
+            <Tooltip text="Search" />
+         </tooltip>
+         <graphic>
+            <ImageView fitHeight="36.0" fitWidth="41.0" preserveRatio="true">
+               <image>
+                  <Image url="@../fxml-resources/search-icon.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button layoutX="815.0" layoutY="19.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="40.0" styleClass="menu-btn" stylesheets="@styling.css">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <tooltip>
+            <Tooltip text="Profile Page" />
+         </tooltip>
+         <graphic>
+            <ImageView fitHeight="36.0" fitWidth="41.0" preserveRatio="true">
+               <image>
+                  <Image url="@../fxml-resources/mainpage_personalProfileButton.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+   </children>
+</AnchorPane>

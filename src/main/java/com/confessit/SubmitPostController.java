@@ -370,12 +370,12 @@ public class SubmitPostController implements Initializable {
                 String picFilePath = filePath;
                 System.out.println(picFilePath);
 
-//                //submit method (Currently thinking for reply post)
-//                if (picFilePath == null || picFilePath.isBlank()) {
-//                    submitPost(content);
-//                } else {
-//                    submitPost(content, picFilePath);
-//                }
+                //submit method (Currently thinking for reply post)
+                if (picFilePath == null || picFilePath.isBlank()) {
+                    submitPost(content);
+                } else {
+                    submitPost(content, picFilePath);
+                }
 
                 postIdField.clear();
                 contentField.clear();

@@ -7,6 +7,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -40,6 +41,9 @@
          <cursor>
             <Cursor fx:constant="TEXT" />
          </cursor>
+         <tooltip>
+            <Tooltip text="Back to Main Page" />
+         </tooltip>
       </TextArea>
       <HBox layoutX="340.0" layoutY="110.0" spacing="4.0" styleClass="title" stylesheets="@styling.css">
          <children>
@@ -187,7 +191,10 @@
          </cursor>
          <font>
             <Font size="25.0" />
-         </font></Button>
+         </font>
+         <tooltip>
+            <Tooltip text="Choose an image to display" />
+         </tooltip></Button>
       <ImageView fitHeight="192.0" fitWidth="200.0" layoutX="25.0" layoutY="592.0">
          <image>
             <Image url="@../fxml-resources/SubmitPost_icon.png" />
@@ -222,6 +229,9 @@
                </image>
             </ImageView>
          </graphic>
+         <tooltip>
+            <Tooltip text="Submit the post" />
+         </tooltip>
       </Button>
       <Button fx:id="backButton" alignment="CENTER" contentDisplay="RIGHT" focusTraversable="false" layoutX="56.0" layoutY="102.0" mnemonicParsing="false" onMouseClicked="#backToMainPage" prefHeight="70.0" prefWidth="70.0" styleClass="submit-post-btn" stylesheets="@styling.css">
          <cursor>
@@ -237,6 +247,9 @@
                </image>
             </ImageView>
          </graphic>
+         <tooltip>
+            <Tooltip text="Go to Main Page" />
+         </tooltip>
       </Button>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d4e2ee" height="104.0" layoutX="473.0" layoutY="228.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="644.0" />
       <ImageView fitHeight="53.0" fitWidth="57.0" layoutX="497.0" layoutY="252.0" preserveRatio="true">
@@ -265,6 +278,9 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
+         <tooltip>
+            <Tooltip text="Remove Image" />
+         </tooltip>
       </Button>
    </children>
 </AnchorPane>

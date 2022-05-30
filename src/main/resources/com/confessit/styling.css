@@ -43,8 +43,34 @@
 
 .input_field {
     -fx-text-box-border: transparent;
-    -fx-border-radius: 10 10 10 10;
-    -fx-background-radius: 10 10 10 10;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+/* Menu Button */
+.menu-btn {
+    -fx-background-color: #aecee9;
+    -fx-background-radius:10;
+    -fx-border-radius:10;
+}
+
+.menu-btn ImageView {
+    -fx-effect: innershadow( gaussian , black , 7 , 1 , 1 , 1 );
+}
+
+.menu-btn:hover {
+    -fx-background-radius:10;
+    -fx-border-radius:10;
+    -fx-background-color: #9ab6c8;
+}
+
+
+.menu-btn:hover ImageView {
+    -fx-effect: innershadow( gaussian , #132335 , 7 , 1 , 1 , 1 );
+}
+
+.menu-btn:pressed ImageView {
+    -fx-effect: innershadow( gaussian , #66919a , 7 , 1 , 1 , 1 );
 }
 
 /* Submit-Post Page */
