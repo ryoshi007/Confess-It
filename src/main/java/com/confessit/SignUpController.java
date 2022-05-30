@@ -1,5 +1,6 @@
 package com.confessit;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -7,12 +8,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import org.controlsfx.control.action.Action;
 
 import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -89,7 +91,7 @@ public class SignUpController extends CreateAccount {
      * @param event Mouse click
      */
     @FXML
-    void signUpButtonPressed(MouseEvent event) {
+    void signUpButtonPressed(ActionEvent event) {
         // Hide the "Please make sure both passwords match" label
         messageLabel_SignUp.setVisible(false);
 
@@ -175,5 +177,26 @@ public class SignUpController extends CreateAccount {
      */
     public void createUserAccount(String email, String username, String password) {
         super.createAccount(email, username, password, 0);
+    }
+
+    @FXML
+    void moveToConfirmPasswordField(KeyEvent event) {
+        if(event.getCode().equals(KeyCode.ENTER)) {
+            confirmPassword_SignUp.requestFocus();
+        }
+    }
+
+    @FXML
+    void moveToEmailField(KeyEvent event) {
+        if(event.getCode().equals(KeyCode.ENTER)) {
+            email_SignUp.requestFocus();
+        }
+    }
+
+    @FXML
+    void moveToPasswordField(KeyEvent event) {
+        if(event.getCode().equals(KeyCode.ENTER)) {
+            password_SignUp.requestFocus();
+        }
     }
 }

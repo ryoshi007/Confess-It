@@ -209,7 +209,7 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Text>
-      <TextField fx:id="postIdField" focusTraversable="false" layoutX="151.0" layoutY="297.0" promptText="Post ID (UMxxxx)" styleClass="post-id-input" stylesheets="@styling.css">
+      <TextField fx:id="postIdField" focusTraversable="false" layoutX="151.0" layoutY="297.0" onKeyReleased="#moveToContentField" promptText="Post ID (UMxxxx)" styleClass="post-id-input" stylesheets="@styling.css">
          <font>
             <Font size="15.0" />
          </font>

@@ -43,7 +43,7 @@
             </BorderPane>
             <AnchorPane layoutX="121.0" layoutY="146.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="517.0" prefWidth="422.0" style="-fx-background-color: BDD5EA;">
                <children>
-                  <TextField fx:id="email_Login" focusTraversable="false" layoutX="46.0" layoutY="122.0" prefHeight="40.0" prefWidth="330.0" promptText="Email Address" styleClass="input_field" stylesheets="@styling.css">
+                  <TextField fx:id="email_Login" focusTraversable="false" layoutX="46.0" layoutY="122.0" onKeyReleased="#moveToPasswordField" prefHeight="40.0" prefWidth="330.0" promptText="Email Address" styleClass="input_field" stylesheets="@styling.css">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -59,12 +59,12 @@
                         <Font name="System Bold" size="36.0" />
                      </font>
                   </Text>
-                  <PasswordField fx:id="password_Login" focusTraversable="false" layoutX="46.0" layoutY="181.0" prefHeight="40.0" prefWidth="330.0" promptText="Password" styleClass="input_field" stylesheets="@styling.css">
+                  <PasswordField fx:id="password_Login" focusTraversable="false" layoutX="46.0" layoutY="181.0" onAction="#loginButtonPressed" prefHeight="40.0" prefWidth="330.0" promptText="Password" styleClass="input_field" stylesheets="@styling.css">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </PasswordField>
-                  <Button fx:id="loginButton" layoutX="121.0" layoutY="266.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#loginButtonPressed" prefHeight="40.0" prefWidth="179.0" styleClass="btn" stylesheets="@styling.css" text="Login" textFill="#495867" AnchorPane.bottomAnchor="212.0" AnchorPane.leftAnchor="121.0" AnchorPane.rightAnchor="122.0" AnchorPane.topAnchor="266.0">
+                  <Button fx:id="loginButton" layoutX="121.0" layoutY="266.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#loginButtonPressed" prefHeight="40.0" prefWidth="179.0" styleClass="btn" stylesheets="@styling.css" text="Login" textFill="#495867" AnchorPane.bottomAnchor="212.0" AnchorPane.leftAnchor="121.0" AnchorPane.rightAnchor="122.0" AnchorPane.topAnchor="266.0">
                      <font>
                         <Font size="16.0" />
                      </font>

@@ -42,7 +42,7 @@
             </BorderPane>
             <AnchorPane layoutX="121.0" layoutY="146.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="544.0" prefWidth="422.0" style="-fx-background-color: BDD5EA;">
                <children>
-                  <TextField fx:id="username_SignUp" focusTraversable="false" layoutX="46.0" layoutY="106.0" prefHeight="40.0" prefWidth="330.0" promptText="Username" styleClass="input_field" stylesheets="@styling.css">
+                  <TextField fx:id="username_SignUp" focusTraversable="false" layoutX="46.0" layoutY="106.0" onKeyReleased="#moveToEmailField" prefHeight="40.0" prefWidth="330.0" promptText="Username" styleClass="input_field" stylesheets="@styling.css">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -52,12 +52,12 @@
                         <Font name="System Bold" size="36.0" />
                      </font>
                   </Text>
-                  <PasswordField fx:id="password_SignUp" focusTraversable="false" layoutX="46.0" layoutY="218.0" prefHeight="40.0" prefWidth="330.0" promptText="Password" styleClass="input_field" stylesheets="@styling.css">
+                  <PasswordField fx:id="password_SignUp" focusTraversable="false" layoutX="46.0" layoutY="218.0" onKeyReleased="#moveToConfirmPasswordField" prefHeight="40.0" prefWidth="330.0" promptText="Password" styleClass="input_field" stylesheets="@styling.css">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </PasswordField>
-                  <Button layoutX="115.0" layoutY="355.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#signUpButtonPressed" prefHeight="40.0" prefWidth="179.0" styleClass="btn" stylesheets="@styling.css" text="Sign Up" textFill="#495867">
+                  <Button layoutX="115.0" layoutY="355.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#signUpButtonPressed" prefHeight="40.0" prefWidth="179.0" styleClass="btn" stylesheets="@styling.css" text="Sign Up" textFill="#495867">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -80,12 +80,12 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <TextField fx:id="email_SignUp" focusTraversable="false" layoutX="46.0" layoutY="162.0" prefHeight="40.0" prefWidth="330.0" promptText="Email Address" styleClass="input_field" stylesheets="@styling.css">
+                  <TextField fx:id="email_SignUp" focusTraversable="false" layoutX="46.0" layoutY="162.0" onKeyReleased="#moveToPasswordField" prefHeight="40.0" prefWidth="330.0" promptText="Email Address" styleClass="input_field" stylesheets="@styling.css">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </TextField>
-                  <PasswordField fx:id="confirmPassword_SignUp" layoutX="46.0" layoutY="272.0" prefHeight="40.0" prefWidth="330.0" promptText="Confirm Password" styleClass="input_field" stylesheets="@styling.css">
+                  <PasswordField fx:id="confirmPassword_SignUp" layoutX="46.0" layoutY="272.0" onAction="#signUpButtonPressed" prefHeight="40.0" prefWidth="330.0" promptText="Confirm Password" styleClass="input_field" stylesheets="@styling.css">
                      <font>
                         <Font size="16.0" />
                      </font>

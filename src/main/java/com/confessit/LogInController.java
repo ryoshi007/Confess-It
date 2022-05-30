@@ -1,15 +1,16 @@
 package com.confessit;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
@@ -56,6 +57,15 @@ public class LogInController implements Initializable {
     @FXML
     private Label messageLabel_Login;
 
+    @FXML
+    private Button signUpButton;
+
+    @FXML
+    private Button forgotPassword;
+
+    @FXML
+    private Button loginButton;
+
 
     public void initialize(URL url, ResourceBundle rb) {
         messageLabel_Login.setVisible(false);
@@ -68,7 +78,7 @@ public class LogInController implements Initializable {
      * @throws IOException If the main_page.fxml is not found
      */
     @FXML
-    void loginButtonPressed(MouseEvent event) throws IOException {
+    void loginButtonPressed(ActionEvent event) throws IOException {
 
         if (!email_Login.getText().isBlank() && !password_Login.getText().isBlank()) {
             // If email address and password entered is not empty,
@@ -176,4 +186,12 @@ public class LogInController implements Initializable {
         }
         return false;
     }
+
+    @FXML
+    void moveToPasswordField(KeyEvent event) {
+        if(event.getCode().equals(KeyCode.ENTER)) {
+            password_Login.requestFocus();
+        }
+    }
+
 }
