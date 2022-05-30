@@ -83,8 +83,6 @@ public class LogInController implements Initializable {
                 stage.setScene(scene);
                 stage.show();
 
-            } else {
-                messageLabel_Login.setVisible(true);
             }
         } else {
             // Set "Please enter email address and password" label as visible
@@ -137,15 +135,15 @@ public class LogInController implements Initializable {
                 if (retrievedEmail.equals(email) && secure.validatePassword(password, retrievedPassword)) {
                     // If email and password match
                     return true;
+                } else {
+                    // Pop up a "Please enter correct email address or password." message
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Error");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Please enter correct email address or password.");
+                    alert.showAndWait();
+                    return false;
                 }
-            } else {
-                // Pop up a "Please enter correct email address or password." message
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Error");
-                alert.setHeaderText(null);
-                alert.setContentText("Please enter correct email address or password.");
-                alert.showAndWait();
-                return false;
             }
         } catch (SQLException | NoSuchAlgorithmException | InvalidKeySpecException e) {
             e.printStackTrace();
