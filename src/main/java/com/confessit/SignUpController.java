@@ -97,66 +97,90 @@ public class SignUpController extends CreateAccount {
 
         // Check whether the username is entered,
         if (!username_SignUp.getText().isBlank()) {
-            // Check whether both password and confirm password are match
-            if (((!password_SignUp.getText().isBlank())) && ((!confirmPassword_SignUp.getText().isBlank())) && password_SignUp.getText().equals(confirmPassword_SignUp.getText())) {
-                // If both passwords match
-                // Check whether the email address is already in use
-                Connection connectDB = null;
-                Statement statement = null;
-                ResultSet queryResult = null;
+            // Check whether the email address is entered
+            // Check whether the email address entered is valid
+            if (!email_SignUp.getText().isBlank() && verifyCorrectEmail(email_SignUp.getText())) {
+                // Check whether both password and confirm password are valid
+                if (((!password_SignUp.getText().isBlank())) && verifyStrongPassword(password_SignUp.getText())) {
+                    // Check whether both password and confirm password are match
+                    if (!confirmPassword_SignUp.getText().isBlank() && password_SignUp.getText().equals(confirmPassword_SignUp.getText())) {
+                        // If both passwords match
+                        // Check whether the email address is already in use
 
-                try {
-                    DatabaseConnection connection = new DatabaseConnection();
-                    connectDB = connection.getConnection();
-                    statement = connectDB.createStatement();
+                        Connection connectDB = null;
+                        Statement statement = null;
+                        ResultSet queryResult = null;
 
-                    queryResult = statement.executeQuery("SELECT email FROM user WHERE email = '" + email_SignUp.getText() + "'");
-                    if (queryResult.next()) {
-                        // If the email address is already in use
-                        // Display a pop-up message
-                        Alert alert = new Alert(Alert.AlertType.WARNING);
-                        alert.setTitle("Invalid Email Address");
-                        alert.setHeaderText("The email address is in use.");
-                        alert.setContentText("Please enter another email address.");
-                        alert.showAndWait();
+                        try {
+                            DatabaseConnection connection = new DatabaseConnection();
+                            connectDB = connection.getConnection();
+                            statement = connectDB.createStatement();
+
+                            queryResult = statement.executeQuery("SELECT email FROM user WHERE email = '" + email_SignUp.getText() + "'");
+                            if (queryResult.next()) {
+                                // If the email address is already in use
+                                // Display a pop-up message
+                                Alert alert = new Alert(Alert.AlertType.WARNING);
+                                alert.setTitle("Invalid Email Address");
+                                alert.setHeaderText("The email address is in use.");
+                                alert.setContentText("Please enter another email address.");
+                                alert.showAndWait();
+                            } else {
+                                // If the email address is not in use
+                                // Create an account
+                                createUserAccount(email_SignUp.getText(), username_SignUp.getText(), password_SignUp.getText());
+
+                                // Display account created successfully pop-up message
+                                Alert alert = new Alert(Alert.AlertType.NONE);
+                                alert.setGraphic(new ImageView(Objects.requireNonNull(this.getClass().getResource("GreenTick.gif")).toString()));
+                                alert.setTitle("Success");
+                                alert.setHeaderText("Your account has been successfully created.");
+                                alert.setContentText("Thank you for registering with Confess It");
+                                alert.getDialogPane().getButtonTypes().add(ButtonType.OK);
+                                alert.showAndWait();
+                            }
+
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+
+                        } finally {
+                            if (statement != null) {
+                                try {
+                                    statement.close();
+                                } catch (SQLException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            if (connectDB != null) {
+                                try {
+                                    connectDB.close();
+                                } catch (SQLException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
                     } else {
-                        // If the email address is not in use
-                        // Create an account
-                        createUserAccount(email_SignUp.getText(), username_SignUp.getText(), password_SignUp.getText());
-
-                        // Display account created successfully pop-up message
-                        Alert alert = new Alert(Alert.AlertType.NONE);
-                        alert.setGraphic(new ImageView(Objects.requireNonNull(this.getClass().getResource("GreenTick.gif")).toString()));
-                        alert.setTitle("Success");
-                        alert.setHeaderText("Your account has been created successfully.");
-                        alert.setContentText("Thank you for registering with Confess It");
-                        alert.getDialogPane().getButtonTypes().add(ButtonType.OK);
-                        alert.showAndWait();
+                        // If both password and confirm passwords are not match,
+                        // Set "Please make sure both passwords are match" label as visible
+                        messageLabel_SignUp.setVisible(true);
                     }
-
-                } catch (SQLException e) {
-                    e.printStackTrace();
-
-                } finally {
-                    if (statement != null) {
-                        try {
-                            statement.close();
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    if (connectDB != null) {
-                        try {
-                            connectDB.close();
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        }
-                    }
+                } else {
+                    // If both password and confirm passwords are empty or are invalid
+                    // Pop up a warning window
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Invalid password");
+                    alert.setHeaderText("The password entered is either empty or invalid.");
+                    alert.setContentText("Please ensure your password has minimum length of 8, contains at least 1 lowercase, 1 uppercase, 1 special character and 1 digit.");
+                    alert.showAndWait();
                 }
             } else {
-                // If both password and confirm passwords do not match or is empty,
-                // Set "Please make sure both passwords are match" label as visible
-                messageLabel_SignUp.setVisible(true);
+                // If username entered is empty,
+                // Pop up a warning window
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Invalid email address");
+                alert.setHeaderText("The email address entered is either empty or invalid.");
+                alert.setContentText("Please enter a valid email address.");
+                alert.showAndWait();
             }
         } else {
             // If username entered is empty,
@@ -198,5 +222,40 @@ public class SignUpController extends CreateAccount {
         if(event.getCode().equals(KeyCode.ENTER)) {
             password_SignUp.requestFocus();
         }
+    }
+
+    /***
+     * Validate the email inputted by the user is in correct format
+     * @param emailInput the email inputted by the user
+     * @return a boolean value to verify the email has the correct format
+     */
+    public boolean verifyCorrectEmail(String emailInput) {
+        String emailRegex = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
+        Pattern emailPattern = Pattern.compile(emailRegex, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = emailPattern.matcher(emailInput);
+        return matcher.find();
+    }
+
+    /***
+     * Verify the password inputted by the user is strong
+     * @param passwordInput the password inputted by the user
+     * @return a boolean value to verify the password is strong
+     */
+    public boolean verifyStrongPassword(String passwordInput) {
+        boolean hasLower = false, hasUpper = false, hasDigit = false, specialChar = false, minLength = false;
+        Set<Character> set = new HashSet<>(Arrays.asList('!', '@', '#', '$', '%', '^', '&', '*', '(', ')',
+                '-', '+'));
+        for (char i : passwordInput.toCharArray()) {
+            if (Character.isLowerCase(i)) hasLower = true;
+            if (Character.isUpperCase(i)) hasUpper = true;
+            if (Character.isDigit(i)) hasDigit = true;
+            if (set.contains(i)) specialChar = true;
+        }
+
+        if (passwordInput.toCharArray().length >= 8) {
+            minLength = true;
+        }
+
+        return (hasLower && hasUpper && hasDigit && specialChar && minLength);
     }
 }
