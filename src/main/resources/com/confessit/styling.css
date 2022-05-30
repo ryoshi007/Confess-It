@@ -87,7 +87,6 @@
     -fx-background-color: #bdd5ea;
     -fx-background-radius:30;
     -fx-text-fill: #577399;
-    -fx-font-size:16;
 }
 
 .submit-post-btn:hover {
@@ -145,11 +144,134 @@
     -fx-effect: innershadow( gaussian , white , 7 , 1 , 1 , 1 );
 }
 
-/*adding effect to user's createAccountButton(main-login-page) and quitButton(main-register-page)
-  also seller's createAccButton and quitButton(seller-login-page) and quitButton(seller-register-page) */
-#btn2{
-    -fx-background-color: #457b9d;
-    -fx-text-fill:white;
+/* Profile page */}
+.profile-username {
+    -fx-font-family: 'Lato', sans-serif;
+    -fx-font-weight: bold;
+    -fx-font-size: 20;
+    -fx-text-box-border: transparent;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-background-color: transparent;
+}
+
+.profile-field {
+    -fx-background-color: transparent;
+}
+
+.profile-input-field {
+    -fx-font-family: 'Lato', sans-serif;
+    -fx-text-box-border: transparent;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-font-size: 16;
+    -fx-background-color: transparent;
+}
+
+.profile-text-area {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-text-cursor: default;
+    -fx-font-size: 16;
+    -fx-text-box-border: transparent;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+.profile-btn {
+    -fx-background-color: #66919a;
+    -fx-background-radius:10;
+    -fx-border-radius:10;
+}
+
+.profile-btn:hover {
+    -fx-background-color: #132335;
+    -fx-border-width:2;
+    -fx-border-color: #132335;
+}
+
+.profile-btn:pressed {
+    -fx-background-color:#577399;
+    -fx-border-width:3;
+    -fx-border-color: #577399;
+}
+
+.profile-option-btn {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+        -fx-font-family: 'Lato', sans-serif;
+        -fx-font-size: 15;
+        -fx-font-weight: bold;
+}
+
+.profile-option-btn:hover {
+    -fx-text-fill: #1f3243;
+    -fx-effect: innershadow( gaussian , #1f3243 , 7 , 1 , 1 , 1 );
+    -fx-font-family: 'Lato', sans-serif;
+    -fx-font-size: 15;
+    -fx-font-weight: bold;
+}
+
+.profile-option-btn:pressed {
+    -fx-text-fill: #30b1c6;
+    -fx-effect: innershadow( gaussian , #30b1c6 , 7 , 1 , 1 , 1 );
+    -fx-font-family: 'Lato', sans-serif;
+    -fx-font-size: 15;
+    -fx-font-weight: bold;
+}
+
+.save-btn {
+   -fx-background-color: #21b038;
+   -fx-background-radius:10;
+   -fx-border-radius:10;
+   -fx-font-family: 'Lato', sans-serif;
+   -fx-font-weight: bold;
+   -fx-font-size: 15;
+}
+
+.save-btn:hover {
+    -fx-background-color: #62C572;
+    -fx-border-width:2;
+    -fx-border-color: #62C572;
+    -fx-font-family: 'Lato', sans-serif;
+    -fx-font-weight: bold;
+    -fx-font-size: 15;
+}
+
+.save-btn:pressed {
+    -fx-background-color: #0F631D;
+    -fx-border-width:3;
+    -fx-border-color: #0F631D;
+    -fx-font-family: 'Lato', sans-serif;
+    -fx-font-weight: bold;
+    -fx-font-size: 15;
+}
+
+.discard-btn {
+    -fx-background-color: #e73434;
+    -fx-background-radius:10;
+    -fx-border-radius:10;
+    -fx-font-family: 'Lato', sans-serif;
+    -fx-font-weight: bold;
+    -fx-font-size: 15;
+}
+
+.discard-btn:hover {
+    -fx-background-color: #dd5b5b;
+    -fx-border-width:2;
+    -fx-border-color: #dd5b5b;
+    -fx-font-family: 'Lato', sans-serif;
+    -fx-font-weight: bold;
+    -fx-font-size: 15;
+}
+
+.discard-btn:pressed {
+    -fx-background-color:red;
+    -fx-border-width:3;
+    -fx-border-color: red;
+    -fx-font-family: 'Lato', sans-serif;
+    -fx-font-weight: bold;
+    -fx-font-size: 15;
 }
 
 #btn2:hover{
@@ -181,4 +303,4 @@
 
 .admin-page-menu-btn:pressed ImageView {
     -fx-effect: innershadow( gaussian , #66919a , 7 , 1 , 1 , 1 );
-}
+

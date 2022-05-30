@@ -12,7 +12,6 @@ public class User {
     private String email;
     private String password;
     private Date dateOfBirth;
-    private char gender;
     private String description;
     private ArrayList<Integer> history = new ArrayList<>();
     private int role;
@@ -28,11 +27,10 @@ public class User {
      * @param email email address of the user account
      * @param password password of the user account
      * @param dateOfBirth date of birth of the user
-     * @param gender gender of the user
      * @param description description of the user
      * @param role role of the user account (1 = Admin or 0 = User)
      */
-    public User(String username, String email, String password, Date dateOfBirth, char gender, String description, int role) {
+    public User(String username, String email, String password, Date dateOfBirth, String description, int role) {
         this.username = username;
         this.email = email;
         this.password = password;
