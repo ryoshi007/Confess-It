@@ -132,17 +132,28 @@ public class SignUpController extends CreateAccount {
 
                                 // Display account created successfully pop-up message
                                 Alert alert = new Alert(Alert.AlertType.NONE);
-                                alert.setGraphic(new ImageView(Objects.requireNonNull(this.getClass().getResource("GreenTick.gif")).toString()));
+                                ImageView imagePane = new ImageView("com/fxml-resources/GreenTick.gif");
+                                imagePane.setFitWidth(150);
+                                imagePane.setPreserveRatio(true);
+                                alert.setGraphic(imagePane);
                                 alert.setTitle("Success");
                                 alert.setHeaderText("Your account has been successfully created.");
                                 alert.setContentText("Thank you for registering with Confess It");
                                 alert.getDialogPane().getButtonTypes().add(ButtonType.OK);
                                 alert.showAndWait();
+
+                                root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("login_page.fxml")));
+                                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                                scene = new Scene(root);
+                                stage.setScene(scene);
+                                stage.show();
                             }
 
                         } catch (SQLException e) {
                             e.printStackTrace();
 
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
                         } finally {
                             if (statement != null) {
                                 try {
