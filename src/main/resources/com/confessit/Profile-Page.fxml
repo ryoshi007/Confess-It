@@ -5,6 +5,7 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextArea?>
@@ -110,25 +111,22 @@
             </PasswordField>
          </children>
       </HBox>
-      <HBox alignment="CENTER" layoutX="125.0" layoutY="678.0" prefHeight="44.0" prefWidth="262.0" spacing="15.0">
+      <HBox alignment="CENTER" layoutX="122.0" layoutY="678.0" prefHeight="44.0" prefWidth="262.0" spacing="20.0">
          <children>
             <ImageView fitHeight="28.0" fitWidth="28.0">
                <image>
                   <Image url="@../fxml-resources/birthday-icon.png" />
                </image>
             </ImageView>
-            <TextField fx:id="birthdayField" editable="false" focusTraversable="false" prefHeight="42.0" prefWidth="218.0" stylesheets="@styling.css" text="31-5-2022">
-               <styleClass>
-                  <String fx:value="text" />
-                  <String fx:value="profile-input-field" />
-               </styleClass>
-               <font>
-                  <Font size="16.0" />
-               </font>
+            <DatePicker fx:id="birthdayField" blendMode="DARKEN" editable="false" prefHeight="37.0" prefWidth="201.0" stylesheets="@styling.css">
                <cursor>
                   <Cursor fx:constant="DEFAULT" />
                </cursor>
-            </TextField>
+               <styleClass>
+                  <String fx:value="text" />
+                  <String fx:value="date-picker" />
+               </styleClass>
+            </DatePicker>
          </children>
       </HBox>
       <Button fx:id="editProfileButton" layoutX="309.0" layoutY="235.0" mnemonicParsing="false" onMouseClicked="#editProfile" prefHeight="40.0" prefWidth="35.0" styleClass="profile-btn" stylesheets="@styling.css">

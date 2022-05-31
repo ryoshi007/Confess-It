@@ -274,6 +274,13 @@
     -fx-font-size: 15;
 }
 
+.date-picker:not-authenticated, .date-picker:not-authenticated > .text-field {
+    -fx-opacity: 0.85 ;
+    -fx-control-inner-background: transparent;
+}
+
+/* Admin Page Menu Button */
+
 #btn2:hover{
     -fx-font-weight:bold;
     -fx-background-color:white;
@@ -281,7 +288,6 @@
     -fx-border-color: #457b9d;
 }
 
-/* Admin Page Menu Button */
 
 .admin-page-menu-btn {
     -fx-background-color: #f7f7ff

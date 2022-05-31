@@ -10,14 +10,15 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
@@ -35,7 +36,7 @@ public class ProfilePageController implements Initializable {
     private Line archieveLine;
 
     @FXML
-    private TextField birthdayField;
+    private DatePicker birthdayField;
 
     @FXML
     private TextArea descriptionField;
@@ -80,12 +81,21 @@ public class ProfilePageController implements Initializable {
         archieveLine.setVisible(false);
         historyLine.setVisible(false);
 
+        birthdayField.setDisable(true);
+        birthdayField.setStyle("-fx-opacity: 1");
+        birthdayField.getEditor().setStyle("-fx-opacity: 1");
+
         User user = UserHolder.getInstance().getUser();
         usernameField.setText(user.getUsername());
         descriptionField.setText(user.getDescription());
         emailField.setText(user.getEmail());
         passwordField.setText(user.getPassword());
-        birthdayField.setText(null);
+
+        Date date = user.getDateOfBirth();
+        if (date != null) {
+            LocalDate localDate = Instant.ofEpochMilli(date.getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
+            birthdayField.setValue(localDate);
+        }
     }
 
     /**
@@ -218,24 +228,9 @@ public class ProfilePageController implements Initializable {
      * @param user a User object
      * @param dateOfBirth user date of birth entered by the user
      */
-    public void editUserDateOfBirth(User user, String dateOfBirth) {
+    public void editUserDateOfBirth(User user, Date dateOfBirth) {
 
-        java.sql.Date sqlDate;
-
-        if (!valDateOfBirth(dateOfBirth)) {
-            // if the date entered by the user is invalid
-            return;
-        } else {
-            // if it is valid, convert and store it in sql Date type
-            SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy"); // 1-1-2001
-            java.util.Date date = null;
-            try {
-                date = sdf1.parse(dateOfBirth);
-            } catch (ParseException e) {
-                throw new RuntimeException(e);
-            }
-            sqlDate = new java.sql.Date(date.getTime());
-        }
+        java.sql.Date sqlDate = new java.sql.Date(dateOfBirth.getTime());
 
         Connection connectDB = null;
 
@@ -264,24 +259,6 @@ public class ProfilePageController implements Initializable {
         }
     }
 
-    /**
-     * Check whether date of birth entered by the user is valid
-     * @param dateOfBirth date of birth entered by the user
-     * @return true if date is valid, else false
-     */
-    private boolean valDateOfBirth(String dateOfBirth) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        dateFormat.setLenient(false);
-
-        try {
-            dateFormat.parse(dateOfBirth);
-        } catch (ParseException e) {
-            return false;
-        }
-
-        return true;
-    }
-
     @FXML
     void checkArchieve(MouseEvent mouseEvent) {
         archieveLine.setVisible(true);
@@ -305,15 +282,17 @@ public class ProfilePageController implements Initializable {
 
     @FXML
     void editProfile(MouseEvent mouseEvent) {
+
         descriptionField.setEditable(true);
         descriptionField.getStyleClass().clear();
         descriptionField.getStyleClass().addAll("text-input", "text-area");
         descriptionField.setBlendMode(BlendMode.SRC_ATOP);
 
-        birthdayField.setEditable(true);
         birthdayField.getStyleClass().clear();
-        birthdayField.getStyleClass().addAll("text-input", "text-field");
-        birthdayField.setCursor(Cursor.TEXT);
+        birthdayField.getStyleClass().addAll("combo-box-base", "date-picker");
+        birthdayField.setCursor(Cursor.HAND);
+        birthdayField.setDisable(false);
+        birthdayField.setBlendMode(BlendMode.SRC_ATOP);
 
         saveButton.setVisible(true);
         discardButton.setVisible(true);
@@ -322,17 +301,44 @@ public class ProfilePageController implements Initializable {
     @FXML
     void saveChanges(MouseEvent event) {
         User user = UserHolder.getInstance().getUser();
-        descriptionField.setText(descriptionField.getText());
-        birthdayField.setText(birthdayField.getText());
-        editUserDescription(user, descriptionField.getText());
-//        editUserDateOfBirth(user, birhtdayField.getText());
+        LocalDate localDate = birthdayField.getValue();
 
-        user.setDescription(descriptionField.getText());
-//        user.setDateOfBirth(birhtdayField.getText());
+        if (localDate != null) {
+            Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
+            Date date = Date.from(instant);
 
-        revertChanges();
-        saveButton.setVisible(false);
-        discardButton.setVisible(false);
+            if (date.after(new Date())) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Invalid Date of Birth!");
+                alert.setContentText("Please a valid date! You can't born in the future!");
+                alert.showAndWait();
+
+            } else {
+                descriptionField.setText(descriptionField.getText());
+
+                editUserDescription(user, descriptionField.getText());
+                editUserDateOfBirth(user, date);
+
+                user.setDescription(descriptionField.getText());
+                user.setDateOfBirth(date);
+
+                revertChanges();
+                saveButton.setVisible(false);
+                discardButton.setVisible(false);
+            }
+
+        } else {
+
+            descriptionField.setText(descriptionField.getText());
+            editUserDescription(user, descriptionField.getText());
+            user.setDescription(descriptionField.getText());
+
+            revertChanges();
+            saveButton.setVisible(false);
+            discardButton.setVisible(false);
+        }
+
     }
 
 
@@ -342,7 +348,13 @@ public class ProfilePageController implements Initializable {
 
         User user = UserHolder.getInstance().getUser();
         descriptionField.setText(user.getDescription());
-        birthdayField.setText(null);
+
+        Date date = user.getDateOfBirth();
+        if (date != null) {
+            Instant instant = date.toInstant();
+            LocalDate localDate = instant.atZone(ZoneId.systemDefault()).toLocalDate();
+            birthdayField.setValue(localDate);
+        }
 
         saveButton.setVisible(false);
         discardButton.setVisible(false);
@@ -354,9 +366,14 @@ public class ProfilePageController implements Initializable {
         descriptionField.getStyleClass().addAll("text-input", "text-area", "text", "profile-text-area");
         descriptionField.setBlendMode(BlendMode.DARKEN);
 
+        birthdayField.setDisable(true);
+        birthdayField.setStyle("-fx-opacity: 1");
+        birthdayField.getEditor().setStyle("-fx-opacity: 1");
+        birthdayField.setBlendMode(BlendMode.DARKEN);
+
         birthdayField.setEditable(false);
         birthdayField.getStyleClass().clear();
-        birthdayField.getStyleClass().addAll("text-input", "text-field", "text", "profile-input-field");
+        birthdayField.getStyleClass().addAll("combo-box-base", "date-picker", "text");
         birthdayField.setCursor(Cursor.DEFAULT);
     }
 

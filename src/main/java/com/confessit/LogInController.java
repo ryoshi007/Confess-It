@@ -144,8 +144,7 @@ public class LogInController implements Initializable {
 
                 String retrievedUsername = queryResult.getString("username");
 
-                //Obtain date
-
+                Date dateOfBirth = queryResult.getDate("dateofbirth");
                 String retrievedDescription = queryResult.getString("description");
                 int retrievedRole = queryResult.getInt("role");
 
@@ -154,7 +153,7 @@ public class LogInController implements Initializable {
                 if (retrievedEmail.equals(email) && secure.validatePassword(password, retrievedPassword)) {
                     // If email and password match
 
-                    User user = new User(retrievedUsername, retrievedEmail, retrievedPassword, null,
+                    User user = new User(retrievedUsername, retrievedEmail, retrievedPassword, dateOfBirth,
                             retrievedDescription, retrievedRole);
                     UserHolder holder = UserHolder.getInstance();
                     holder.setUser(user);
