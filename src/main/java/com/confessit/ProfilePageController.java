@@ -351,8 +351,7 @@ public class ProfilePageController implements Initializable {
 
         Date date = user.getDateOfBirth();
         if (date != null) {
-            Instant instant = date.toInstant();
-            LocalDate localDate = instant.atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate localDate = Instant.ofEpochMilli(date.getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
             birthdayField.setValue(localDate);
         }
 
