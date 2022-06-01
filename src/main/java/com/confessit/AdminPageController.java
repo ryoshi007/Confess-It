@@ -1,13 +1,28 @@
 package com.confessit;
 
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import org.controlsfx.dialog.Wizard;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.util.*;
@@ -30,21 +45,34 @@ public class AdminPageController implements Initializable {
      */
     private Parent root;
 
+    @FXML
+    private Button vacationButton;
+
+    @FXML
+    private VBox contentBox;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        contentBox.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+        contentBox.setAlignment(Pos.TOP_CENTER);
 
-    }
-
-    /***
-     * To display the submitted posts
-     */
-    public void display() {
-        ArrayList<Post> pendingPost = retrieveSubmittedPost();
-        if (pendingPost.isEmpty()) {
-            //Display no result
-        } else {
-
+        contentBox.getChildren().add(new FlowPane(100, 100));
+        for (Post post: retrieveSubmittedPost()) {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Post-Object.fxml"));
+            try {
+                Parent postPane = loader.load();
+                Region n = (Region) postPane;
+                PostObject postObjectController = loader.getController();
+                postObjectController.setPost(post);
+                contentBox.getChildren().add(postPane);
+                n.prefHeightProperty().bind(postObjectController.getAdjustPane().heightProperty());
+                n.setBackground(new Background(new BackgroundFill(Color.CADETBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
+
+        contentBox.getChildren().add(new FlowPane(100, 100));
     }
 
     /***
@@ -83,7 +111,7 @@ public class AdminPageController implements Initializable {
                     newPost = new Post(index, tagID, datetime, content, like, dislike, comment, approval,
                             approvalTime, displayStatus, reply);
                 } else {
-                    newPost = new Post(index, tagID, datetime, content, like, dislike, comment, approval,
+                    newPost = new Post(index, tagID, datetime, content, filePath, like, dislike, comment, approval,
                             approvalTime, displayStatus, reply);
                 }
                 postList.add(newPost);
@@ -201,15 +229,60 @@ public class AdminPageController implements Initializable {
     /***
      * Automatically approve or disapprove a submitted post based on the sentiment analysis
      */
-    public void vacationMode() {
+    @FXML
+    void vacationMode(MouseEvent event) {
+        scene = vacationButton.getScene();
+        scene.setCursor(Cursor.WAIT);
+
         ArrayList<Post> submittedPost = retrieveSubmittedPost();
         SentimentPipeline nlp = new SentimentPipeline();
         nlp.init();
+        double mark = nlp.estimateSentiment(submittedPost.get(0).getContent());
+        System.out.println(mark);
         for (Post post : submittedPost) {
+            System.out.println("Here");
             if (nlp.estimateSentiment(post.getContent()) >= 1.5) {
                 approve(post.getIndex());
             }
         }
+
+        scene.setCursor(Cursor.DEFAULT);
+
+//        Task<Void> executeTask = new Task<Void>() {
+//            @Override
+//            protected Void call() throws Exception {
+//                ArrayList<Post> submittedPost = retrieveSubmittedPost();
+//                SentimentPipeline nlp = new SentimentPipeline();
+//                nlp.init();
+//                double mark = nlp.estimateSentiment(submittedPost.get(0).getContent());
+//                System.out.println(mark);
+//                for (Post post : submittedPost) {
+//                    System.out.println("Here");
+//                    if (nlp.estimateSentiment(post.getContent()) >= 1.5) {
+//                        approve(post.getIndex());
+//                    }
+//                }
+//                return null;
+//            }
+//        };
+//
+//        Thread th = new Thread(executeTask);
+//        th.setDaemon(true);
+//        th.start();
+//
+//        executeTask.setOnSucceeded(e -> {
+//            scene.setCursor(Cursor.DEFAULT);
+//            System.out.println("Yes");
+//        });
+//
+//        executeTask.setOnFailed(e -> {
+//            Throwable problem = executeTask.getException();
+//
+//        });
+//
+//        executeTask.setOnCancelled(e -> {
+//
+//        });
     }
 
 }

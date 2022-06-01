@@ -285,7 +285,7 @@
     -fx-font-weight: bold;
     -fx-background-radius:30;
     -fx-text-fill:white;
-    -fx-font-size:13;
+    -fx-font-size:20;
 }
 
 .post-submit {
@@ -339,4 +339,27 @@
     -fx-background-color:#AD0606;
     -fx-border-color: #AD0606;
     -fx-background-radius: 0 0 15 0;
+}
+
+.post-pane {
+    -fx-background-color: white;
+}
+
+.post-pane .text {
+    -fx-font-family: 'Lato', sans-serif;
+    -fx-font-size: 20;
+}
+
+.post-pane-text {
+    -fx-font-family: 'Lato', sans-serif;
+    -fx-font-size: 20;
+}
+
+.post-pane .text-area {
+    -fx-background-color: transparent;
+}
+
+.post-flowpane {
+    -fx-border-color: #04285c;
+    -fx-border-width: 2;
 }

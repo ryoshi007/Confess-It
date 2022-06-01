@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.net.URL?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.confessit.AdminPageController">
    <stylesheets>
@@ -16,10 +22,33 @@
             <Image url="@../fxml-resources/admin-page-background.png" />
          </image>
       </ImageView>
-      <AnchorPane layoutY="-8.0" opacity="0.8" prefHeight="810.0" prefWidth="1280.0" style="-fx-background-color: f7f7ff;">
+      <AnchorPane layoutY="-8.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.8" prefHeight="810.0" prefWidth="1280.0" style="-fx-background-color: f7f7ff;">
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#aecee9" height="77.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1280.0" />
             <fx:include fx:id="" layoutX="321.0" layoutY="-15.0" source="Admin-Bar.fxml" />
+            <ScrollPane layoutY="166.0" prefHeight="646.0" prefWidth="1280.0">
+               <content>
+                  <VBox fx:id="contentBox" prefWidth="1265.0" spacing="45" />
+               </content>
+            </ScrollPane>
+            <Button fx:id="vacationButton" contentDisplay="RIGHT" layoutX="971.0" layoutY="94.0" mnemonicParsing="false" onMouseClicked="#vacationMode" prefHeight="41.0" prefWidth="285.0" styleClass="submit-post-btn" stylesheets="@styling.css" text="Vacation Mode  ">
+               <graphic>
+                  <ImageView fitHeight="33.0" fitWidth="30.0" preserveRatio="true">
+                     <image>
+                        <Image url="@../fxml-resources/robot-icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <font>
+                  <Font size="25.0" />
+               </font>
+               <tooltip>
+                  <Tooltip text="Automatically approve the post based on the sentiment level of each post" />
+               </tooltip>
+            </Button>
          </children></AnchorPane>
    </children>
 </AnchorPane>
