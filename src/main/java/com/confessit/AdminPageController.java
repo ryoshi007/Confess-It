@@ -2,22 +2,18 @@ package com.confessit;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
+import java.net.URL;
 import java.sql.*;
 import java.util.*;
 import java.util.Date;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-public class AdminPageController extends CreateAccount{
+public class AdminPageController implements Initializable {
 
     /**
      * Stage is used to represent a window in a JavaFX desktop application
@@ -34,32 +30,9 @@ public class AdminPageController extends CreateAccount{
      */
     private Parent root;
 
-    @FXML
-    void goToHomepage(MouseEvent event) throws IOException {
-        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Main-Page.fxml")));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
 
-    @FXML
-    void goToAdminProfilePage(MouseEvent event) {
-
-    }
-
-    @FXML
-    void goToDeletedPost(MouseEvent event) {
-
-    }
-
-    @FXML
-    void goToLogOut(MouseEvent event) throws IOException {
-        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("login_page.fxml")));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
     }
 
     /***
@@ -239,14 +212,4 @@ public class AdminPageController extends CreateAccount{
         }
     }
 
-    /***
-     * Create an admin account (role = 1)
-     * Insert the information inputted by the user into database for creating account
-     * @param email is the email inputted by the user
-     * @param username is the username inputted by the user
-     * @param password is the password inputted by the user
-     */
-    public void createAdminAccount(String email, String username, String password) {
-        super.createAccount(email, username, password, 1);
-    }
 }

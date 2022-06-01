@@ -279,34 +279,64 @@
     -fx-control-inner-background: transparent;
 }
 
-/* Admin Page Menu Button */
+/* Post Object */
+.post-object-btn{
+    -fx-font-family: 'Lato', sans-serif;
+    -fx-font-weight: bold;
+    -fx-background-radius:30;
+    -fx-text-fill:white;
+    -fx-font-size:13;
+}
 
-#btn2:hover{
+.post-submit {
+    -fx-background-color: #51cc5d;
+    -fx-background-radius: 0 15 0 0;
+}
+
+.post-delete {
+    -fx-background-color: #f04c4c;
+    -fx-background-radius: 0 0 15 0;
+}
+
+.post-object-btn:hover {
+    -fx-font-family: 'Lato', sans-serif;
     -fx-font-weight:bold;
-    -fx-background-color:white;
-    -fx-text-fill: #457b9d;
-    -fx-border-color: #457b9d;
+    -fx-background-radius:30;
+    -fx-text-fill: white;
+    -fx-border-radius:30;
+    -fx-border-width:2;
 }
 
-
-.admin-page-menu-btn {
-    -fx-background-color: #f7f7ff
+.post-submit:hover {
+    -fx-background-color:#00E016;
+    -fx-border-color: #00E016;
+    -fx-background-radius: 0 15 0 0;
 }
 
-.admin-page-menu-btn ImageView {
-    -fx-effect: innershadow( gaussian , black , 7 , 1 , 1 , 1 );
+.post-delete:hover {
+    -fx-background-color:#ff0000;
+    -fx-border-color: #ff0000;
+    -fx-background-radius: 0 0 15 0;
 }
 
-.admin-page-menu-btn:hover {
-    -fx-background-radius:10;
-    -fx-border-radius:10;
-    -fx-background-color: #f7f7ff;
+.post-object-btn:pressed {
+    -fx-font-family: 'Lato', sans-serif;
+    -fx-font-weight:bold;
+    -fx-background-color:#30b1c6;
+    -fx-background-radius:30;
+    -fx-border-color: #30b1c6;
+    -fx-border-radius:30;
+    -fx-border-width:3;
 }
 
-.admin-page-menu-btn:hover ImageView {
-    -fx-effect: innershadow( gaussian , #132335 , 7 , 1 , 1 , 1 );
+.post-submit:pressed {
+    -fx-background-color:#1A8124;
+    -fx-border-color: #1A8124;
+    -fx-background-radius: 0 15 0 0;
 }
 
-.admin-page-menu-btn:pressed ImageView {
-    -fx-effect: innershadow( gaussian , #66919a , 7 , 1 , 1 , 1 );
+.post-delete:pressed {
+    -fx-background-color:#AD0606;
+    -fx-border-color: #AD0606;
+    -fx-background-radius: 0 0 15 0;
 }

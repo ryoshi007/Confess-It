@@ -17,7 +17,7 @@ public class HelloApplication extends Application {
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("styling.css")).toExternalForm());
         stage.setTitle("Confess It!");
 
-        Image icon = new Image("com/fxml-resources/logo_final.png");
+        Image icon = new Image("com/fxml-resources/Logo_Bigger.png");
         stage.getIcons().add(icon);
         stage.setScene(scene);
         stage.setResizable(false);
