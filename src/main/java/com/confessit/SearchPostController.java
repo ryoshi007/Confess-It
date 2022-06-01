@@ -7,7 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class SearchPost {
+public class SearchPostController {
 
     /***
      * Search post based on selected category and given input
