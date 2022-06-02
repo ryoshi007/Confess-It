@@ -1,10 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.confessit.AdminListController">
     <stylesheets>
@@ -20,6 +33,80 @@
             <children>
                 <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#aecee9" height="77.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1280.0" />
                 <fx:include fx:id="" layoutX="321.0" layoutY="-15.0" source="Admin-Bar.fxml" />
+            <AnchorPane layoutX="157.0" layoutY="165.0" prefHeight="544.0" prefWidth="952.0">
+               <children>
+                  <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="544.0" prefWidth="434.0" styleClass="admin-list-page-anchor-pane" stylesheets="@styling.css">
+                     <children>
+                        <TextField fx:id="adminUsername_SignUp" focusTraversable="false" layoutX="46.0" layoutY="106.0" onKeyReleased="#moveToAdminEmailField" prefHeight="40.0" prefWidth="330.0" promptText="Username" styleClass="input_field" stylesheets="@styling.css">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </TextField>
+                        <Text fill="#495867" layoutX="142.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="Sign Up" textAlignment="CENTER" wrappingWidth="138.14800262451172">
+                           <font>
+                              <Font name="System Bold" size="36.0" />
+                           </font>
+                        </Text>
+                        <PasswordField fx:id="adminPassword_SignUp" focusTraversable="false" layoutX="45.0" layoutY="232.0" onKeyReleased="#moveToAdminConfirmPasswordField" prefHeight="40.0" prefWidth="330.0" promptText="Password" styleClass="input_field" stylesheets="@styling.css">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </PasswordField>
+                        <Button fx:id="adminSignUpButton" layoutX="112.0" layoutY="410.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#adminSignUpButtonPressed" prefHeight="40.0" prefWidth="179.0" styleClass="btn" stylesheets="@styling.css" text="Sign Up" textFill="#495867">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <TextField fx:id="adminEmail_SignUp" focusTraversable="false" layoutX="46.0" layoutY="169.0" onKeyReleased="#moveToAdminPasswordField" prefHeight="40.0" prefWidth="330.0" promptText="Email Address" styleClass="input_field" stylesheets="@styling.css">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </TextField>
+                        <PasswordField fx:id="adminConfirmPassword_SignUp" layoutX="46.0" layoutY="299.0" onKeyReleased="#moveToAdminAgreePolicy_SignUp" prefHeight="40.0" prefWidth="330.0" promptText="Confirm Password" styleClass="input_field" stylesheets="@styling.css">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </PasswordField>
+                        <Label fx:id="adminMessageLabel_SignUp" layoutX="95.0" layoutY="340.0" prefHeight="20.0" prefWidth="243.0" text="Please make sure both passwords are match" textFill="#ff1100" visible="false" />
+                        <CheckBox fx:id="adminAgreePolicy_SignUp" layoutX="60.0" layoutY="462.0" mnemonicParsing="false" onKeyPressed="#moveToAdminSignUpButtonPressed" prefHeight="18.0" prefWidth="313.0" stylesheets="@styling.css" text="I agree to not reveal my identity as an administrator." />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="535.0" prefHeight="544.0" prefWidth="417.0" styleClass="admin-list-page-anchor-pane" stylesheets="@styling.css">
+                     <children>
+                        <BorderPane prefHeight="544.0" prefWidth="418.0">
+                           <top>
+                              <Text fill="#495867" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="Administrator List" textAlignment="CENTER" wrappingWidth="309.3480758666992" BorderPane.alignment="TOP_CENTER">
+                                 <font>
+                                    <Font name="System Bold" size="36.0" />
+                                 </font>
+                                 <BorderPane.margin>
+                                    <Insets left="5.0" top="30.0" />
+                                 </BorderPane.margin>
+                              </Text>
+                           </top>
+                           <center>
+                              <TableView fx:id="adminListTable" fixedCellSize="0.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="446.0" prefWidth="418.0" stylesheets="@styling.css" BorderPane.alignment="CENTER">
+                                <columns>
+                                  <TableColumn fx:id="usernameCol" editable="false" prefWidth="143.20001220703125" styleClass="admin-list-table-row" text="Username" />
+                                  <TableColumn fx:id="emailAddressCol" editable="false" prefWidth="233.60009765625" resizable="false" styleClass="admin-list-table-row" text="Email Address" />
+                                </columns>
+                                 <styleClass>
+                                    <String fx:value="text" />
+                                    <String fx:value="admin-list-table-view" />
+                                 </styleClass>
+                                 <padding>
+                                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                 </padding>
+                              </TableView>
+                           </center>
+                        </BorderPane>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
             </children></AnchorPane>
     </children>
 </AnchorPane>

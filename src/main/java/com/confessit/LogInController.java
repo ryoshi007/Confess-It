@@ -83,15 +83,23 @@ public class LogInController implements Initializable {
         if (!email_Login.getText().isBlank() && !password_Login.getText().isBlank()) {
             // If email address and password entered is not empty,
             // Check the email address and password entered by the user
-            if (validateLogin(email_Login.getText(),password_Login.getText())) {
-
-                // If email address and password entered by the user are correct,
-                // Direct user to the main page
-                root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Main-Page.fxml")));
-                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                scene = new Scene(root);
-                stage.setScene(scene);
-                stage.show();
+            int checkRole = validateLogin(email_Login.getText(),password_Login.getText());
+            if (checkRole != -1) {
+                // If email address and password entered by the user are correct
+                // Check whether this account is a user account or an admin account (user = 0, admin = 1)
+                if (checkRole == 0) {
+                    root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Main-Page.fxml")));
+                    stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    scene = new Scene(root);
+                    stage.setScene(scene);
+                    stage.show();
+                } else {
+                    root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("admin-page.fxml")));
+                    stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    scene = new Scene(root);
+                    stage.setScene(scene);
+                    stage.show();
+                }
 
             }
         } else {
@@ -126,7 +134,7 @@ public class LogInController implements Initializable {
      * @param password is the password inputted by the user
      * @return boolean value whether the login is successful or not
      */
-    private boolean validateLogin(String email, String password) {
+    private int validateLogin(String email, String password) {
 
         Connection connectDB = null;
         Statement statement = null;
@@ -158,7 +166,7 @@ public class LogInController implements Initializable {
                     UserHolder holder = UserHolder.getInstance();
                     holder.setUser(user);
 
-                    return true;
+                    return retrievedRole;
                 } else {
                     // Pop up a "Please enter correct email address or password." message
                     Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -166,7 +174,7 @@ public class LogInController implements Initializable {
                     alert.setHeaderText(null);
                     alert.setContentText("Please enter correct email address or password.");
                     alert.showAndWait();
-                    return false;
+                    return -1;
                 }
             }
         } catch (SQLException | NoSuchAlgorithmException | InvalidKeySpecException e) {
@@ -198,7 +206,7 @@ public class LogInController implements Initializable {
                 }
             }
         }
-        return false;
+        return -1;
     }
 
     @FXML
