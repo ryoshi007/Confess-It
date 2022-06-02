@@ -240,7 +240,7 @@ public class SignUpController extends CreateAccount {
      * @param emailInput the email inputted by the user
      * @return a boolean value to verify the email has the correct format
      */
-    public boolean verifyCorrectEmail(String emailInput) {
+    private boolean verifyCorrectEmail(String emailInput) {
         String emailRegex = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
         Pattern emailPattern = Pattern.compile(emailRegex, Pattern.CASE_INSENSITIVE);
         Matcher matcher = emailPattern.matcher(emailInput);
@@ -252,7 +252,7 @@ public class SignUpController extends CreateAccount {
      * @param passwordInput the password inputted by the user
      * @return a boolean value to verify the password is strong
      */
-    public boolean verifyStrongPassword(String passwordInput) {
+    private boolean verifyStrongPassword(String passwordInput) {
         boolean hasLower = false, hasUpper = false, hasDigit = false, specialChar = false, minLength = false;
         Set<Character> set = new HashSet<>(Arrays.asList('!', '@', '#', '$', '%', '^', '&', '*', '(', ')',
                 '-', '+'));

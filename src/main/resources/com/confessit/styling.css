@@ -363,3 +363,78 @@
     -fx-border-color: #04285c;
     -fx-border-width: 2;
 }
+
+/* Admin List Page */
+.admin-list-page-anchor-pane {
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+    -fx-background-color:  BDD5EA;
+}
+
+.check-box {
+    -fx-font-weight: bold;
+}
+.check-box .box {
+    -fx-font-family: 'Lato', sans-serif;
+    -fx-font-weight: bold;
+    -fx-background-color: #577399;
+    -fx-border-color: #f7f7ff;
+    -fx-border-radius: 3px;
+}
+
+.check-box:selected .mark {
+    -fx-background-color: white;
+}
+
+.check-box:selected .box {
+    -fx-background-color: #577399;
+}
+
+.admin-list-table-view {
+    -fx-background-color: transparent;
+}
+
+.admin-list-table-view .column-header-background .filler {
+    -fx-background-color: transparent;
+}
+
+.admin-list-table-view .corner {
+    -fx-background-color: transparent;
+}
+
+.admin-list-table-view .column-header-background{
+    -fx-font-family: 'Lato', sans-serif;
+    -fx-font-weight: bold;
+    -fx-font-size:18;
+    -fx-background-color: #f7f7ff;
+    -fx-background-radius: 7px 7px 0px 0px;
+    -fx-padding: 0 0 5px 0;
+}
+
+.admin-list-table-view .column-header {
+    -fx-background-color: transparent;
+}
+
+.admin-list-table-view .table-cell{
+    -fx-border-color: transparent;
+    -fx-padding: 2 0 2 10px;
+}
+
+.admin-list-table-row: odd{
+    -fx-font-family: 'Lato', sans-serif;
+    -fx-font-size:16;
+    -fx-font-weight: bold;
+    -fx-background-color: BDD5EA;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em;
+}
+
+.admin-list-table-row: even{
+    -fx-font-family: 'Lato', sans-serif;
+    -fx-font-size:16;
+    -fx-font-weight: bold;
+    -fx-background-color: BDD5EA;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em;
+}
+
