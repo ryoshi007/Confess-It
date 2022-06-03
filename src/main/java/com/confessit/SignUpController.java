@@ -14,6 +14,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import org.controlsfx.control.action.Action;
 
+import javax.mail.MessagingException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -127,32 +128,75 @@ public class SignUpController extends CreateAccount {
                                 alert.showAndWait();
                             } else {
                                 // If the email address is not in use
-                                // Create an account
-                                createUserAccount(email_SignUp.getText(), username_SignUp.getText(), password_SignUp.getText());
+                                // Send a verification code to user's Google account
+                                Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+                                alert1.setTitle("Confess It User Account Registration");
+                                alert1.setHeaderText("Creating a new account...");
+                                alert1.setContentText("An email containing a verification code will be sent to your email address.");
+                                alert1.getButtonTypes().setAll(ButtonType.OK, ButtonType.CANCEL);
 
-                                // Display account created successfully pop-up message
-                                Alert alert = new Alert(Alert.AlertType.NONE);
-                                ImageView imagePane = new ImageView("com/fxml-resources/GreenTick.gif");
-                                imagePane.setFitWidth(150);
-                                imagePane.setPreserveRatio(true);
-                                alert.setGraphic(imagePane);
-                                alert.setTitle("Success");
-                                alert.setHeaderText("Your account has been successfully created.");
-                                alert.setContentText("Thank you for registering with Confess It");
-                                alert.getDialogPane().getButtonTypes().add(ButtonType.OK);
-                                alert.showAndWait();
+                                Optional<ButtonType> button = alert1.showAndWait();
+                                if (button.isPresent() && button.get() == ButtonType.OK) {
+                                    // Send a confirmation code to user's Google account
+                                    Email email = new Email();
+                                    email.sendVerificationEmail(email_SignUp.getText(), "user");
 
-                                root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("login_page.fxml")));
-                                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                                scene = new Scene(root);
-                                stage.setScene(scene);
-                                stage.show();
+                                    // Create a dialog box and check the verification code entered by the user
+                                    TextInputDialog textInputDialog = new TextInputDialog();
+                                    textInputDialog.setTitle("Verification Code Has Been Successfully Sent To Your Gmail");
+                                    textInputDialog.setHeaderText("Please check your gmail and enter the verification code to continue account registration");
+                                    textInputDialog.setContentText("Verification code:");
+
+                                    Optional<String> code = textInputDialog.showAndWait();
+                                    if (code.isPresent() && code.get().equals(Integer.toString(email.getVerificationCode()))) {
+                                        // If the verification code entered matches,
+                                        // Create a user account
+                                        createUserAccount(email_SignUp.getText(), username_SignUp.getText(), password_SignUp.getText());
+
+                                        // Display account created successfully pop-up message
+                                        Alert alert = new Alert(Alert.AlertType.NONE);
+                                        ImageView imagePane = new ImageView("com/fxml-resources/GreenTick.gif");
+                                        imagePane.setFitWidth(150);
+                                        imagePane.setPreserveRatio(true);
+                                        alert.setGraphic(imagePane);
+                                        alert.setTitle("Success");
+                                        alert.setHeaderText("Your account has been successfully created.");
+                                        alert.setContentText("Thank you for registering with Confess It");
+                                        alert.getDialogPane().getButtonTypes().add(ButtonType.OK);
+                                        alert.showAndWait();
+
+                                        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("login_page.fxml")));
+                                        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                                        scene = new Scene(root);
+                                        stage.setScene(scene);
+                                        stage.show();
+
+                                    } else {
+                                        // If the verification code entered does not match,
+                                        // Display an error pop-up message
+                                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                                        alert.setTitle("Error");
+                                        alert.setHeaderText("The verification code entered does not match.");
+                                        alert.setContentText("Please try again.");
+                                        alert.showAndWait();
+                                    }
+                                } else if (button.isPresent() && button.get() == ButtonType.CANCEL){
+                                    Alert alert = new Alert(Alert.AlertType.NONE);
+                                    ImageView imagePane = new ImageView("com/fxml-resources/RedCross.gif");
+                                    imagePane.setFitWidth(150);
+                                    imagePane.setPreserveRatio(true);
+                                    alert.setGraphic(imagePane);
+                                    alert.setTitle("Error");
+                                    alert.setHeaderText("Account registration unsuccessful");
+                                    alert.setContentText("Your Confess It account is not created successfully");
+                                    alert.getDialogPane().getButtonTypes().add(ButtonType.OK);
+                                    alert.showAndWait();
+                                }
                             }
-
                         } catch (SQLException e) {
                             e.printStackTrace();
 
-                        } catch (IOException e) {
+                        } catch (IOException | MessagingException e) {
                             throw new RuntimeException(e);
                         } finally {
                             if (statement != null) {
