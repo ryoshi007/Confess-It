@@ -236,7 +236,6 @@ public class AdminPageController implements Initializable {
 
         ArrayList<Post> submittedPost = retrieveSubmittedPost();
         SentimentPipeline nlp = new SentimentPipeline();
-        nlp.init();
         double mark = nlp.estimateSentiment(submittedPost.get(0).getContent());
         System.out.println(mark);
         for (Post post : submittedPost) {
