@@ -11,6 +11,9 @@ module com.example.confessit {
     requires json.simple;
     requires me.xdrop.fuzzywuzzy;
     requires stanford.corenlp;
+    requires mail;
+    requires java.desktop;
+    requires java.activation;
 
     opens com.confessit to javafx.fxml;
     exports com.confessit;
