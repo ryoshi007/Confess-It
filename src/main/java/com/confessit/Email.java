@@ -32,8 +32,8 @@ public class Email {
      */
     public void sendVerificationEmail(String recipientEmail, String typeOfEmail) throws MessagingException {
 
-        String senderEmail = "confessit209@gmail.com";
-        final String password = ""; //Confessit123
+        String senderEmail = "confessit209@gmail.com"; //confessit209@gmail.com
+        final String password = "gbpyxramnnohgirf"; //Confessit123
 
         Properties properties = new Properties();
         properties.put("mail.smtp.auth", "true");
@@ -80,13 +80,19 @@ public class Email {
 
             // Prepare a template to write the verification code into it
             // And create a new image
-            final BufferedImage image = ImageIO.read(new File("src/main/resources/com/fxml-resources/"));
+            final BufferedImage image = ImageIO.read(new File("src/main/resources/com/Template/Email Verification Template.png"));
             Graphics graphics = image.getGraphics();
-            graphics.setFont(graphics.getFont().deriveFont(25f));
+            graphics.setFont(graphics.getFont().deriveFont(30f));
             graphics.setColor(new Color(0));
-            graphics.drawString(Integer.toString(getVerificationCode()), 260, 333);
+            String code = Integer.toString(getVerificationCode());
+            graphics.drawString(Character.toString(code.charAt(0)), 123, 368);
+            graphics.drawString(Character.toString(code.charAt(1)), 188, 368);
+            graphics.drawString(Character.toString(code.charAt(2)), 253, 368);
+            graphics.drawString(Character.toString(code.charAt(3)), 314, 368);
+            graphics.drawString(Character.toString(code.charAt(4)), 379, 368);
+            graphics.drawString(Character.toString(code.charAt(5)), 444, 368);
             graphics.dispose();
-            ImageIO.write(image, "png", new File("src/main/resources/com/fxml-resources/"));
+            ImageIO.write(image, "png", new File("src/main/resources/com/Template/Email Verification.png"));
 
             // Prepare a new message
             Message message = new MimeMessage(session);
@@ -107,7 +113,7 @@ public class Email {
             // Image part
             BodyPart imageMessageBody = new MimeBodyPart();
             imageMessageBody.setFileName("Confess It Verification Code");
-            DataSource dataSource = new FileDataSource("src/main/resources/com/fxml-resources/");
+            DataSource dataSource = new FileDataSource("src/main/resources/com/Template/Email Verification.png");
             imageMessageBody.setDataHandler(new DataHandler(dataSource));
             imageMessageBody.setHeader("Content-ID", "<image>");
             //Add image part into multipart
@@ -139,13 +145,19 @@ public class Email {
 
             // Prepare a template to write the verification code into it
             // And create a new image
-            final BufferedImage image = ImageIO.read(new File("src/main/resources/com/fxml-resources/"));
+            final BufferedImage image = ImageIO.read(new File("src/main/resources/com/Template/Email Verification Template.png"));
             Graphics graphics = image.getGraphics();
-            graphics.setFont(graphics.getFont().deriveFont(25f));
+            graphics.setFont(graphics.getFont().deriveFont(30f));
             graphics.setColor(new Color(0));
-            graphics.drawString(Integer.toString(getVerificationCode()), 260, 333);
+            String code = Integer.toString(getVerificationCode());
+            graphics.drawString(Character.toString(code.charAt(0)), 123, 368);
+            graphics.drawString(Character.toString(code.charAt(1)), 188, 368);
+            graphics.drawString(Character.toString(code.charAt(2)), 253, 368);
+            graphics.drawString(Character.toString(code.charAt(3)), 314, 368);
+            graphics.drawString(Character.toString(code.charAt(4)), 379, 368);
+            graphics.drawString(Character.toString(code.charAt(5)), 444, 368);
             graphics.dispose();
-            ImageIO.write(image, "png", new File("src/main/resources/com/fxml-resources/"));
+            ImageIO.write(image, "png", new File("src/main/resources/com/Template/Email Verification.png"));
 
             // Prepare a new message
             Message message = new MimeMessage(session);
@@ -166,7 +178,7 @@ public class Email {
             // Image part
             BodyPart imageMessageBody = new MimeBodyPart();
             imageMessageBody.setFileName("Confess It Verification Code");
-            DataSource dataSource = new FileDataSource("src/main/resources/com/fxml-resources/");
+            DataSource dataSource = new FileDataSource("src/main/resources/com/Template/Email Verification.png");
             imageMessageBody.setDataHandler(new DataHandler(dataSource));
             imageMessageBody.setHeader("Content-ID", "<image>");
             //Add image part into multipart
@@ -197,13 +209,19 @@ public class Email {
 
             // Prepare a template to write the verification code into it
             // And create a new image
-            final BufferedImage image = ImageIO.read(new File("src/main/resources/com/fxml-resources/"));
+            final BufferedImage image = ImageIO.read(new File("src/main/resources/com/Template/Forgot Password Template.png"));
             Graphics graphics = image.getGraphics();
-            graphics.setFont(graphics.getFont().deriveFont(25f));
+            graphics.setFont(graphics.getFont().deriveFont(30f));
             graphics.setColor(new Color(0));
-            graphics.drawString(Integer.toString(getVerificationCode()), 260, 333);
+            String code = Integer.toString(getVerificationCode());
+            graphics.drawString(Character.toString(code.charAt(0)), 123, 368);
+            graphics.drawString(Character.toString(code.charAt(1)), 188, 368);
+            graphics.drawString(Character.toString(code.charAt(2)), 253, 368);
+            graphics.drawString(Character.toString(code.charAt(3)), 314, 368);
+            graphics.drawString(Character.toString(code.charAt(4)), 379, 368);
+            graphics.drawString(Character.toString(code.charAt(5)), 444, 368);
             graphics.dispose();
-            ImageIO.write(image, "png", new File("src/main/resources/com/fxml-resources/"));
+            ImageIO.write(image, "png", new File("src/main/resources/com/Template/Forgot Password.png"));
 
             // Prepare a new message
             Message message = new MimeMessage(session);
@@ -224,7 +242,7 @@ public class Email {
             // Image part
             BodyPart imageMessageBody = new MimeBodyPart();
             imageMessageBody.setFileName("Confess It Verification Code");
-            DataSource dataSource = new FileDataSource("src/main/resources/com/fxml-resources/");
+            DataSource dataSource = new FileDataSource("src/main/resources/com/Template/Forgot Password.png");
             imageMessageBody.setDataHandler(new DataHandler(dataSource));
             imageMessageBody.setHeader("Content-ID", "<image>");
             //Add image part into multipart
