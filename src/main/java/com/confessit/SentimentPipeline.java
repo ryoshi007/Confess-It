@@ -11,14 +11,14 @@ import edu.stanford.nlp.util.CoreMap;
 import java.util.Properties;
 
 public class SentimentPipeline {
-    private static StanfordCoreNLP pipeline;
+    static StanfordCoreNLP pipeline;
 
     /***
      * Initialize the sentiment tool in the Stanford CoreNLP pipeline.
      * Also initialize the tokenizer, dependency parser and sentence splitter needed to use the sentiment tool.
      * This method is used to customize the pipeline that will be used for sentiment analysis.
      */
-    public void init() {
+    public SentimentPipeline() {
         Properties props = new Properties();
         props.setProperty("annotators", "tokenize, ssplit, parse, sentiment");
         pipeline = new StanfordCoreNLP(props);
