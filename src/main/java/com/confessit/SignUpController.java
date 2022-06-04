@@ -42,31 +42,31 @@ public class SignUpController extends CreateAccount {
     private Parent root;
 
     /**
-     * A password field fot getting the confirm password entered by the user
+     * A password field that used to get the confirm-password entered by the user
      */
     @FXML
     private PasswordField confirmPassword_SignUp;
 
     /**
-     * A text field fot getting the email address entered by the user
+     * A text field that used to get the email address entered by the user
      */
     @FXML
     private TextField email_SignUp;
 
     /**
-     * A password field fot getting the password entered by the user
+     * A password field that used to get the password entered by the user
      */
     @FXML
     private PasswordField password_SignUp;
 
     /**
-     * A text field fot getting the username entered by the user
+     * A text field that used to get the username entered by the user
      */
     @FXML
     private TextField username_SignUp;
 
     /**
-     * A label for displaying "Please make sure both passwords are match" message
+     * A label that used to display "Please make sure both passwords are match" message
      */
     @FXML
     private Label messageLabel_SignUp;
@@ -87,7 +87,7 @@ public class SignUpController extends CreateAccount {
     }
 
     /**
-     * Create an account if all the credentials entered by the user are valid
+     * Create a user account after clicking if all the credentials entered by the user are valid
      * Store the user account information into database
      * @param event Mouse click
      */
@@ -105,9 +105,8 @@ public class SignUpController extends CreateAccount {
                 if (((!password_SignUp.getText().isBlank())) && verifyStrongPassword(password_SignUp.getText())) {
                     // Check whether both password and confirm password are match
                     if (!confirmPassword_SignUp.getText().isBlank() && password_SignUp.getText().equals(confirmPassword_SignUp.getText())) {
-                        // If both passwords match
-                        // Check whether the email address is already in use
 
+                        // Check whether the email address is already in use
                         Connection connectDB = null;
                         Statement statement = null;
                         ResultSet queryResult = null;
@@ -123,7 +122,7 @@ public class SignUpController extends CreateAccount {
                                 // Display a pop-up message
                                 Alert alert = new Alert(Alert.AlertType.WARNING);
                                 alert.setTitle("Invalid Email Address");
-                                alert.setHeaderText("The email address is in use.");
+                                alert.setHeaderText("The email address is already in use.");
                                 alert.setContentText("Please enter another email address.");
                                 alert.showAndWait();
                             } else {
@@ -132,7 +131,7 @@ public class SignUpController extends CreateAccount {
                                 Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
                                 alert1.setTitle("Confess It User Account Registration");
                                 alert1.setHeaderText("Creating a new account...");
-                                alert1.setContentText("An email containing a verification code will be sent to your email address.");
+                                alert1.setContentText("An email containing a verification code will be sent to your gmail.");
                                 alert1.getButtonTypes().setAll(ButtonType.OK, ButtonType.CANCEL);
 
                                 Optional<ButtonType> button = alert1.showAndWait();
@@ -149,8 +148,8 @@ public class SignUpController extends CreateAccount {
 
                                     Optional<String> code = textInputDialog.showAndWait();
                                     if (code.isPresent() && code.get().equals(Integer.toString(email.getVerificationCode()))) {
-                                        // If the verification code entered matches,
-                                        // Create a user account
+                                        // If the verification code sent matches with the verification entered by the user,
+                                        // Create an account
                                         createUserAccount(email_SignUp.getText(), username_SignUp.getText(), password_SignUp.getText());
 
                                         // Display account created successfully pop-up message
@@ -188,7 +187,7 @@ public class SignUpController extends CreateAccount {
                                     alert.setGraphic(imagePane);
                                     alert.setTitle("Error");
                                     alert.setHeaderText("Account registration unsuccessful");
-                                    alert.setContentText("Your Confess It account is not created successfully");
+                                    alert.setContentText("Your account is not created successfully");
                                     alert.getDialogPane().getButtonTypes().add(ButtonType.OK);
                                     alert.showAndWait();
                                 }
@@ -247,12 +246,12 @@ public class SignUpController extends CreateAccount {
         }
     }
 
-    /***
+    /**
      * Create a user account (role = 0)
      * Insert the information entered by the user into database
-     * @param email is the email address entered by the user
-     * @param username is the username entered by the user
-     * @param password is the password entered by the user
+     * @param email email address entered by the user
+     * @param username username entered by the user
+     * @param password password entered by the user
      */
     public void createUserAccount(String email, String username, String password) {
         super.createAccount(email, username, password, 0);
