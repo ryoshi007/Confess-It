@@ -231,19 +231,18 @@ public class AdminPageController implements Initializable {
      */
     @FXML
     void vacationMode(MouseEvent event) {
+        System.out.println("HERE");
         scene = vacationButton.getScene();
         scene.setCursor(Cursor.WAIT);
 
         ArrayList<Post> submittedPost = retrieveSubmittedPost();
-        SentimentPipeline nlp = new SentimentPipeline();
-        double mark = nlp.estimateSentiment(submittedPost.get(0).getContent());
-        System.out.println(mark);
-        for (Post post : submittedPost) {
-            System.out.println("Here");
-            if (nlp.estimateSentiment(post.getContent()) >= 1.5) {
-                approve(post.getIndex());
-            }
-        }
+//        System.out.println(mark);
+//        for (Post post : submittedPost) {
+//            System.out.println("Here");
+//            if (nlp.estimateSentiment(post.getContent()) >= 1.5) {
+//                approve(post.getIndex());
+//            }
+//        }
 
         scene.setCursor(Cursor.DEFAULT);
 
@@ -251,8 +250,6 @@ public class AdminPageController implements Initializable {
 //            @Override
 //            protected Void call() throws Exception {
 //                ArrayList<Post> submittedPost = retrieveSubmittedPost();
-//                SentimentPipeline nlp = new SentimentPipeline();
-//                nlp.init();
 //                double mark = nlp.estimateSentiment(submittedPost.get(0).getContent());
 //                System.out.println(mark);
 //                for (Post post : submittedPost) {

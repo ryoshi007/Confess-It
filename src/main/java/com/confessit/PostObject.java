@@ -124,7 +124,7 @@ public class PostObject {
         try {
             DatabaseConnection connection = new DatabaseConnection();
             connectDB = connection.getConnection();
-            String sql = "UPDATE post SET approval = ?, likeNum = ?, dislikeNum = ?, approvalTime = ?, displayStatus = ? WHERE queryIndex = ?";
+            String sql = "UPDATE post SET approval = ?, likeNum = ?, dislikeNum = ?, approvalTime = ?, displayStatus = ?, tagid = ? WHERE queryIndex = ?";
             PreparedStatement statement = connection.databaseLink.prepareStatement(sql);
 
             statement.setInt(1, 1);
@@ -136,7 +136,8 @@ public class PostObject {
             statement.setTimestamp(4, timestamp);
 
             statement.setInt(5, 0);
-            statement.setInt(6, index);
+            statement.setInt(6, retrieveNewTagID());
+            statement.setInt(7, index);
 
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -208,6 +209,61 @@ public class PostObject {
         Stage window = (Stage)deleteButton.getScene().getWindow();
         scene.setCursor(Cursor.DEFAULT);
         window.setScene(new Scene(loader));
+    }
+
+    /***
+     * Return the next tag id (latest tag id + 1) for the post
+     * @return the next tag id
+     * @throws SQLException
+     */
+    private int retrieveNewTagID() throws SQLException {
+
+        Connection connectDB = null;
+        Statement statement = null;
+        ResultSet queryResult = null;
+
+        try {
+            DatabaseConnection connection = new DatabaseConnection();
+            connectDB = connection.getConnection();
+            statement = connectDB.createStatement();
+            queryResult = statement.executeQuery("SELECT * FROM post ORDER BY tagid DESC LIMIT 1");
+
+            if (queryResult.next()) {
+                int retrievedTagID = queryResult.getInt("tagid");
+                return retrievedTagID + 1;
+            } else {
+                return 1;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        } finally {
+            if (queryResult != null) {
+                try {
+                    queryResult.close();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (statement != null) {
+                try {
+                    statement.close();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (connectDB != null) {
+                try {
+                    connectDB.close();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return 1;
     }
 }
 
