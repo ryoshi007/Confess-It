@@ -1,26 +1,18 @@
 package com.confessit;
 
-import javafx.application.Platform;
-import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import org.controlsfx.dialog.Wizard;
 
 import java.io.IOException;
 import java.net.URL;
@@ -147,83 +139,6 @@ public class AdminPageController implements Initializable {
             }
         }
         return postList;
-    }
-
-    /***
-     * To approve the submitted post by changing the approval status to 1 (True) and assign its tag id
-     * @param index is the index of the submitted post
-     */
-    public void approve(int index) {
-        Connection connectDB = null;
-
-        try {
-            DatabaseConnection connection = new DatabaseConnection();
-            connectDB = connection.getConnection();
-            String sql = "UPDATE post SET approval = ?, likeNum = ?, dislikeNum = ?, approvalTime = ?, displayStatus = ? WHERE queryIndex = ?";
-            PreparedStatement statement = connection.databaseLink.prepareStatement(sql);
-
-            statement.setInt(1, 1);
-            statement.setInt(2, 0);
-            statement.setInt(3, 0);
-
-            Calendar cal = Calendar.getInstance();
-            java.sql.Timestamp timestamp = new java.sql.Timestamp(cal.getTimeInMillis());
-            statement.setTimestamp(4, timestamp);
-
-            statement.setInt(5, 0);
-            statement.setInt(6, index);
-
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-
-        } finally {
-            if (connectDB != null) {
-                try {
-                    connectDB.close();
-
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
-
-    /***
-     * To delete the submitted post
-     * @param index is the index of the submitted post
-     */
-    public void delete(int index) {
-        Connection connectDB = null;
-        Statement statement = null;
-
-        try {
-            DatabaseConnection connection = new DatabaseConnection();
-            connectDB = connection.getConnection();
-            statement = connectDB.createStatement();
-            String sql = "DELETE FROM post WHERE queryIndex='" + index + "'";
-            statement.executeUpdate(sql);
-        } catch (SQLException e) {
-            e.printStackTrace();
-
-        } finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (connectDB != null) {
-                try {
-                    connectDB.close();
-
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
     }
 
     /***

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="98.0" prefWidth="1073.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.confessit.SearchResultObject">
+    <children>
+        <FlowPane fx:id="adjustPane" prefHeight="83.0" prefWidth="1073.0" styleClass="post-flowpane" stylesheets="@styling.css">
+            <children>
+                <GridPane fx:id="postGrid" alignment="CENTER_LEFT" centerShape="false" prefWidth="1073.0" stylesheets="@styling.css">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="958.0" minWidth="10.0" prefWidth="921.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="196.0" minWidth="0.0" prefWidth="132.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints vgrow="ALWAYS" />
+                        <RowConstraints vgrow="ALWAYS" />
+                    </rowConstraints>
+                    <children>
+                        <Button fx:id="viewButton" mnemonicParsing="false" prefHeight="44.0" prefWidth="135.0" styleClass="view-button" stylesheets="@styling.css" text="View" GridPane.columnIndex="1">
+                            <cursor>
+                                <Cursor fx:constant="HAND" />
+                            </cursor>
+                        </Button>
+                        <Label fx:id="tagIDLabel" styleClass="post-pane-text" stylesheets="@styling.css" text="Label" />
+                  <Label fx:id="postDateLabel" styleClass="post-pane-text" stylesheets="@styling.css" text="Label" GridPane.rowIndex="1" />
+                    </children>
+                    <opaqueInsets>
+                        <Insets />
+                    </opaqueInsets>
+                    <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                    </padding>
+                </GridPane>
+            </children>
+        </FlowPane>
+    </children>
+</AnchorPane>

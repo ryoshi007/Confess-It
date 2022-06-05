@@ -364,6 +364,39 @@
     -fx-border-width: 2;
 }
 
+/* Search Result Object */
+.view-button {
+    -fx-font-family: 'Lato', sans-serif;
+    -fx-font-weight: bold;
+    -fx-text-fill:white;
+    -fx-font-size:20;
+    -fx-background-color: #666699;
+    -fx-background-radius: 0 15 15 0;
+}
+
+.view-button:hover {
+    -fx-font-family: 'Lato', sans-serif;
+    -fx-font-weight:bold;
+    -fx-text-fill: white;
+    -fx-border-radius:30;
+    -fx-border-width:2;
+    -fx-background-color:#5D2788;
+    -fx-border-color: #5D2788;
+    -fx-background-radius: 0 15 15 0;
+}
+
+.view-button:pressed {
+    -fx-font-family: 'Lato', sans-serif;
+    -fx-font-weight:bold;
+    -fx-background-color:#30b1c6;
+    -fx-border-radius:30;
+    -fx-border-width:3;
+    -fx-background-color:#380263;
+    -fx-border-color: #380263;
+    -fx-background-radius: 0 15 15 0;
+}
+
+
 /* Admin List Page */
 .admin-list-page-anchor-pane {
     -fx-border-radius: 20px;

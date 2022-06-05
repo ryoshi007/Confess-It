@@ -1,8 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
 
-
-<AnchorPane prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.confessit.SearchPostController">
-
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: aecee9;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.confessit.SearchPostController">
+    <stylesheets>
+        <URL value="@styling.css" />
+    </stylesheets>
+    <children>
+      <AnchorPane blendMode="MULTIPLY" depthTest="DISABLE" layoutY="276.0" style="-fx-background-color: transparent;">
+         <children>
+            <ScrollPane fx:id="resultPane" prefHeight="525.0" prefWidth="1280.0">
+               <content>
+                  <VBox fx:id="contentBox" prefWidth="1265.0" spacing="45" />
+               </content>
+            </ScrollPane>
+         </children>
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+      </AnchorPane>
+        <fx:include fx:id="" layoutX="-184.0" layoutY="-13.0" source="Menu-Bar.fxml" />
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#495867" height="31.0" layoutX="-3.0" layoutY="84.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1284.0" />
+        <Line endX="-42.5" layoutX="726.0" layoutY="70.0" startX="-100.0" stroke="#22758a" strokeLineCap="ROUND" strokeWidth="5.0" />
+      <Rectangle arcHeight="60.0" arcWidth="60.0" fill="WHITE" height="56.0" layoutX="277.0" layoutY="146.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="821.0" />
+      <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="298.0" layoutY="155.0">
+         <image>
+            <Image url="@../fxml-resources/search-bar-icon.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="searchField" layoutX="349.0" layoutY="145.0" onAction="#searchPost" prefHeight="58.0" prefWidth="368.0" promptText="Keywords" styleClass="search-field" stylesheets="@styling.css" />
+      <Line endX="100.0" endY="-10.25" layoutX="634.0" layoutY="206.0" startX="100.0" startY="-54.75" stroke="#aecee9" />
+        <ImageView fitHeight="42.0" fitWidth="42.0" layoutX="748.0" layoutY="153.0">
+            <image>
+                <Image url="@../fxml-resources/category-icon.png" />
+            </image>
+        </ImageView>
+      <Button fx:id="searchButton" layoutX="949.0" layoutY="145.0" mnemonicParsing="false" onAction="#searchPost" prefHeight="57.0" prefWidth="150.0" styleClass="search-btn" stylesheets="@styling.css" text="Search">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <tooltip>
+            <Tooltip text="Search confession posts" />
+         </tooltip>
+      </Button>
+      <ChoiceBox fx:id="categoryBox" layoutX="806.0" layoutY="152.0" prefHeight="45.0" prefWidth="131.0" styleClass="search-choice-box" stylesheets="@styling.css">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></ChoiceBox>
+      <ImageView fitHeight="276.0" fitWidth="276.0" layoutX="-42.0" layoutY="-38.0">
+         <image>
+            <Image url="@../fxml-resources/logo_final.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="resultLabel" layoutX="352.0" layoutY="221.0" prefHeight="45.0" prefWidth="660.0" style="-fx-alignment: center;" styleClass="search-result-text" stylesheets="@styling.css" text="It's Empty Here. Please Start Searching :/" textAlignment="CENTER" />
+    </children>
 </AnchorPane>
