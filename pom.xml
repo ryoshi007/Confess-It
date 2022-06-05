@@ -104,6 +104,11 @@
             <version>4.4.0</version>
             <classifier>models</classifier>
         </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-swing</artifactId>
+            <version>19-ea+7</version>
+        </dependency>
     </dependencies>
 
     <build>

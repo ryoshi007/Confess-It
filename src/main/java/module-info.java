@@ -14,6 +14,7 @@ module com.example.confessit {
     requires java.desktop;
     requires java.activation;
     requires stanford.corenlp;
+    requires javafx.swing;
 
     opens com.confessit to javafx.fxml;
     exports com.confessit;

@@ -41,9 +41,6 @@
          <cursor>
             <Cursor fx:constant="TEXT" />
          </cursor>
-         <tooltip>
-            <Tooltip text="Back to Main Page" />
-         </tooltip>
       </TextArea>
       <HBox layoutX="340.0" layoutY="110.0" spacing="4.0" styleClass="title" stylesheets="@styling.css">
          <children>

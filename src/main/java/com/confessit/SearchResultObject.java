@@ -61,19 +61,16 @@ public class SearchResultObject {
         contentField.setStyle("-fx-focus-color: transparent; -fx-text-box-border: transparent;");
         postGrid.add(contentField, 0, 3);
 
-        ImageView imagePane = new ImageView("com/fxml-resources/GreenTick.gif");
-        imagePane.setFitWidth(150);
-        imagePane.setPreserveRatio(true);
-        postGrid.add(imagePane, 0, 4);
+        if (pendingPost.getPicturePath() != null) {
+            ImageView imagePane = new ImageView(String.valueOf(PostObject.class.getResource(pendingPost.getPicturePath())));
+            imagePane.setFitWidth(150);
+            imagePane.setPreserveRatio(true);
+            postGrid.add(imagePane, 0, 4);
+        }
 
         viewButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
             view(pendingPost.getTagID());
         });
-
-//        if (pictureFilePath != null) {
-//            ImageView image = new ImageView(pictureFilePath);
-//            postGrid.add(image, 0, 3);
-//        }
     }
 
     public FlowPane getAdjustPane() {

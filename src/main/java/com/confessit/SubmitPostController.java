@@ -16,6 +16,9 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import me.xdrop.fuzzywuzzy.FuzzySearch;
 
+import java.awt.image.BufferedImage;
+import javafx.embed.swing.SwingFXUtils;
+import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -116,10 +119,15 @@ public class SubmitPostController implements Initializable {
     /***
      * Submit a post with picture for approval
      * @param content is the content from the submitted post
-     * @param filePath is the file path that directs to the pictures
+     * @param imageName is the name of the picture
      */
-    public void submitPost(String content, String filePath) {
+    public void submitPost(String content, String imageName) throws SQLException, IOException {
         Connection connectDB = null;
+
+        String postQueryIndex = String.valueOf(retrieveNewQueryIndex());
+        File fileoutput = new File("src/main/resources/com/postImages/" + postQueryIndex + ".png");
+        BufferedImage BI = SwingFXUtils.fromFXImage(imagePane.getImage(), null);
+        ImageIO.write(BI, "png", fileoutput);
 
         try {
             DatabaseConnection connection = new DatabaseConnection();
@@ -131,7 +139,9 @@ public class SubmitPostController implements Initializable {
             statement.setTimestamp(1, timestamp);
 
             statement.setString(2, content);
-            statement.setString(3, filePath);
+
+            String picFilePath = "/com/postImages/" + postQueryIndex + ".png";
+            statement.setString(3, picFilePath);
             statement.setBoolean(4, false);
             statement.setString(5,"[]");
             statement.setString(6,"[]");
@@ -325,7 +335,7 @@ public class SubmitPostController implements Initializable {
     }
 
     @FXML
-    void submitPost() {
+    void submitPost() throws SQLException, IOException {
         empty_warning.setVisible(false);
         false_postid_warning.setVisible(false);
         String postID = "", content = "";
@@ -410,6 +420,56 @@ public class SubmitPostController implements Initializable {
         if(event.getCode().equals(KeyCode.ENTER)) {
             contentField.requestFocus();
         }
+    }
+
+    private int retrieveNewQueryIndex() throws SQLException {
+
+        Connection connectDB = null;
+        Statement statement = null;
+        ResultSet queryResult = null;
+
+        try {
+            DatabaseConnection connection = new DatabaseConnection();
+            connectDB = connection.getConnection();
+            statement = connectDB.createStatement();
+            queryResult = statement.executeQuery("SELECT * FROM post ORDER BY queryIndex DESC LIMIT 1");
+
+            if (queryResult.next()) {
+                int retrievedQueryIndex = queryResult.getInt("queryIndex");
+                return retrievedQueryIndex + 1;
+            } else {
+                return 1;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        } finally {
+            if (queryResult != null) {
+                try {
+                    queryResult.close();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (statement != null) {
+                try {
+                    statement.close();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (connectDB != null) {
+                try {
+                    connectDB.close();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return 1;
     }
 
 }

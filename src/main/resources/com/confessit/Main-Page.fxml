@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.net.URL?>
-<?import javafx.scene.Group?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -14,7 +13,6 @@
     </stylesheets>
     <children>
         <fx:include fx:id="" layoutX="-184.0" layoutY="-13.0" source="Menu-Bar.fxml" />
-        <Group layoutX="287.0" layoutY="-20.0" />
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#495867" height="31.0" layoutX="-3.0" layoutY="84.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1284.0" />
         <ImageView fitHeight="276.0" fitWidth="276.0" layoutX="-42.0" layoutY="-38.0">
             <image>

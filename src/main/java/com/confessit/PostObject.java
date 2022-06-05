@@ -70,11 +70,6 @@ public class PostObject {
         contentField.setStyle("-fx-focus-color: transparent; -fx-text-box-border: transparent;");
         postGrid.add(contentField, 0, 2);
 
-        ImageView imagePane = new ImageView("com/fxml-resources/GreenTick.gif");
-        imagePane.setFitWidth(150);
-        imagePane.setPreserveRatio(true);
-        postGrid.add(imagePane, 0, 3);
-
         approveButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
             approve(pendingPost.getIndex());
         });
@@ -82,10 +77,14 @@ public class PostObject {
             delete(pendingPost.getIndex());
         });
 
-//        if (pictureFilePath != null) {
-//            ImageView image = new ImageView(pictureFilePath);
-//            postGrid.add(image, 0, 3);
-//        }
+        if (pendingPost.getPicturePath() != null) {
+            System.out.println(pendingPost.getPicturePath());
+            ImageView imagePane = new ImageView(String.valueOf(PostObject.class.getResource(pendingPost.getPicturePath())));
+            imagePane.setFitWidth(150);
+            imagePane.setPreserveRatio(true);
+            postGrid.add(imagePane, 0, 3);
+            System.out.println("finish");
+        }
     }
 
     public FlowPane getAdjustPane() {

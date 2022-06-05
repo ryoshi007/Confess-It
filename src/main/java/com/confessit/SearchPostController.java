@@ -10,7 +10,6 @@ import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -129,7 +128,7 @@ public class SearchPostController implements Initializable {
                     newPost = new Post(index, tagID, datetime, content, like, dislike, comment, approval,
                             approvalTime, displayStatus, reply);
                 } else {
-                    newPost = new Post(index, tagID, datetime, content, like, dislike, comment, approval,
+                    newPost = new Post(index, tagID, datetime, content, filePath, like, dislike, comment, approval,
                             approvalTime, displayStatus, reply);
                 }
                 postList.add(newPost);
@@ -209,16 +208,6 @@ public class SearchPostController implements Initializable {
             resultLabel.setText("Wrong format! Cannot find anything :(");
             searchField.clear();
 
-//            if (categoryBox.getValue() == "Keyword") {
-//                searchField.setPromptText("Keywords");
-//            } else if (categoryBox.getValue() == "Date Time") {
-//                searchField.setPromptText("Example:   1-1-2022 13");
-//            } else if (categoryBox.getValue() == "Date") {
-//                searchField.setPromptText("Example:   1-1-2022");
-//            } else if (categoryBox.getValue() == "Post ID") {
-//                searchField.setPromptText("Example:   UM2022");
-//            }
-
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error in Searching");
             alert.setHeaderText("Invalid Search Term");
@@ -269,7 +258,5 @@ public class SearchPostController implements Initializable {
         }
         return true;
     }
-
-
 
 }
