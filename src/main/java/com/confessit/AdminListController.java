@@ -176,7 +176,6 @@ public class AdminListController extends CreateAccount implements Initializable 
     /**
      * Create an admin account after clicking if all the credentials entered by the user are valid
      * Store the admin account information into database
-     *
      * @param event Mouse click
      */
     @FXML
