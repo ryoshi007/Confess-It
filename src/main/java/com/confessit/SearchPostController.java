@@ -102,9 +102,9 @@ public class SearchPostController implements Initializable {
             String sql = "";
             if (columnName.equalsIgnoreCase("tagID")) {
                 int convertedValue = Integer.valueOf(value);
-                sql = "SELECT * FROM post WHERE tagID = '"+ convertedValue + "'";
+                sql = "SELECT * FROM post WHERE tagID = '"+ convertedValue + "' and displayStatus = 1" ;
             } else {
-                sql = "SELECT * FROM post WHERE " +  columnName + " LIKE '%"+ value + "%'";
+                sql = "SELECT * FROM post WHERE " +  columnName + " LIKE '%"+ value + "%' and displayStatus = 1";
             }
 
             queryResult = statement.executeQuery(sql);

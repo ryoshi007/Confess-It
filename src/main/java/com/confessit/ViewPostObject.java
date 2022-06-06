@@ -41,6 +41,15 @@ public class ViewPostObject {
     @FXML
     private Label viewPostTagID;
 
+    @FXML
+    private Label dislikeLabel;
+
+    @FXML
+    private Label likeLabel;
+
+    @FXML
+    private Label messageLabel;
+
     /**
      * A Post object that used to store current post
      */
@@ -53,9 +62,14 @@ public class ViewPostObject {
      */
     public void setViewPost(Post post) {
         this.currentPost = post;
-        viewPostTagID.setText("# " + currentPost.getTagID());
-        viewPostContent.setText(currentPost.getContent());
+        viewPostTagID.setText(" #UM " + currentPost.getTagID());
+        viewPostContent.setText("\n" + currentPost.getContent());
         viewPostContent.setWrapText(true);
+        likeLabel.setText(String.valueOf(currentPost.getLike()));
+        dislikeLabel.setText(String.valueOf(currentPost.getDislike()));
+
+        //Get number of comment
+        messageLabel.setText("0");
     }
 
     /**

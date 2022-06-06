@@ -68,6 +68,8 @@ public class AdminMenuBarController {
 
     @FXML
     void goToLogOut(MouseEvent event) throws IOException {
+        UserHolder.getInstance().clearInfo();
+
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("login_page.fxml")));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);

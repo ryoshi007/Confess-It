@@ -542,16 +542,16 @@
 /** View Post Page **/
 
 .scroll-pane > .viewport {
-   -fx-background-color: transparent;
+    -fx-background-color: transparent;
 }
 
 .scroll-pane{
-   -fx-background-color:transparent;
+    -fx-background-color:transparent;
 }
 
 .view-post-text {
-   -fx-font-size:16px;
-   -fx-font-family: 'Lato', sans-serif;
+    -fx-font-size:16px;
+    -fx-font-family: 'Lato', sans-serif;
 }
 
 .view-post-object {
@@ -559,9 +559,35 @@
     -fx-background-radius: 10 10 10 0;
 }
 
-.view-btn {
-    -fx-background-color:  #6faeec;
-    -fx-background-radius:  0 20 20 0;
+.display-view-btn {
+    -fx-font-family: 'Lato', sans-serif;
+    -fx-font-weight: bold;
+    -fx-text-fill:white;
+    -fx-font-size:20;
+    -fx-background-color: #666699;
+    -fx-background-radius: 0 20 20 0;
+}
+
+.display-view-btn:hover {
+    -fx-font-family: 'Lato', sans-serif;
+    -fx-font-weight:bold;
+    -fx-text-fill: white;
+    -fx-border-radius:30;
+    -fx-border-width:2;
+    -fx-background-color:#5D2788;
+    -fx-border-color: #5D2788;
+    -fx-background-radius: 0 20 20 0;
+}
+
+.display-view-btn:pressed {
+    -fx-font-family: 'Lato', sans-serif;
+    -fx-font-weight:bold;
+    -fx-background-color:#30b1c6;
+    -fx-border-radius:30;
+    -fx-border-width:3;
+    -fx-background-color:#380263;
+    -fx-border-color: #380263;
+    -fx-background-radius: 0 20 20 0;
 }
 
 .view-comment {

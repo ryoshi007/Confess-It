@@ -1,22 +1,82 @@
 package com.confessit;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.control.Pagination;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
+import javafx.util.Callback;
 
+import java.io.IOException;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.*;
 
-public class MainPageController {
+public class MainPageController implements Initializable {
+    private Stack<Post> displayStack = new Stack<>();
+    private List<ArrayList<Post>> storedPosts = new ArrayList<ArrayList<Post>>();
+
+    @FXML
+    private Pagination pagePane;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        int currentPageNumber = UserHolder.getInstance().getCurrentPageNumber();
+        if (currentPageNumber != -1) {
+            pagePane.setCurrentPageIndex(currentPageNumber);
+        }
+
+        int numberOfPosts = getNumberOfDisplayedPost();
+        if (numberOfPosts <= 6) {
+            pagePane.setPageCount(1);
+        } else {
+            int totalPageCount = 0, tempCount = numberOfPosts;
+            while (tempCount >= 6) {
+                totalPageCount++;
+                tempCount -= 6;
+            }
+            if (tempCount != 0) {
+                totalPageCount++;
+            }
+            pagePane.setPageCount(totalPageCount);
+        }
+
+        pagePane.setMaxPageIndicatorCount(10);
+        retrieveRecentPost();
+
+        while (!displayStack.isEmpty()) {
+            ArrayList<Post> preparePost = new ArrayList<>();
+            for (int i = 0; i < 6; i++) {
+                if (displayStack.isEmpty()) {
+                    break;
+                }
+                preparePost.add(displayStack.pop());
+            }
+            storedPosts.add(preparePost);
+        }
+        pagePane.setPageFactory(new Callback<Integer, Node>() {
+            @Override
+            public Node call(Integer integer) {
+                UserHolder.getInstance().setCurrentPageNumber(pagePane.getCurrentPageIndex());
+                return createPage(storedPosts.get(pagePane.getCurrentPageIndex()));
+            }
+
+        });
+    }
 
     /***
      * Retrieve recent posts that will be displayed on the main page
      * @return an array list of posts
      */
-    public ArrayList<Post> retrieveRecentPost(int results) {
-        ArrayList<Post> postList = new ArrayList<>();
+    private void retrieveRecentPost() {
         Connection connectDB = null;
         Statement statement = null;
         ResultSet queryResult = null;
@@ -25,7 +85,7 @@ public class MainPageController {
             DatabaseConnection connection = new DatabaseConnection();
             connectDB = connection.getConnection();
             statement = connectDB.createStatement();
-            String sql = "SELECT * FROM post WHERE displayStatus = 1 ORDER BY tagid DESC LIMIT " + results;
+            String sql = "SELECT * FROM post WHERE displayStatus = 1 ORDER BY tagid";
             queryResult = statement.executeQuery(sql);
 
             while(queryResult.next()) {
@@ -50,7 +110,7 @@ public class MainPageController {
                     newPost = new Post(index, tagID, datetime, content, filePath, like, dislike, comment, approval,
                             approvalTime, displayStatus, reply);
                 }
-                postList.add(newPost);
+                displayStack.add(newPost);
             }
 
         } catch (SQLException e) {
@@ -82,6 +142,98 @@ public class MainPageController {
                 }
             }
         }
-        return postList;
     }
+
+    private int getNumberOfDisplayedPost() {
+        int numberOfDisplayedPost = 0;
+        Connection connectDB = null;
+        Statement statement = null;
+        ResultSet queryResult = null;
+
+        try {
+            DatabaseConnection connection = new DatabaseConnection();
+            connectDB = connection.getConnection();
+            statement = connectDB.createStatement();
+            String sql = "SELECT displayStatus, COUNT(CASE WHEN displayStatus = TRUE then 1 end) as displayed_post from post";
+            queryResult = statement.executeQuery(sql);
+
+            if (queryResult.next()) {
+                numberOfDisplayedPost = queryResult.getInt("displayed_post");
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }finally {
+            if (queryResult != null) {
+                try {
+                    queryResult.close();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (statement != null) {
+                try {
+                    statement.close();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (connectDB != null) {
+                try {
+                    connectDB.close();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return numberOfDisplayedPost;
+    }
+
+    private StackPane createPage(ArrayList<Post> post) {
+        StackPane page = new StackPane();
+        GridPane grid = new GridPane();
+
+        grid.setHgap(20);
+        grid.setVgap(50);
+        grid.setPadding(new Insets(0, 10, 0, 10));
+
+        int i = 0;
+        for (int row = 0; row < 2; row++) {
+            for (int col = 0; col < 3; col++) {
+
+                if (i >= post.size()) {
+                    break;
+                }
+
+                StackPane container = new StackPane();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("View-Post-Object.fxml"));
+
+                try {
+                    Parent currentViewPane = loader.load();
+                    ViewPostObject viewPostObjectController = loader.getController();
+                    viewPostObjectController.setViewPost(post.get(i));
+                    container.getChildren().add(currentViewPane);
+
+                    GridPane.setRowIndex(container, row);
+                    GridPane.setColumnIndex(container, col);
+                    GridPane.setHgrow(container, Priority.ALWAYS);
+                    GridPane.setVgrow(container, Priority.ALWAYS);
+
+                    grid.getChildren().add(container);
+                    i++;
+
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
+            }
+        }
+
+        page.getChildren().add(grid);
+        return page;
+    }
+
 }

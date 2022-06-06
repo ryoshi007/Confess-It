@@ -25,7 +25,7 @@ public class HelloApplication extends Application {
 //        }
 
 
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("Search-Page.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("login_page.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1280, 800);
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("styling.css")).toExternalForm());
         stage.setTitle("Confess It!");
