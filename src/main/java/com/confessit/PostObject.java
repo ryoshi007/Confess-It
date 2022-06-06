@@ -25,6 +25,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.*;
@@ -78,12 +79,11 @@ public class PostObject {
         });
 
         if (pendingPost.getPicturePath() != null) {
-            System.out.println(pendingPost.getPicturePath());
-            ImageView imagePane = new ImageView(String.valueOf(PostObject.class.getResource(pendingPost.getPicturePath())));
+            Image image = new Image(new File("src/main/resources/com/postImages/" + pendingPost.getPicturePath() + ".png").toURI().toString());
+            ImageView imagePane = new ImageView(image);
             imagePane.setFitWidth(150);
             imagePane.setPreserveRatio(true);
             postGrid.add(imagePane, 0, 3);
-            System.out.println("finish");
         }
     }
 

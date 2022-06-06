@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.effect.BlendMode;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
@@ -18,6 +19,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 
 public class SearchResultObject {
@@ -62,7 +64,8 @@ public class SearchResultObject {
         postGrid.add(contentField, 0, 3);
 
         if (pendingPost.getPicturePath() != null) {
-            ImageView imagePane = new ImageView(String.valueOf(PostObject.class.getResource(pendingPost.getPicturePath())));
+            Image image = new Image(new File("src/main/resources/com/postImages/" + pendingPost.getPicturePath() + ".png").toURI().toString());
+            ImageView imagePane = new ImageView(image);
             imagePane.setFitWidth(150);
             imagePane.setPreserveRatio(true);
             postGrid.add(imagePane, 0, 4);

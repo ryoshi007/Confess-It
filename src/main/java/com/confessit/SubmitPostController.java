@@ -140,8 +140,8 @@ public class SubmitPostController implements Initializable {
 
             statement.setString(2, content);
 
-            String picFilePath = "/com/postImages/" + postQueryIndex + ".png";
-            statement.setString(3, picFilePath);
+            imageName = postQueryIndex;
+            statement.setString(3, imageName);
             statement.setBoolean(4, false);
             statement.setString(5,"[]");
             statement.setString(6,"[]");
@@ -432,11 +432,12 @@ public class SubmitPostController implements Initializable {
             DatabaseConnection connection = new DatabaseConnection();
             connectDB = connection.getConnection();
             statement = connectDB.createStatement();
-            queryResult = statement.executeQuery("SELECT * FROM post ORDER BY queryIndex DESC LIMIT 1");
+            statement.executeUpdate("SET information_schema_stats_expiry = 0");
+            queryResult = statement.executeQuery("show table status like 'post'");
 
             if (queryResult.next()) {
-                int retrievedQueryIndex = queryResult.getInt("queryIndex");
-                return retrievedQueryIndex + 1;
+                int retrievedQueryIndex = queryResult.getInt("Auto_increment");
+                return retrievedQueryIndex;
             } else {
                 return 1;
             }

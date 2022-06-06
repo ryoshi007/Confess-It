@@ -30,7 +30,6 @@ public class SentimentPipeline {
      * @return the sentiment score in the double type
      */
     public double estimateSentiment(String content) {
-        System.out.println("Here");
         //Passing content for processing based on the pipeline object
         Annotation annotation = pipeline.process(content);
         double totalSentimentScore = 0;
@@ -48,6 +47,7 @@ public class SentimentPipeline {
             //4 - Very positive, 3 - Positive, 2 - Neutral, 1 - Negative, 0 - Very negative
             totalSentimentScore += RNNCoreAnnotations.getPredictedClass(tree);
         }
+        System.out.println(totalSentimentScore/length);
         return totalSentimentScore/length;
     }
 }
