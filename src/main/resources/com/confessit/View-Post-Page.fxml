@@ -5,6 +5,7 @@
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -67,11 +68,15 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="postContent" alignment="TOP_LEFT" layoutX="5.0" layoutY="27.0" prefHeight="182.0" prefWidth="683.0" styleClass="view-post-text" stylesheets="@styling.css" text="Post Content">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Label>
+                  <ScrollPane layoutX="4.0" layoutY="34.0" prefHeight="175.0" prefWidth="683.0">
+                     <content>
+                        <TextArea fx:id="postContent" editable="false" prefHeight="171.0" prefWidth="679.0" promptText="Post Content" style="-fx-background-color: transparent;" styleClass="view-post-text" stylesheets="@styling.css" wrapText="true">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </TextArea>
+                     </content>
+                  </ScrollPane>
                </children>
             </AnchorPane>
             <ImageView fx:id="postImagePane" fitHeight="194.0" fitWidth="232.0" layoutX="781.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" />

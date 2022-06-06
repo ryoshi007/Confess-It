@@ -2,14 +2,13 @@ package com.confessit;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -49,7 +48,7 @@ public class ViewPostPageController {
      * A label that used to display post content
      */
     @FXML
-    private Label postContent;
+    private TextArea postContent;
 
     /**
      * An image view to display the image of a post
@@ -110,7 +109,7 @@ public class ViewPostPageController {
 //            DatabaseConnection connection = new DatabaseConnection();
 //            connectDB = connection.getConnection();
 //            statement = connectDB.createStatement();
-//            String sql = "SELECT replyPosts FROM post WHERE tagid = '" + currentPost.getTagID() + "'";
+//            String sql = "SELECT * FROM post WHERE tagid = '" + 200 + "'";
 //            queryResult = statement.executeQuery(sql);
 //
 //            while (queryResult.next()) {
@@ -165,23 +164,23 @@ public class ViewPostPageController {
 //            fillSubPost(subPost1);
 //            fillComment(subPost1);
 //        }
-    }
-
-    /**
-     * Display sub-posts of a post
-     * @param subPost sub-posts of a post
-     */
-    public void fillSubPost(Post subPost) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("View-Post-Object.fxml"));
-            AnchorPane anchorPane = fxmlLoader.load();
-            ViewPostObject viewPostObject = fxmlLoader.getController();
-            viewPostObject.setViewPost(subPost);
-            hBox.getChildren().add(anchorPane);
-            hBox.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//    }
+//
+//    /**
+//     * Display sub-posts of a post
+//     * @param subPost sub-posts of a post
+//     */
+//    public void fillSubPost(Post subPost) {
+//        try {
+//            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("View-Post-Object.fxml"));
+//            AnchorPane anchorPane = fxmlLoader.load();
+//            ViewPostObject viewPostObject = fxmlLoader.getController();
+//            viewPostObject.setViewPost(subPost);
+//            hBox.getChildren().add(anchorPane);
+//            hBox.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
     /**
