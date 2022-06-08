@@ -205,15 +205,25 @@ public class AdminListController extends CreateAccount implements Initializable 
                                 connectDB = connection.getConnection();
                                 statement = connectDB.createStatement();
 
-                                queryResult = statement.executeQuery("SELECT email FROM user WHERE email = '" + adminEmail_SignUp.getText() + "'");
+                                queryResult = statement.executeQuery("SELECT email FROM user WHERE email = '" + adminEmail_SignUp.getText() + "' or username = '" + adminUsername_SignUp.getText() + "'");
                                 if (queryResult.next()) {
-                                    // If the email address is already in use
-                                    // Display a pop-up message
-                                    Alert alert = new Alert(Alert.AlertType.WARNING);
-                                    alert.setTitle("Invalid Email Address");
-                                    alert.setHeaderText("The email address is already in use.");
-                                    alert.setContentText("Please enter another email address.");
-                                    alert.showAndWait();
+                                    if (queryResult.getString("email").equals(adminEmail_SignUp.getText())) {
+                                        // If the email address is already in use
+                                        // Display a pop-up message
+                                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                                        alert.setTitle("Invalid Email Address");
+                                        alert.setHeaderText("The email address is already in use.");
+                                        alert.setContentText("Please enter another email address.");
+                                        alert.showAndWait();
+                                    } else {
+                                        // If the username is already in use
+                                        // Display a pop-up message
+                                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                                        alert.setTitle("Invalid Username");
+                                        alert.setHeaderText("The username is already in use.");
+                                        alert.setContentText("Please enter another username.");
+                                        alert.showAndWait();
+                                    }
                                 } else {
                                     // If the email address is not in use
                                     // Send a verification code to user's Google account
