@@ -274,6 +274,33 @@
     -fx-font-size: 15;
 }
 
+.change-pss-btn {
+   -fx-background-color: #577399;
+   -fx-background-radius:10;
+   -fx-border-radius:10;
+   -fx-font-family: 'Lato', sans-serif;
+   -fx-font-weight: bold;
+   -fx-font-size: 15;
+}
+
+.change-pss-btn:hover {
+    -fx-background-color:#1a3d51;
+    -fx-border-width:2;
+    -fx-border-color: #1a3d51;
+    -fx-font-family: 'Lato', sans-serif;
+    -fx-font-weight: bold;
+    -fx-font-size: 15;
+}
+
+.change-pss-btn:pressed {
+    -fx-background-color:#30b1c6;
+    -fx-border-width:3;
+    -fx-border-color: #30b1c6;
+    -fx-font-family: 'Lato', sans-serif;
+    -fx-font-weight: bold;
+    -fx-font-size: 15;
+}
+
 .date-picker:not-authenticated, .date-picker:not-authenticated > .text-field {
     -fx-opacity: 0.85 ;
     -fx-control-inner-background: transparent;
