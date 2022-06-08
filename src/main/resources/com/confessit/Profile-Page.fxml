@@ -204,7 +204,7 @@
       <Line endX="-42.5" layoutX="852.0" layoutY="70.0" startX="-100.0" stroke="#22758a" strokeLineCap="ROUND" strokeWidth="5.0" />
       <Line fx:id="archieveLine" endX="33.0" layoutX="624.0" layoutY="262.0" startX="-100.0" stroke="#22758a" strokeLineCap="ROUND" strokeWidth="5.0" visible="false" />
       <Line fx:id="historyLine" endX="33.0" layoutX="809.0" layoutY="262.0" startX="-100.0" stroke="#22758a" strokeLineCap="ROUND" strokeWidth="5.0" visible="false" />
-      <AnchorPane fx:id="optionPane" layoutX="507.0" layoutY="275.0" prefHeight="459.0" prefWidth="666.0" />
+      <AnchorPane fx:id="mainPane" layoutX="494.0" layoutY="275.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="470.0" prefWidth="691.0" />
       <Button fx:id="saveButton" contentDisplay="CENTER" layoutX="96.0" layoutY="730.0" mnemonicParsing="false" onMouseClicked="#saveChanges" prefHeight="50.0" prefWidth="179.0" styleClass="save-btn" stylesheets="@styling.css" visible="false">
          <graphic>
             <HBox alignment="CENTER" prefHeight="29.0" prefWidth="153.0" spacing="15.0">

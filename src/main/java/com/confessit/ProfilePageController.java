@@ -2,6 +2,7 @@ package com.confessit;
 
 import javafx.fxml.FXML;
 
+import java.io.IOException;
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
@@ -16,15 +17,18 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.ResourceBundle;
 
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
 import javafx.scene.control.*;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 
 
 public class ProfilePageController implements Initializable {
@@ -74,9 +78,13 @@ public class ProfilePageController implements Initializable {
     @FXML
     private TextField usernameField;
 
+    @FXML
+    private AnchorPane mainPane;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Image profile = new Image("com/fxml-resources/default-profile-picture.png", false);
+        mainPane.getChildren().clear();
         profileImage.setFill(new ImagePattern(profile));
         archieveLine.setVisible(false);
         historyLine.setVisible(false);
@@ -274,7 +282,12 @@ public class ProfilePageController implements Initializable {
     }
 
     @FXML
-    void changePassword(MouseEvent mouseEvent) {
+    void changePassword(MouseEvent mouseEvent) throws IOException {
+        mainPane.getChildren().clear();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Change-Password-Object.fxml"));
+        AnchorPane changePssPane = loader.load();
+        mainPane.getChildren().setAll(changePssPane.getChildren());
+
         passwordLine.setVisible(true);
         historyLine.setVisible(false);
         archieveLine.setVisible(false);
