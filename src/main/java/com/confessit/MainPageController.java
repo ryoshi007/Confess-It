@@ -8,6 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Pagination;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.util.Callback;
@@ -27,14 +28,23 @@ public class MainPageController implements Initializable {
     @FXML
     private Pagination pagePane;
 
+    @FXML
+    private HBox emptyLabel;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        UserHolder.getInstance().setCurrentPage("MainPage");
+
+        emptyLabel.setVisible(false);
+        pagePane.setVisible(true);
+
         int currentPageNumber = UserHolder.getInstance().getCurrentPageNumber();
         if (currentPageNumber != -1) {
             pagePane.setCurrentPageIndex(currentPageNumber);
         }
 
         int numberOfPosts = getNumberOfDisplayedPost();
+
         if (numberOfPosts <= 6) {
             pagePane.setPageCount(1);
         } else {
@@ -49,7 +59,6 @@ public class MainPageController implements Initializable {
             pagePane.setPageCount(totalPageCount);
         }
 
-        pagePane.setMaxPageIndicatorCount(10);
         retrieveRecentPost();
 
         while (!displayStack.isEmpty()) {
@@ -62,14 +71,20 @@ public class MainPageController implements Initializable {
             }
             storedPosts.add(preparePost);
         }
-        pagePane.setPageFactory(new Callback<Integer, Node>() {
-            @Override
-            public Node call(Integer integer) {
-                UserHolder.getInstance().setCurrentPageNumber(pagePane.getCurrentPageIndex());
-                return createPage(storedPosts.get(pagePane.getCurrentPageIndex()));
-            }
 
-        });
+        if (!storedPosts.isEmpty()) {
+            pagePane.setPageFactory(new Callback<Integer, Node>() {
+                @Override
+                public Node call(Integer integer) {
+                    UserHolder.getInstance().setCurrentPageNumber(pagePane.getCurrentPageIndex());
+                    return createPage(storedPosts.get(pagePane.getCurrentPageIndex()));
+                }
+
+            });
+        } else {
+            emptyLabel.setVisible(true);
+            pagePane.setVisible(false);
+        }
     }
 
     /***

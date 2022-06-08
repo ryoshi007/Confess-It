@@ -4,6 +4,11 @@ public class UserHolder {
     private User user;
     private int currentPageNumber = -1;
     private final static UserHolder INSTANCE = new UserHolder();
+    private String currentPage = "";
+    private String correctSearchInput = "";
+    private String searchCategory = "";
+
+    private String userSearchInput = "";
 
     UserHolder() {};
 
@@ -27,8 +32,43 @@ public class UserHolder {
         return this.currentPageNumber;
     }
 
+    public String getCurrentPage() {
+        return currentPage;
+    }
+
+    public void setCurrentPage(String currentPage) {
+        this.currentPage = currentPage;
+    }
+
+    public String getCorrectSearchInput() {
+        return correctSearchInput;
+    }
+
+    public String getSearchCategory() {
+        return searchCategory;
+    }
+
+    public void setCorrectSearchInput(String correctSearchInput) {
+        this.correctSearchInput = correctSearchInput;
+    }
+
+    public void setSearchCategory(String searchCategory) {
+        this.searchCategory = searchCategory;
+    }
+
+    public String getUserSearchInput() {
+        return userSearchInput;
+    }
+
+    public void setUserSearchInput(String userSearchInput) {
+        this.userSearchInput = userSearchInput;
+    }
+
     public void clearInfo() {
         this.user = null;
         currentPageNumber = -1;
+        currentPage = "";
+        correctSearchInput = "";
+        userSearchInput = "";
     }
 }

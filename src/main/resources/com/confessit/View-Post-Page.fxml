@@ -88,7 +88,7 @@
             <Image url="@../fxml-resources/logo_final.png" />
          </image>
       </ImageView>
-      <Button fx:id="backButton" alignment="CENTER" contentDisplay="RIGHT" focusTraversable="false" layoutX="23.0" layoutY="198.0" mnemonicParsing="false" onMouseClicked="#backToMainPage" prefHeight="70.0" prefWidth="70.0" styleClass="submit-post-btn" stylesheets="@styling.css">
+      <Button fx:id="backButton" alignment="CENTER" contentDisplay="RIGHT" focusTraversable="false" layoutX="23.0" layoutY="198.0" mnemonicParsing="false" onMouseClicked="#backToPreviousPage" prefHeight="70.0" prefWidth="70.0" styleClass="submit-post-btn" stylesheets="@styling.css">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>

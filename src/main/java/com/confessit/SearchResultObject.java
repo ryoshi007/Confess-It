@@ -3,6 +3,7 @@ package com.confessit;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -21,6 +22,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class SearchResultObject {
     /**
@@ -58,7 +60,7 @@ public class SearchResultObject {
     public void setPostContent(Post pendingPost) throws FileNotFoundException {
         postGrid.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
         tagIDLabel.setText("   #UM" + pendingPost.getTagID());
-        postDateLabel.setText("   Posted at " + pendingPost.getDatetime().toString());
+        postDateLabel.setText("   Posted at " + pendingPost.getApprovalTime().toString());
         CustomTextArea contentField = new CustomTextArea(pendingPost.getContent());
         contentField.setStyle("-fx-focus-color: transparent; -fx-text-box-border: transparent;");
         postGrid.add(contentField, 0, 3);
@@ -72,7 +74,16 @@ public class SearchResultObject {
         }
 
         viewButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-            view(pendingPost.getTagID());
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("View-Post-Page.fxml"));
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            try {
+                stage.setScene(new Scene(loader.load()));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            ViewPostPageController viewPostPageController = loader.getController();
+            stage.show();
+            viewPostPageController.fillPost(pendingPost);
         });
     }
 
@@ -102,9 +113,5 @@ public class SearchResultObject {
                 }
             });
         }
-    }
-
-    void view(int tagID) {
-        System.out.println("Haven't implement yet");
     }
 }

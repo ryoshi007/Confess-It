@@ -6,7 +6,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -62,8 +61,30 @@ public class SearchPostController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        UserHolder currentInfo = UserHolder.getInstance();
+        currentInfo.setCurrentPage("SearchPage");
+
+        if (!currentInfo.getCorrectSearchInput().isBlank()) {
+            String searchInput = currentInfo.getCorrectSearchInput();
+            String searchCategory = currentInfo.getSearchCategory();
+
+            categoryBox.setValue(searchCategory);
+            searchField.setText(currentInfo.getUserSearchInput());
+
+            if (searchCategory.equals("Keyword")) {
+                displayResult(search("content", searchInput));
+            } else if (searchCategory.equals("Date Time") || searchCategory.equals("Date")) {
+                displayResult(search("approvalTime", searchInput));
+            } else {
+                displayResult(search("tagID", searchInput));
+            }
+        }
+
         categoryBox.getItems().addAll(choices);
-        categoryBox.setValue("Keyword");
+
+        if (categoryBox.getValue() == null) {
+            categoryBox.setValue("Keyword");
+        }
 
         categoryBox.setOnAction(event ->{
             if (categoryBox.getValue() == "Keyword") {
@@ -93,6 +114,9 @@ public class SearchPostController implements Initializable {
         Connection connectDB = null;
         Statement statement = null;
         ResultSet queryResult = null;
+
+        UserHolder.getInstance().setCorrectSearchInput(value);
+        UserHolder.getInstance().setSearchCategory(categoryBox.getValue());
 
         try {
             DatabaseConnection connection = new DatabaseConnection();
@@ -177,6 +201,7 @@ public class SearchPostController implements Initializable {
         this.contentBox = newContentBox;
 
         String searchTerm = searchField.getText();
+        UserHolder.getInstance().setUserSearchInput(searchTerm);
 
         if (categoryBox.getValue() == "Keyword") {
             displayResult(search("content", searchTerm));
@@ -186,17 +211,46 @@ public class SearchPostController implements Initializable {
             String[] initialSplit = searchTerm.split(" ");
             String[] split = initialSplit[0].split("-");
 
-            String hour = (Integer.valueOf(initialSplit[1]) < 10 ? "0" : "") + initialSplit[1];
-            String day = (Integer.valueOf(split[0]) < 10 ? "0" : "") + split[0];
-            String month = (Integer.valueOf(split[1]) < 10 ? "0" : "") + split[1];
+            String day = "", month = "", hour = "";
+
+            if (initialSplit[1].length() < 2 && Integer.valueOf(initialSplit[1]) < 10) {
+                hour = "0" + initialSplit[1];
+            } else {
+                hour = initialSplit[1];
+            }
+
+            if (split[0].length() < 2 && Integer.valueOf(split[0]) < 10) {
+                day = "0" + split[0];
+            } else {
+                day = split[0];
+            }
+
+            if (split[1].length() < 2 && Integer.valueOf(split[1]) < 10) {
+                month = "0" + split[1];
+            } else {
+                month = split[1];
+            }
+
             String correctDateTime = split[2] + "-" + month + "-" + day + " " + hour + ":";
             displayResult(search("approvalTime", correctDateTime));
 
         } else if (categoryBox.getValue() == "Date" && checkDate("dd-MM-yyyy", searchTerm)) {
 
             String[] split = searchTerm.split("-");
-            String day = (Integer.valueOf(split[0]) < 10 ? "0" : "") + split[0];
-            String month = (Integer.valueOf(split[1]) < 10 ? "0" : "") + split[1];
+            String day = "", month = "";
+
+            if (split[0].length() < 2 && Integer.valueOf(split[0]) < 10) {
+                day = "0" + split[0];
+            } else {
+                day = split[0];
+            }
+
+            if (split[1].length() < 2 && Integer.valueOf(split[1]) < 10) {
+                month = "0" + split[1];
+            } else {
+                month = split[1];
+            }
+
             String correctDate = split[2] + "-" + month + "-" + day;
             displayResult(search("approvalTime", correctDate));
 
@@ -222,9 +276,6 @@ public class SearchPostController implements Initializable {
         if (results == null) {
             resultLabel.setText("O Confession Post Found");
         } else {
-            scene = searchButton.getScene();
-            scene.setCursor(Cursor.WAIT);
-
             resultLabel.setText(results.size() + " Confession Post(s) Found");
 
             contentBox.getChildren().add(new FlowPane(100, 100));
@@ -244,12 +295,11 @@ public class SearchPostController implements Initializable {
             }
 
             contentBox.getChildren().add(new FlowPane(100, 100));
-            scene.setCursor(Cursor.DEFAULT);
         }
     }
 
     private boolean checkDate(String format, String givenDate) {
-        SimpleDateFormat dateFormat= new SimpleDateFormat(format);
+        SimpleDateFormat dateFormat = new SimpleDateFormat(format);
         dateFormat.setLenient(false);
         try {
             dateFormat.parse(givenDate.trim());

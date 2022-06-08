@@ -94,7 +94,7 @@ public class ViewPostPageController {
         this.currentPost = post;
 
         // Fill the post content and its information into view-post-page
-        postTagID.setText("# " + currentPost.getTagID());
+        postTagID.setText("#UM " + currentPost.getTagID());
         postedDate.setText((currentPost.getDatetime().toString().substring(0,19)));
         postContent.setText(currentPost.getContent());
         postContent.setWrapText(true);
@@ -203,8 +203,13 @@ public class ViewPostPageController {
     }
 
     @FXML
-    void backToMainPage(MouseEvent event) throws IOException {
-        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Main-Page.fxml")));
+    void backToPreviousPage(MouseEvent event) throws IOException {
+        if (UserHolder.getInstance().getCurrentPage() == "MainPage") {
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Main-Page.fxml")));
+        } else if (UserHolder.getInstance().getCurrentPage() == "SearchPage") {
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Search-Page.fxml")));
+        }
+
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
