@@ -13,6 +13,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -85,6 +86,12 @@ public class ViewPostPageController {
     private Post currentPost;
 
     /**
+     * A text that used to display "No comments..."
+     */
+    @FXML
+    private Text noCommentText;
+
+    /**
      * An array list that used to store sub-posts of a post
      */
     private ArrayList<Post> subPostList = new ArrayList<>();
@@ -126,18 +133,17 @@ public class ViewPostPageController {
         if (!usernameAndCommentRemovePunctuation.equals("[]")) {
             usernameAndCommentRemovePunctuation = usernameAndCommentRemovePunctuation.replace("[\"[","").replace("]\"]","");
             String[] splitComment = usernameAndCommentRemovePunctuation.split("\\]\", \"\\[");
-            for (String i : splitComment) {
-                System.out.println(i);
-            }
-            for (int i = 0; i < splitComment.length; i++) {
-                storeUsername.add(splitComment[i].substring(0, splitComment[i].indexOf(","))); // Store username
-                storeComment.add(splitComment[i].substring(splitComment[i].indexOf(",") + 1)); // Store comment
+            for (String s : splitComment) {
+                storeUsername.add(s.substring(0, s.indexOf(","))); // Store username
+                storeComment.add(s.substring(s.indexOf(",") + 1)); // Store comment
             }
 
             // Display comments
             for (int i = 0; i < storeComment.size(); i++) {
                 fillComment(storeUsername.get(i), storeComment.get(i));
             }
+        } else {
+            noCommentText.setVisible(true);
         }
 
 //        // Get sub-posts of a post
@@ -233,7 +239,7 @@ public class ViewPostPageController {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Comment-Object.fxml"));
             AnchorPane anchorPane = fxmlLoader.load();
             CommentObject commentObject = fxmlLoader.getController();
-            commentObject.setComment(username,comment);
+            commentObject.setComment(username,comment,currentPost.getTagID(),currentPost);
             vBox.getChildren().add(anchorPane);
         } catch (IOException e) {
             e.printStackTrace();
@@ -254,14 +260,20 @@ public class ViewPostPageController {
         stage.show();
     }
 
+    /**
+     * Add a new comment to the vbox and display it after clicking this button
+     * @param event Mouse click
+     */
     @FXML
     void sendCommentButtonPressed(MouseEvent event) {
         if (!commentTextField.getText().isBlank()) {
             Json json = new Json();
             json.addUserComment(currentPost.getTagID(),UserHolder.getInstance().getUser().getUsername(),commentTextField.getText());
+            noCommentText.setVisible(false);
+            fillComment(UserHolder.getInstance().getUser().getUsername(),commentTextField.getText());
             commentTextField.clear();
         } else {
-            // If user clicks enter without entering any comment
+            // If user clicks SEND without entering any comment
             Alert alert1 = new Alert(Alert.AlertType.WARNING);
             alert1.setTitle("WARNING");
             alert1.setHeaderText("Comment text field is blank.");

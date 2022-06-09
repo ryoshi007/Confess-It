@@ -29,9 +29,9 @@
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#495867" height="31.0" layoutX="-2.0" layoutY="85.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1284.0" />
       <AnchorPane layoutX="116.0" layoutY="148.0" prefHeight="419.0" prefWidth="1042.0" style="-fx-background-color: #f7f7ff; -fx-background-radius: 20px;">
          <children>
-            <AnchorPane layoutX="70.0" layoutY="227.0" prefHeight="181.0" prefWidth="902.0" style="-fx-background-color: aecee9; -fx-background-radius: 10;">
+            <AnchorPane layoutX="70.0" layoutY="227.0" prefHeight="187.0" prefWidth="902.0" style="-fx-background-color: aecee9; -fx-background-radius: 10;">
                <children>
-                  <TextField fx:id="commentTextField" layoutX="14.0" layoutY="139.0" prefHeight="31.0" prefWidth="822.0" promptText="Type something..." style="-fx-background-color: #d4d4d4; -fx-background-radius: 5px;" stylesheets="@styling.css">
+                  <TextField fx:id="commentTextField" layoutX="14.0" layoutY="146.0" prefHeight="23.0" prefWidth="822.0" promptText="Type something..." style="-fx-background-color: #d4d4d4; -fx-background-radius: 5px;" stylesheets="@styling.css">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -42,12 +42,19 @@
                   </TextField>
                   <ScrollPane layoutY="41.0" prefHeight="98.0" prefWidth="902.0">
                      <content>
-                        <VBox fx:id="vBox" prefHeight="94.0" prefWidth="887.0" spacing="0.5" />
+                        <VBox fx:id="vBox" prefHeight="94.0" prefWidth="887.0" spacing="0.5">
+                           <children>
+                              <Text fx:id="noCommentText" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="view-post-text" text="  No comments..." visible="false" wrappingWidth="319.055979013443">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Text>
+                           </children></VBox>
                      </content>
                   </ScrollPane>
-                  <Button layoutX="846.0" layoutY="133.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#sendCommentButtonPressed" prefHeight="42.0" prefWidth="44.0" style="-fx-background-radius: 50;" styleClass="menu-btn" stylesheets="@styling.css">
+                  <Button layoutX="846.0" layoutY="142.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#sendCommentButtonPressed" prefHeight="39.0" prefWidth="41.0" style="-fx-background-radius: 50;" styleClass="menu-btn" stylesheets="@styling.css">
                      <graphic>
-                        <ImageView fitHeight="35.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="33.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../fxml-resources/send-icon.png" />
                            </image>
