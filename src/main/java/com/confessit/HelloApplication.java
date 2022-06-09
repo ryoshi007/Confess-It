@@ -13,17 +13,10 @@ import java.util.Objects;
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-//        ArrayList<String> list = new ArrayList<>();
-////        list.add("I wish the world would be a better place, free from war and hunger. Peace!");
-////        list.add("I dislike school. I believe there are some adjustments that could be done on the current system, but it would take a lot of works!");
-////        list.add("Fuck that bitch for stealing my money! If she did the same thing again, I will definitely kill her!");
-//        list.add("I support with the person who thinks that the education system needs to have a reformation. But I knew it would be impossible to achieve that :D");
-//
-//        SentimentPipeline nlpPipeline = new SentimentPipeline();
-//        for (String content: list) {
-//            nlpPipeline.estimateSentiment(content);
-//        }
-
+        Runnable pendingQueue = new PendingQueue();
+        Thread thread = new Thread(pendingQueue);
+        thread.setDaemon(true);
+        thread.start();
 
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("login_page.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1280, 800);

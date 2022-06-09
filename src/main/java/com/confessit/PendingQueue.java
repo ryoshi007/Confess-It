@@ -5,34 +5,63 @@ import java.util.*;
 import java.util.concurrent.*;
 
 
-public class PendingQueue {
+public class PendingQueue implements Runnable{
     private Queue pendingQ = new Queue();
-    private static class DaemonThreadFactory implements ThreadFactory {
-        public Thread newThread(Runnable r) {
-            Thread thread = new Thread(r);
-            thread.setDaemon(true);
-            return thread;
-        }
-    }
-    private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1,
-            new DaemonThreadFactory());
+    private ArrayList<String> containList = new ArrayList<>();
 
-    /***
-     * Start the scheduler depending on the size of the queue
-     */
-    public void startSchedule() {
-        pendingQ.clear();
-        pendingQ.enqueue(obtainApprovedPost());
+    @Override
+    public void run() {
+        ArrayList<Integer> postList = obtainApprovedPost();
+        for (int tagID: postList) {
+            if (!containList.contains(String.valueOf(tagID))) {
+                pendingQ.enqueue(tagID);
+                containList.add(String.valueOf(tagID));
+            }
+        }
         int queueSize = pendingQ.getSize();
-        Runnable run = this::displayPost;
 
+        //Based on the question
+//        if (queueSize <= 5) {
+//            try {
+//                Thread.sleep(60000);
+//            } catch (InterruptedException e) {
+//                throw new RuntimeException(e);
+//            }
+//        } else if (queueSize <= 10) {
+//            try {
+//                Thread.sleep(40000);
+//            } catch (InterruptedException e) {
+//                throw new RuntimeException(e);
+//            }
+//        } else {
+//            try {
+//                Thread.sleep(25000);
+//            } catch (InterruptedException e) {
+//                throw new RuntimeException(e);
+//            }
+//        }
+
+        //For testing purpose
         if (queueSize <= 5) {
-            scheduler.schedule(run, 15, TimeUnit.MINUTES);
+            try {
+                Thread.sleep(60000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         } else if (queueSize <= 10) {
-            scheduler.schedule(run, 10, TimeUnit.MINUTES);
+            try {
+                Thread.sleep(40000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         } else {
-            scheduler.schedule(run, 5, TimeUnit.MINUTES);
+            try {
+                Thread.sleep(25000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
+        deployPost();
     }
 
     /**
@@ -122,10 +151,13 @@ public class PendingQueue {
     /***
      * Display the submitted post from the pending queue
      */
-    public void displayPost() {
-        int dequeueTagID = pendingQ.dequeue();
-        changeDisplayStatus(dequeueTagID);
-        startSchedule();
+    public void deployPost() {
+        if (!pendingQ.isEmpty()) {
+            int dequeueTagID = pendingQ.dequeue();
+            changeDisplayStatus(dequeueTagID);
+            containList.remove(String.valueOf(dequeueTagID));
+            run();
+        }
     }
 
 }
