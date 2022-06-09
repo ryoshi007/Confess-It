@@ -42,14 +42,7 @@
                   </TextField>
                   <ScrollPane layoutY="41.0" prefHeight="98.0" prefWidth="902.0">
                      <content>
-                        <VBox fx:id="vBox" prefHeight="94.0" prefWidth="887.0" spacing="0.5">
-                           <children>
-                              <Text fx:id="noCommentText" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="view-post-text" text="  No comments..." visible="false" wrappingWidth="319.055979013443">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </Text>
-                           </children></VBox>
+                        <VBox fx:id="vBox" prefHeight="95.0" prefWidth="886.0" />
                      </content>
                   </ScrollPane>
                   <Button layoutX="846.0" layoutY="142.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#sendCommentButtonPressed" prefHeight="39.0" prefWidth="41.0" style="-fx-background-radius: 50;" styleClass="menu-btn" stylesheets="@styling.css">
@@ -62,6 +55,18 @@
                      </graphic>
                      <tooltip>
                         <Tooltip text="Send" />
+                     </tooltip>
+                  </Button>
+                  <Button fx:id="saveToArchiveButton" layoutX="323.0" layoutY="1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#saveToArchiveButtonPressed" prefHeight="39.0" prefWidth="42.0" style="-fx-background-radius: 50;" styleClass="menu-btn" stylesheets="@styling.css" visible="false">
+                     <graphic>
+                        <ImageView fitHeight="33.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../fxml-resources/archive2-icon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <tooltip>
+                        <Tooltip text="Save" />
                      </tooltip>
                   </Button>
                </children>

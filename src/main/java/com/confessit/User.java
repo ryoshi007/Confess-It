@@ -13,9 +13,7 @@ public class User {
     private String password;
     private Date dateOfBirth;
     private String description;
-    private ArrayList<Integer> history = new ArrayList<>();
     private int role;
-    private ArrayList<Integer> archive = new ArrayList<>();
 
     public User() {
 
@@ -120,30 +118,6 @@ public class User {
     }
 
     /**
-     * get the tag IDs of post that posted by the user
-     * @return history
-     */
-    public ArrayList<Integer> getHistory() {
-        return history;
-    }
-
-    /**
-     * add a post that posted by the user by passing tag ID of the post
-     * @param tagID tag ID of a post
-     */
-    public void addToHistory(int tagID) {
-        history.add(tagID);
-    }
-
-    /**
-     * remove a specific post that posted by the user by passing tag ID of the post
-     * @param tagID tag ID of a post
-     */
-    public void removeFromHistory(int tagID) {
-        history.remove(tagID);
-    }
-
-    /**
      * get the role of the user
      * @return role (1 = Admin or 0 = User)
      */
@@ -159,27 +133,4 @@ public class User {
         this.role = role;
     }
 
-    /**
-     * get the tag ID of a post that saved by the user
-     * @return archive
-     */
-    public ArrayList<Integer> getArchive() {
-        return archive;
-    }
-
-    /**
-     * add a post to archive by passing tag ID of a post
-     * @param tagID tag ID of a post
-     */
-    public void addToArchive(int tagID) {
-        archive.add(tagID);
-    }
-
-    /**
-     * remove a post from archive by passing tag ID of a post
-     * @param tagID tag ID of a post
-     */
-    public void removeFromArchive(int tagID) {
-        archive.remove(tagID);
-    }
 }
