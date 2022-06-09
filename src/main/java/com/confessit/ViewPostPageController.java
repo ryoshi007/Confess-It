@@ -1,14 +1,12 @@
 package com.confessit;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -86,10 +84,10 @@ public class ViewPostPageController {
     private Post currentPost;
 
     /**
-     * A text that used to display "No comments..."
+     * A button that used to save a post in archive after clicking it
      */
     @FXML
-    private Text noCommentText;
+    private Button saveToArchiveButton;
 
     /**
      * An array list that used to store sub-posts of a post
@@ -129,6 +127,14 @@ public class ViewPostPageController {
         }
 
         Json json = new Json();
+
+        // Check whether user saves this post in archive before
+        String archive = json.retrieveFromArchive(UserHolder.getInstance().getUser().getUsername());
+        if (archive == null || !archive.contains(String.valueOf(currentPost.getTagID()))) {
+            saveToArchiveButton.setVisible(true);
+        }
+
+        // Get comments from database
         String usernameAndCommentRemovePunctuation = json.retrieveUserComment(currentPost.getTagID());
         if (!usernameAndCommentRemovePunctuation.equals("[]")) {
             usernameAndCommentRemovePunctuation = usernameAndCommentRemovePunctuation.replace("[\"[","").replace("]\"]","");
@@ -142,9 +148,8 @@ public class ViewPostPageController {
             for (int i = 0; i < storeComment.size(); i++) {
                 fillComment(storeUsername.get(i), storeComment.get(i));
             }
-        } else {
-            noCommentText.setVisible(true);
         }
+
 
 //        // Get sub-posts of a post
 //        Connection connectDB = null;
@@ -269,7 +274,6 @@ public class ViewPostPageController {
         if (!commentTextField.getText().isBlank()) {
             Json json = new Json();
             json.addUserComment(currentPost.getTagID(),UserHolder.getInstance().getUser().getUsername(),commentTextField.getText());
-            noCommentText.setVisible(false);
             fillComment(UserHolder.getInstance().getUser().getUsername(),commentTextField.getText());
             commentTextField.clear();
         } else {
@@ -280,5 +284,13 @@ public class ViewPostPageController {
             alert1.setContentText("Please enter a comment.");
             alert1.showAndWait();
         }
+    }
+
+
+    @FXML
+    void saveToArchiveButtonPressed(MouseEvent event) {
+        Json json = new Json();
+        json.addToArchive(currentPost.getTagID(),UserHolder.getInstance().getUser().getUsername());
+        saveToArchiveButton.setVisible(false);
     }
 }
