@@ -2,6 +2,7 @@ package com.confessit;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 
 public class CommentObject {
 
@@ -26,6 +27,7 @@ public class CommentObject {
     public void setComment(String username, String comment) {
         commentUsername.setText(username);
         userComment.setText(comment);
+        userComment.setWrapText(true);
     }
 
 }
