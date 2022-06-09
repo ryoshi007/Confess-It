@@ -9,21 +9,21 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="224.0" prefWidth="363.0" style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-background-color: #f7f7ff;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.confessit.ViewPostObject">
+<AnchorPane maxWidth="-Infinity" minWidth="-Infinity" prefHeight="224.0" prefWidth="677.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.confessit.ViewPostObject">
    <children>
-      <AnchorPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="223.0" prefWidth="266.0" style="-fx-background-color: #f7f7ff; -fx-background-radius: 20 0 0 20;">
+      <AnchorPane maxWidth="-Infinity" minWidth="-Infinity" prefHeight="224.0" prefWidth="563.0" style="-fx-background-color: white;">
          <children>
-            <Label fx:id="viewPostTagID" layoutX="7.0" layoutY="2.0" prefHeight="15.0" prefWidth="97.0" styleClass="view-post-text" stylesheets="@styling.css" text="#UM2022">
+            <Label fx:id="viewPostTagID" layoutX="19.0" layoutY="11.0" prefHeight="22.0" prefWidth="146.0" styleClass="view-post-text" stylesheets="@styling.css" text="#UM2022">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label fx:id="viewPostContent" alignment="TOP_LEFT" layoutX="10.0" layoutY="25.0" prefHeight="141.0" prefWidth="244.0" styleClass="view-post-text" stylesheets="@styling.css" text="Post Content">
+            <Label fx:id="viewPostContent" alignment="TOP_LEFT" layoutX="20.0" layoutY="36.0" prefHeight="140.0" prefWidth="533.0" styleClass="view-post-text" stylesheets="@styling.css" text="Post Content">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <HBox alignment="CENTER" layoutX="8.0" layoutY="173.0" prefHeight="46.0" prefWidth="251.0" spacing="10.0">
+            <HBox alignment="CENTER_LEFT" layoutX="19.0" layoutY="182.0" prefHeight="30.0" prefWidth="531.0" spacing="10.0">
                <children>
                   <HBox alignment="CENTER" prefHeight="34.0" prefWidth="64.0" spacing="10.0">
                      <children>
@@ -59,9 +59,9 @@
             </HBox>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="265.0" prefHeight="170.0" prefWidth="56.0">
+      <AnchorPane layoutX="563.0" prefHeight="224.0" prefWidth="114.0">
          <children>
-            <Button layoutY="-1.0" mnemonicParsing="false" onAction="#viewPostButtonPressed" prefHeight="224.0" prefWidth="98.0" styleClass="display-view-btn" stylesheets="@styling.css" text="View" textFill="#847a7a">
+            <Button mnemonicParsing="false" onAction="#viewPostButtonPressed" prefHeight="224.0" prefWidth="114.0" styleClass="display-view-btn" stylesheets="@styling.css" text="View" textFill="#847a7a">
                <font>
                   <Font size="16.0" />
                </font>

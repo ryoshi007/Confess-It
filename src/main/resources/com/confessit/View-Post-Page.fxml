@@ -56,6 +56,9 @@
                      <tooltip>
                         <Tooltip text="Send" />
                      </tooltip>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                   <Button fx:id="saveToArchiveButton" layoutX="323.0" layoutY="1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#saveToArchiveButtonPressed" prefHeight="39.0" prefWidth="42.0" style="-fx-background-radius: 50;" styleClass="menu-btn" stylesheets="@styling.css" visible="false">
                      <graphic>
@@ -68,6 +71,9 @@
                      <tooltip>
                         <Tooltip text="Save" />
                      </tooltip>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                </children>
             </AnchorPane>

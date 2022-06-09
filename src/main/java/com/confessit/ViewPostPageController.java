@@ -257,6 +257,8 @@ public class ViewPostPageController {
             root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Main-Page.fxml")));
         } else if (UserHolder.getInstance().getCurrentPage() == "SearchPage") {
             root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Search-Page.fxml")));
+        } else if (UserHolder.getInstance().getCurrentPage() == "ProfilePage") {
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Profile-Page.fxml")));
         }
 
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

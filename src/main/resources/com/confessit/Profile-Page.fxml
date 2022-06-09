@@ -153,7 +153,7 @@
          </cursor>
       </Rectangle>
       <Line endX="538.3333740234375" layoutX="621.0" layoutY="262.0" startX="-100.0" stroke="#f2f2f2" />
-      <Button fx:id="archieveButton" layoutX="524.0" layoutY="209.0" mnemonicParsing="false" onMouseClicked="#checkArchieve" prefHeight="47.0" prefWidth="140.0" styleClass="profile-option-btn" stylesheets="@styling.css">
+      <Button fx:id="archiveButton" layoutX="524.0" layoutY="209.0" mnemonicParsing="false" onAction="#checkArchive" prefHeight="47.0" prefWidth="140.0" styleClass="profile-option-btn" stylesheets="@styling.css">
          <graphic>
             <HBox alignment="CENTER" prefHeight="39.0" prefWidth="133.0" spacing="15.0">
                <children>
@@ -162,7 +162,7 @@
                         <Image url="@../fxml-resources/archieve-icon.png" />
                      </image>
                   </ImageView>
-                  <Label prefHeight="21.0" prefWidth="68.0" styleClass="text" stylesheets="@styling.css" text="Archieve" textFill="#163f7c">
+                  <Label prefHeight="21.0" prefWidth="68.0" styleClass="text" stylesheets="@styling.css" text="Archive" textFill="#163f7c">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
@@ -202,7 +202,7 @@
          </tooltip>
       </Button>
       <Line endX="-42.5" layoutX="852.0" layoutY="70.0" startX="-100.0" stroke="#22758a" strokeLineCap="ROUND" strokeWidth="5.0" />
-      <Line fx:id="archieveLine" endX="33.0" layoutX="624.0" layoutY="262.0" startX="-100.0" stroke="#22758a" strokeLineCap="ROUND" strokeWidth="5.0" visible="false" />
+      <Line fx:id="archiveLine" endX="33.0" layoutX="624.0" layoutY="262.0" startX="-100.0" stroke="#22758a" strokeLineCap="ROUND" strokeWidth="5.0" visible="false" />
       <Line fx:id="historyLine" endX="33.0" layoutX="809.0" layoutY="262.0" startX="-100.0" stroke="#22758a" strokeLineCap="ROUND" strokeWidth="5.0" visible="false" />
       <AnchorPane fx:id="mainPane" layoutX="494.0" layoutY="275.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="470.0" prefWidth="691.0" />
       <Button fx:id="saveButton" contentDisplay="CENTER" layoutX="96.0" layoutY="730.0" mnemonicParsing="false" onMouseClicked="#saveChanges" prefHeight="50.0" prefWidth="179.0" styleClass="save-btn" stylesheets="@styling.css" visible="false">

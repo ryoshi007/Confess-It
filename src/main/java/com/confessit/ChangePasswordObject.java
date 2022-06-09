@@ -90,6 +90,11 @@ public class ChangePasswordObject implements Initializable {
         changePssButton.setVisible(false);
         changePssSaveButton.setVisible(true);
         changePssDiscardButton.setVisible(true);
+
+        newPasswordField.getStyleClass().clear();
+        newPasswordField.getStyleClass().addAll("text-input", "text-field", "password-field", "input-field");
+        confirmPasswordField.getStyleClass().clear();
+        confirmPasswordField.getStyleClass().addAll("text-input", "text-field", "password-field", "input-field");
     }
 
     @FXML
@@ -101,8 +106,14 @@ public class ChangePasswordObject implements Initializable {
         confirmPasswordField.clear();
         confirmPasswordField.setVisible(false);
         changePssButton.setVisible(true);
+        changePssButton.setVisible(true);
         changePssSaveButton.setVisible(false);
         changePssDiscardButton.setVisible(false);
+
+        newPasswordField.getStyleClass().clear();
+        newPasswordField.getStyleClass().addAll("text-input", "text-field", "password-field", "profile-input-field");
+        confirmPasswordField.getStyleClass().clear();
+        confirmPasswordField.getStyleClass().addAll("text-input", "text-field", "password-field", "profile-input-field");
     }
 
     @FXML
@@ -226,6 +237,11 @@ public class ChangePasswordObject implements Initializable {
                                     changePssSaveButton.setVisible(false);
                                     changePssDiscardButton.setVisible(false);
 
+                                    newPasswordField.getStyleClass().clear();
+                                    newPasswordField.getStyleClass().addAll("text-input", "text-field", "password-field", "profile-input-field");
+                                    confirmPasswordField.getStyleClass().clear();
+                                    confirmPasswordField.getStyleClass().addAll("text-input", "text-field", "password-field", "profile-input-field");
+
                                 } catch (SQLException e) {
                                     e.printStackTrace();
 
@@ -262,6 +278,11 @@ public class ChangePasswordObject implements Initializable {
                             alert1.setHeaderText("Change account password unsuccessful.");
                             alert1.setContentText("Please try again.");
                             alert1.showAndWait();
+
+                            newPasswordField.getStyleClass().clear();
+                            newPasswordField.getStyleClass().addAll("text-input", "text-field", "password-field", "profile-input-field");
+                            confirmPasswordField.getStyleClass().clear();
+                            confirmPasswordField.getStyleClass().addAll("text-input", "text-field", "password-field", "profile-input-field");
                         }
                     } else {
                         // If both new password and confirm password are different

@@ -213,7 +213,7 @@ public class MainPageController implements Initializable {
 
         grid.setHgap(20);
         grid.setVgap(50);
-        grid.setPadding(new Insets(0, 10, 0, 10));
+        grid.setPadding(new Insets(0, 0, 0, 0));
 
         int i = 0;
         for (int row = 0; row < 2; row++) {
