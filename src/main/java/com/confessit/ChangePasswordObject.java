@@ -274,7 +274,7 @@ public class ChangePasswordObject implements Initializable {
                 } else {
                     // If both new password and confirm passwords are invalid
                     // Pop up a warning window
-                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Invalid password");
                     alert.setHeaderText("The new password is invalid.");
                     alert.setContentText("Please ensure your password has minimum length of 8, contains at least 1 lowercase, 1 uppercase, 1 special character and 1 digit.");

@@ -1,21 +1,9 @@
 package com.confessit;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
-
 public class Json {
 
     /**
@@ -153,7 +141,7 @@ public class Json {
      * @param username user's username
      * @param comment  user's comment
      */
-    public static void addUserComment(int tagID, String username, String comment) {
+    public void addUserComment(int tagID, String username, String comment) {
         Connection connectDB = null;
         Statement statement = null;
         ResultSet queryResult = null;
@@ -199,7 +187,7 @@ public class Json {
      * @param tagID tag ID of a post
      * @return return a String that contains user's username and comment
      */
-    public static String retrieveUserComment(int tagID) {
+    public String retrieveUserComment(int tagID) {
         String storeUserComment = "";
 
         Connection connectDB = null;
@@ -254,7 +242,7 @@ public class Json {
      * @param username user's username
      * @param comment  user's comment
      */
-    public static void deleteUserComment(int tagID, String username, String comment) {
+    public void deleteUserComment(int tagID, String username, String comment) {
 
         Connection connectDB = null;
         Statement statement = null;

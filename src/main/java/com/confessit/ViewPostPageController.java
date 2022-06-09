@@ -5,8 +5,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -72,6 +74,12 @@ public class ViewPostPageController {
     private Label postTagID;
 
     /**
+     * A text field that used to let user enter comment
+     */
+    @FXML
+    private TextField commentTextField;
+
+    /**
      * A Post object that used to store current post
      */
     private Post currentPost;
@@ -80,6 +88,16 @@ public class ViewPostPageController {
      * An array list that used to store sub-posts of a post
      */
     private ArrayList<Post> subPostList = new ArrayList<>();
+
+    /**
+     * An array list that used to comment's username
+     */
+    private ArrayList<String> storeUsername = new ArrayList<>();
+
+    /**
+     * An array list that used to store user comment
+     */
+    private ArrayList<String> storeComment = new ArrayList<>();
 
     /**
      * Set a tag ID to postTagID label and display it
@@ -101,6 +119,25 @@ public class ViewPostPageController {
         if (currentPost.getPicturePath() != null) {
             Image image = new Image(new File("src/main/resources/com/postImages/" + currentPost.getPicturePath() + ".png").toURI().toString());
             postImagePane.setImage(image);
+        }
+
+        Json json = new Json();
+        String usernameAndCommentRemovePunctuation = json.retrieveUserComment(currentPost.getTagID());
+        if (!usernameAndCommentRemovePunctuation.equals("[]")) {
+            usernameAndCommentRemovePunctuation = usernameAndCommentRemovePunctuation.replace("[\"[","").replace("]\"]","");
+            String[] splitComment = usernameAndCommentRemovePunctuation.split("\\]\", \"\\[");
+            for (String i : splitComment) {
+                System.out.println(i);
+            }
+            for (int i = 0; i < splitComment.length; i++) {
+                storeUsername.add(splitComment[i].substring(0, splitComment[i].indexOf(","))); // Store username
+                storeComment.add(splitComment[i].substring(splitComment[i].indexOf(",") + 1)); // Store comment
+            }
+
+            // Display comments
+            for (int i = 0; i < storeComment.size(); i++) {
+                fillComment(storeUsername.get(i), storeComment.get(i));
+            }
         }
 
 //        // Get sub-posts of a post
@@ -187,15 +224,16 @@ public class ViewPostPageController {
     }
 
     /**
-     * Display comments of a post
-     * @param subPost comments of a post
+     * Display comment of a post with comment's user username
+     * @param username user username
+     * @param comment user comment
      */
-    public void fillComment(Post subPost) {
+    public void fillComment(String username, String comment) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Comment-Object.fxml"));
             AnchorPane anchorPane = fxmlLoader.load();
             CommentObject commentObject = fxmlLoader.getController();
-            commentObject.setComment("test","WOW seems not bad");
+            commentObject.setComment(username,comment);
             vBox.getChildren().add(anchorPane);
         } catch (IOException e) {
             e.printStackTrace();
@@ -214,5 +252,21 @@ public class ViewPostPageController {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+
+    @FXML
+    void sendCommentButtonPressed(MouseEvent event) {
+        if (!commentTextField.getText().isBlank()) {
+            Json json = new Json();
+            json.addUserComment(currentPost.getTagID(),UserHolder.getInstance().getUser().getUsername(),commentTextField.getText());
+            commentTextField.clear();
+        } else {
+            // If user clicks enter without entering any comment
+            Alert alert1 = new Alert(Alert.AlertType.WARNING);
+            alert1.setTitle("WARNING");
+            alert1.setHeaderText("Comment text field is blank.");
+            alert1.setContentText("Please enter a comment.");
+            alert1.showAndWait();
+        }
     }
 }
