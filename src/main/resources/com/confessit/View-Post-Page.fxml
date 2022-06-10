@@ -24,44 +24,10 @@
       <URL value="@styling.css" />
    </stylesheets>
    <children>
-      <fx:include fx:id="" layoutX="-184.0" layoutY="-13.0" source="Menu-Bar.fxml" />
       <Group layoutX="563.0" layoutY="53.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#495867" height="31.0" layoutX="-2.0" layoutY="85.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1284.0" />
       <AnchorPane layoutX="116.0" layoutY="148.0" prefHeight="419.0" prefWidth="1042.0" style="-fx-background-color: #f7f7ff; -fx-background-radius: 20px;">
          <children>
-            <AnchorPane layoutX="70.0" layoutY="227.0" prefHeight="187.0" prefWidth="902.0" style="-fx-background-color: aecee9; -fx-background-radius: 10;">
-               <children>
-                  <TextField fx:id="commentTextField" layoutX="14.0" layoutY="146.0" prefHeight="23.0" prefWidth="822.0" promptText="Type something..." style="-fx-background-color: #d4d4d4; -fx-background-radius: 5px;" stylesheets="@styling.css">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                     <styleClass>
-                        <String fx:value="content-field" />
-                        <String fx:value="text" />
-                     </styleClass>
-                  </TextField>
-                  <ScrollPane layoutY="41.0" prefHeight="98.0" prefWidth="902.0">
-                     <content>
-                        <VBox fx:id="vBox" prefHeight="95.0" prefWidth="886.0" />
-                     </content>
-                  </ScrollPane>
-                  <Button layoutX="846.0" layoutY="142.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#sendCommentButtonPressed" prefHeight="39.0" prefWidth="41.0" style="-fx-background-radius: 50;" styleClass="menu-btn" stylesheets="@styling.css">
-                     <graphic>
-                        <ImageView fitHeight="33.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../fxml-resources/send-icon.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                     <tooltip>
-                        <Tooltip text="Send" />
-                     </tooltip>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
-               </children>
-            </AnchorPane>
             <AnchorPane layoutX="70.0" layoutY="3.0" prefHeight="218.0" prefWidth="725.0">
                <children>
                   <Text layoutX="414.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Posted at: " wrappingWidth="89.45605278015137">
@@ -121,6 +87,77 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
+            <AnchorPane layoutX="70.0" layoutY="227.0" prefHeight="187.0" prefWidth="902.0" style="-fx-background-color: aecee9; -fx-background-radius: 10;">
+               <children>
+                  <TextField fx:id="commentTextField" layoutX="14.0" layoutY="146.0" onAction="#sendCommentButtonPressed" prefHeight="23.0" prefWidth="822.0" promptText="Type something..." style="-fx-background-color: #d4d4d4; -fx-background-radius: 5px;" stylesheets="@styling.css">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <styleClass>
+                        <String fx:value="content-field" />
+                        <String fx:value="text" />
+                     </styleClass>
+                  </TextField>
+                  <ScrollPane layoutY="41.0" prefHeight="98.0" prefWidth="902.0">
+                     <content>
+                        <VBox fx:id="vBox" prefHeight="95.0" prefWidth="886.0" />
+                     </content>
+                  </ScrollPane>
+                  <Button layoutX="846.0" layoutY="142.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#sendCommentButtonPressed" prefHeight="39.0" prefWidth="41.0" style="-fx-background-radius: 50;" styleClass="menu-btn" stylesheets="@styling.css">
+                     <graphic>
+                        <ImageView fitHeight="33.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../fxml-resources/send-icon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <tooltip>
+                        <Tooltip text="Send" />
+                     </tooltip>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button fx:id="likeButton" layoutX="14.0" layoutY="2.0" mnemonicParsing="false" onMouseClicked="#likeButtonPressed" prefHeight="31.0" prefWidth="30.0" style="-fx-background-color: transparent;">
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../fxml-resources/like-icon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="dislikeButton" layoutX="100.0" layoutY="2.0" mnemonicParsing="false" onMouseClicked="#dislikeButtonPressed" prefHeight="36.0" prefWidth="47.0" style="-fx-background-color: transparent;">
+                     <graphic>
+                        <ImageView fitHeight="35.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../fxml-resources/dislike-icon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Label fx:id="numOfLikes" layoutX="58.0" layoutY="10.0" prefHeight="23.0" prefWidth="47.0" styleClass="text" stylesheets="@styling.css" text="0">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="numOfDislikes" layoutX="147.0" layoutY="10.0" prefHeight="23.0" prefWidth="42.0" styleClass="text" stylesheets="@styling.css" text="0">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="30.0" fitWidth="28.0" layoutX="196.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../fxml-resources/comment-icon.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="numOfComments" layoutX="234.0" layoutY="10.0" prefHeight="23.0" prefWidth="42.0" styleClass="text" stylesheets="@styling.css" text="0">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
          </children>
       </AnchorPane>
       <ScrollPane layoutX="61.0" layoutY="600.0" prefHeight="194.0" prefWidth="1198.0" stylesheets="@styling.css" vbarPolicy="NEVER">

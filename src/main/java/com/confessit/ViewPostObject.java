@@ -69,7 +69,15 @@ public class ViewPostObject {
         dislikeLabel.setText(String.valueOf(currentPost.getDislike()));
 
         //Get number of comment
-        messageLabel.setText("0");
+        Json json = new Json();
+        String usernameAndCommentRemovePunctuation = json.retrieveUserComment(currentPost.getTagID());
+        if (!usernameAndCommentRemovePunctuation.equals("[]")) {
+            usernameAndCommentRemovePunctuation = usernameAndCommentRemovePunctuation.replace("[\"[","").replace("]\"]","");
+            String[] splitComment = usernameAndCommentRemovePunctuation.split("\\]\", \"\\[");
+            messageLabel.setText(String.valueOf(splitComment.length));
+        } else {
+            messageLabel.setText("0");
+        }
     }
 
     /**
