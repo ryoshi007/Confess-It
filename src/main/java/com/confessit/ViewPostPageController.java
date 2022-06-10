@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 
 public class ViewPostPageController {
@@ -357,13 +358,39 @@ public class ViewPostPageController {
         addToArchiveButton.setVisible(true);
     }
 
-    @FXML
-    void dislikeButtonPressed(MouseEvent event) {
-
-    }
-
+    /**
+     * Add a like to the post after clicking it if user hasn't liked that post
+     * Delete a like from the post after clicking it if user have liked that post before
+     * @param event Mouse click
+     */
     @FXML
     void likeButtonPressed(MouseEvent event) {
+        Json json = new Json();
+        String like = json.retrieveLikeUser(currentPost.getTagID());
+        if (like == null || !like.contains(UserHolder.getInstance().getUser().getUsername())) {
+            json.addLike(currentPost.getTagID(),UserHolder.getInstance().getUser().getUsername());
+            numOfLikes.setText(String.valueOf(Integer.parseInt(numOfLikes.getText()) + 1));
+        } else {
+            json.deleteLike(currentPost.getTagID(),UserHolder.getInstance().getUser().getUsername());
+            numOfLikes.setText(String.valueOf(Integer.parseInt(numOfLikes.getText()) - 1));
+        }
+    }
 
+    /**
+     * Add a dislike to the post after clicking it if user hasn't disliked that post
+     * Delete a dislike from the post after clicking it if user have disliked that post before
+     * @param event Mouse click
+     */
+    @FXML
+    void dislikeButtonPressed(MouseEvent event) {
+        Json json = new Json();
+        String dislike = json.retrieveDislikeUser(currentPost.getTagID());
+        if (dislike == null || !dislike.contains(UserHolder.getInstance().getUser().getUsername())) {
+            json.addDislike(currentPost.getTagID(),UserHolder.getInstance().getUser().getUsername());
+            numOfDislikes.setText(String.valueOf(Integer.parseInt(numOfDislikes.getText()) + 1));
+        } else {
+            json.deleteDislike(currentPost.getTagID(),UserHolder.getInstance().getUser().getUsername());
+            numOfDislikes.setText(String.valueOf(Integer.parseInt(numOfDislikes.getText()) - 1));
+        }
     }
 }

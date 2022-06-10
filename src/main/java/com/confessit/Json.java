@@ -401,4 +401,290 @@ public class Json {
             }
         }
     }
+
+    /**
+     * Increment number of likes by 1
+     * Store the username of a user who likes a specific post
+     * @param tagID tag ID of a post
+     * @param username username of a user
+     */
+    public void addLike(int tagID, String username) {
+        Connection connectDB = null;
+        Statement statement = null;
+        ResultSet queryResult = null;
+
+        try {
+            DatabaseConnection connection = new DatabaseConnection();
+            connectDB = connection.getConnection();
+            statement = connectDB.createStatement();
+            queryResult = statement.executeQuery("SELECT likeNum, likeUser FROM post WHERE tagid = '" + tagID + "'");
+            if (queryResult.next()) {
+                int likeNum = Integer.parseInt(queryResult.getString("likeNum")) + 1;
+                if (queryResult.getString("likeUser") == null) {
+                    statement.executeUpdate("UPDATE post SET likeUser = '[]' where tagid = '" + tagID + "'");
+                }
+                statement.executeUpdate("UPDATE post SET likeNum = '" + likeNum + "' WHERE tagid = '" + tagID + "'");
+                statement.executeUpdate("UPDATE post SET likeUser = JSON_ARRAY_APPEND(likeUser, '$', '" + username + "') WHERE tagid = '" + tagID + "'");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (connectDB != null) {
+                try {
+                    connectDB.close();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    /**
+     * Retrieve username of users who like a specific post
+     * @param tagID tag ID of a post
+     * @return A string containing usernames
+     */
+    public String retrieveLikeUser(int  tagID) {
+        String storeLikeUser = null;
+
+        Connection connectDB = null;
+        Statement statement = null;
+        ResultSet queryResult = null;
+
+        try {
+            DatabaseConnection connection = new DatabaseConnection();
+            connectDB = connection.getConnection();
+            statement = connectDB.createStatement();
+            queryResult = statement.executeQuery("SELECT likeUser FROM post WHERE tagid ='" + tagID + "'");
+            if (queryResult.next()) {
+                storeLikeUser = queryResult.getString("likeUser");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        } finally {
+            if (queryResult != null) {
+                try {
+                    queryResult.close();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (statement != null) {
+                try {
+                    statement.close();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (connectDB != null) {
+                try {
+                    connectDB.close();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return storeLikeUser;
+    }
+
+    /**
+     * Decrement number of like by 1
+     * Delete the username of a user who don't like a specific post anymore
+     * @param tagID tag ID of a post
+     * @param username username of a user
+     */
+    public void deleteLike(int tagID, String username) {
+        Connection connectDB = null;
+        Statement statement = null;
+        ResultSet queryResult = null;
+
+        try {
+            DatabaseConnection connection = new DatabaseConnection();
+            connectDB = connection.getConnection();
+            statement = connectDB.createStatement();
+            queryResult = statement.executeQuery("SELECT likeNum FROM post WHERE tagid = '" + tagID + "'");
+            if (queryResult.next()) {
+                int likeNum = Integer.parseInt(queryResult.getString("likeNum")) - 1;
+                statement.executeUpdate("UPDATE post SET likeUser = JSON_REMOVE(likeUser, replace(JSON_SEARCH(likeUser, 'one','" + username + "'), '\"', '')) WHERE tagid = '" + tagID + "'");
+                statement.executeUpdate("UPDATE post SET likeNum = '" + likeNum + "' WHERE tagid = '" + tagID + "'");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (connectDB != null) {
+                try {
+                    connectDB.close();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    /**
+     * Increment number of dislike by 1
+     * Store the username of a user who dislikes a specific post
+     * @param tagID tag ID of a post
+     * @param username username of a user
+     */
+    public void addDislike(int tagID, String username) {
+        Connection connectDB = null;
+        Statement statement = null;
+        ResultSet queryResult = null;
+
+        try {
+            DatabaseConnection connection = new DatabaseConnection();
+            connectDB = connection.getConnection();
+            statement = connectDB.createStatement();
+            queryResult = statement.executeQuery("SELECT dislikeNum, dislikeUser FROM post WHERE tagid = '" + tagID + "'");
+            if (queryResult.next()) {
+                int dislikeNum = Integer.parseInt(queryResult.getString("dislikeNum")) + 1;
+                if (queryResult.getString("dislikeUser") == null) {
+                    statement.executeUpdate("UPDATE post SET dislikeUser = '[]' where tagid = '" + tagID + "'");
+                }
+                statement.executeUpdate("UPDATE post SET dislikeNum = '" + dislikeNum + "' WHERE tagid = '" + tagID + "'");
+                statement.executeUpdate("UPDATE post SET dislikeUser = JSON_ARRAY_APPEND(dislikeUser, '$', '" + username + "') WHERE tagid = '" + tagID + "'");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (connectDB != null) {
+                try {
+                    connectDB.close();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    /**
+     * Retrieve username of users who dislike a specific post
+     * @param tagID tag ID of a post
+     * @return A string containing usernames
+     */
+    public String retrieveDislikeUser(int  tagID) {
+        String storeLikeUser = null;
+
+        Connection connectDB = null;
+        Statement statement = null;
+        ResultSet queryResult = null;
+
+        try {
+            DatabaseConnection connection = new DatabaseConnection();
+            connectDB = connection.getConnection();
+            statement = connectDB.createStatement();
+            queryResult = statement.executeQuery("SELECT dislikeUser FROM post WHERE tagid ='" + tagID + "'");
+            if (queryResult.next()) {
+                storeLikeUser = queryResult.getString("dislikeUser");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        } finally {
+            if (queryResult != null) {
+                try {
+                    queryResult.close();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (statement != null) {
+                try {
+                    statement.close();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (connectDB != null) {
+                try {
+                    connectDB.close();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return storeLikeUser;
+    }
+
+    /**
+     * Decrement number of dislikes by 1
+     * Delete the username of a user who don't dislike a specific post anymore
+     * @param tagID tag ID of a post
+     * @param username username of a user
+     */
+    public void deleteDislike(int tagID, String username) {
+        Connection connectDB = null;
+        Statement statement = null;
+        ResultSet queryResult = null;
+
+        try {
+            DatabaseConnection connection = new DatabaseConnection();
+            connectDB = connection.getConnection();
+            statement = connectDB.createStatement();
+            queryResult = statement.executeQuery("SELECT dislikeNum FROM post WHERE tagid = '" + tagID + "'");
+            if (queryResult.next()) {
+                int dislikeNum = Integer.parseInt(queryResult.getString("dislikeNum")) - 1;
+                statement.executeUpdate("UPDATE post SET dislikeUser = JSON_REMOVE(dislikeUser, replace(JSON_SEARCH(dislikeUser, 'one','" + username + "'), '\"', '')) WHERE tagid = '" + tagID + "'");
+                statement.executeUpdate("UPDATE post SET dislikeNum = '" + dislikeNum + "' WHERE tagid = '" + tagID + "'");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (connectDB != null) {
+                try {
+                    connectDB.close();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 }
