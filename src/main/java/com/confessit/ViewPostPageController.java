@@ -84,10 +84,16 @@ public class ViewPostPageController {
     private Post currentPost;
 
     /**
-     * A button that used to save a post in archive after clicking it
+     * A button that used to add a post to archive after clicking it
      */
     @FXML
-    private Button saveToArchiveButton;
+    private Button addToArchiveButton;
+
+    /**
+     * A button that used to remove a post from archive after clicking it
+     */
+    @FXML
+    private Button removeFromArchiveButton;
 
     /**
      * An array list that used to store sub-posts of a post
@@ -131,7 +137,11 @@ public class ViewPostPageController {
         // Check whether user saves this post in archive before
         String archive = json.retrieveFromArchive(UserHolder.getInstance().getUser().getUsername());
         if (archive == null || !archive.contains(String.valueOf(currentPost.getTagID()))) {
-            saveToArchiveButton.setVisible(true);
+            addToArchiveButton.setVisible(true);
+            removeFromArchiveButton.setVisible(false);
+        } else {
+            addToArchiveButton.setVisible(false);
+            removeFromArchiveButton.setVisible(true);
         }
 
         // Get comments from database
@@ -288,11 +298,27 @@ public class ViewPostPageController {
         }
     }
 
-
+    /**
+     * Add a new post to user's archive
+     * @param event Mouse click
+     */
     @FXML
-    void saveToArchiveButtonPressed(MouseEvent event) {
+    void addToArchiveButtonPressed(MouseEvent event) {
         Json json = new Json();
         json.addToArchive(currentPost.getTagID(),UserHolder.getInstance().getUser().getUsername());
-        saveToArchiveButton.setVisible(false);
+        addToArchiveButton.setVisible(false);
+        removeFromArchiveButton.setVisible(true);
+    }
+
+    /**
+     * Remove a post from user's archive
+     * @param event Mouse click
+     */
+    @FXML
+    void removeFromArchiveButtonPressed(MouseEvent event) {
+        Json json = new Json();
+        json.deleteArchive(UserHolder.getInstance().getUser().getUsername(),currentPost.getTagID());
+        removeFromArchiveButton.setVisible(false);
+        addToArchiveButton.setVisible(true);
     }
 }

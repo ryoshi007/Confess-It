@@ -60,24 +60,9 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="saveToArchiveButton" layoutX="323.0" layoutY="1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#saveToArchiveButtonPressed" prefHeight="39.0" prefWidth="42.0" style="-fx-background-radius: 50;" styleClass="menu-btn" stylesheets="@styling.css" visible="false">
-                     <graphic>
-                        <ImageView fitHeight="33.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../fxml-resources/archive2-icon.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                     <tooltip>
-                        <Tooltip text="Save" />
-                     </tooltip>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="70.0" layoutY="15.0" prefHeight="218.0" prefWidth="692.0">
+            <AnchorPane layoutX="70.0" layoutY="3.0" prefHeight="218.0" prefWidth="725.0">
                <children>
                   <Text layoutX="414.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Posted at: " wrappingWidth="89.45605278015137">
                      <font>
@@ -105,7 +90,37 @@
                   </ScrollPane>
                </children>
             </AnchorPane>
-            <ImageView fx:id="postImagePane" fitHeight="194.0" fitWidth="232.0" layoutX="781.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="postImagePane" fitHeight="194.0" fitWidth="201.0" layoutX="767.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" />
+            <Button fx:id="addToArchiveButton" layoutX="985.0" layoutY="15.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#addToArchiveButtonPressed" prefHeight="39.0" prefWidth="42.0" style="-fx-background-radius: 50;" styleClass="menu-btn" stylesheets="@styling.css" visible="false">
+               <graphic>
+                  <ImageView fitHeight="33.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../fxml-resources/archive2-icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <tooltip>
+                  <Tooltip text="Add To Archive" />
+               </tooltip>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="removeFromArchiveButton" layoutX="985.0" layoutY="72.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#removeFromArchiveButtonPressed" prefHeight="39.0" prefWidth="42.0" style="-fx-background-radius: 50;" styleClass="menu-btn" stylesheets="@styling.css" visible="false">
+               <graphic>
+                  <ImageView fitHeight="38.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../fxml-resources/remove-from-arcvie-icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <tooltip>
+                  <Tooltip text="Remove From Archive" />
+               </tooltip>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
          </children>
       </AnchorPane>
       <ScrollPane layoutX="61.0" layoutY="600.0" prefHeight="194.0" prefWidth="1198.0" stylesheets="@styling.css" vbarPolicy="NEVER">
