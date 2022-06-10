@@ -7,7 +7,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -63,7 +62,14 @@ public class ViewPostObject {
     public void setViewPost(Post post) {
         this.currentPost = post;
         viewPostTagID.setText(" #UM " + currentPost.getTagID());
-        viewPostContent.setText("\n" + currentPost.getContent());
+
+        if (currentPost.getReplyToPostID() != 0) {
+            String content = "\nReply to #UM" + currentPost.getReplyToPostID() + "\n\n" + currentPost.getContent();
+            viewPostContent.setText(content);
+        } else {
+            viewPostContent.setText("\n" +currentPost.getContent());
+        }
+
         viewPostContent.setWrapText(true);
         likeLabel.setText(String.valueOf(currentPost.getLike()));
         dislikeLabel.setText(String.valueOf(currentPost.getDislike()));

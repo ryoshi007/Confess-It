@@ -71,6 +71,9 @@ public class SubmitPostController implements Initializable {
     @FXML
     private Label false_postid_warning;
 
+    @FXML
+    private Button findButton;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         empty_warning.setVisible(false);
@@ -84,8 +87,9 @@ public class SubmitPostController implements Initializable {
      * Submit a post without picture for approval
      * @param content is the content from the submitted post
      */
-    public void submitPost(String content) {
+    public String submitPost(String content) throws SQLException {
         Connection connectDB = null;
+        String postQueryIndex = String.valueOf(retrieveNewQueryIndex());
 
         try {
             DatabaseConnection connection = new DatabaseConnection();
@@ -114,6 +118,7 @@ public class SubmitPostController implements Initializable {
                 }
             }
         }
+        return postQueryIndex;
     }
 
     /***
@@ -121,7 +126,7 @@ public class SubmitPostController implements Initializable {
      * @param content is the content from the submitted post
      * @param imageName is the name of the picture
      */
-    public void submitPost(String content, String imageName) throws SQLException, IOException {
+    public String submitPost(String content, String imageName) throws SQLException, IOException {
         Connection connectDB = null;
 
         String postQueryIndex = String.valueOf(retrieveNewQueryIndex());
@@ -159,6 +164,7 @@ public class SubmitPostController implements Initializable {
                 }
             }
         }
+        return postQueryIndex;
     }
 
     /***
@@ -335,65 +341,119 @@ public class SubmitPostController implements Initializable {
     }
 
     @FXML
-    void submitPost() throws SQLException, IOException {
+    void submit() throws SQLException, IOException {
         empty_warning.setVisible(false);
         false_postid_warning.setVisible(false);
         String postID = "", content = "";
 
+        //Content Field is blank
         if (contentField.getText().isBlank()) {
             if (!postIdField.getText().isBlank()) {
-                postID = postIdField.getText(2, postIdField.getLength());
-                if (!isNumeric(postID)) {
+                try {
+                    postID = postIdField.getText(2, postIdField.getLength());
+                    if (postID.isBlank()) {
+                        false_postid_warning.setVisible(true);
+                    }else if (!isNumeric(postID)) {
+                        false_postid_warning.setVisible(true);
+                    } else if (!postIdField.getText().contains("UM")) {
+                        false_postid_warning.setVisible(true);
+                    }
+                } catch (IllegalArgumentException e) {
                     false_postid_warning.setVisible(true);
                 }
             }
             empty_warning.setVisible(true);
+        } else {
+            if (!postIdField.getText().isBlank()) {
+                try {
+                    postID = postIdField.getText(2, postIdField.getLength());
+                    if (postID.isBlank()) {
+                        false_postid_warning.setVisible(true);
+                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                        alert.setTitle("Invalid Post ID");
+                        alert.setHeaderText("Please follow the correct format!");
+                        alert.setContentText("Please check again that your input has the correct format!");
+                        alert.showAndWait();
+
+                    } else if (!isNumeric(postID)) {
+                        false_postid_warning.setVisible(true);
+                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                        alert.setTitle("Invalid Post ID");
+                        alert.setHeaderText("Please follow the correct format!");
+                        alert.setContentText("Please check again that your input has the correct format!");
+                        alert.showAndWait();
+
+                    } else if (!postIdField.getText().contains("UM")) {
+                        false_postid_warning.setVisible(true);
+                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                        alert.setTitle("Invalid Post ID");
+                        alert.setHeaderText("Please follow the correct format!");
+                        alert.setContentText("Please check again that your input has the correct format!");
+                        alert.showAndWait();
+
+                    } else if (!checkIfPostIDExist(postID)) {
+                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                        alert.setTitle("Invalid Post ID");
+                        alert.setHeaderText("The post with such post id is not exist!");
+                        alert.setContentText("Please check again the post id that you want to reply to!");
+                        alert.showAndWait();
+                    } else {
+                        checkOnSubmissionAndSubmitIt();
+                    }
+                } catch (IllegalArgumentException e) {
+                    false_postid_warning.setVisible(true);
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Invalid Post ID");
+                    alert.setHeaderText("Please follow the correct format!");
+                    alert.setContentText("Please check again that your input has the correct format!");
+                    alert.showAndWait();
+                }
+            } else {
+                checkOnSubmissionAndSubmitIt();
+            }
+        }
+    }
+
+    @FXML
+    void checkOnSubmissionAndSubmitIt() throws SQLException, IOException {
+        String content = contentField.getText();
+        String postID = postIdField.getText(2, postIdField.getLength());
+
+        if (!detectSpam(contentField.getText())) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Error in Submission");
+            alert.setHeaderText("Your submission has been rejected!");
+            alert.setContentText("Due to in violation of our community standards, your submission is not approved "+
+                    "by our system. Please alter your confession content so that it is not a spam, " +
+                    "has a minimum length of 20 and not a copy of previous confession posts.");
+            alert.showAndWait();
 
         } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Success in Submission");
+            alert.setHeaderText("Your submission has been accepted!");
+            alert.setContentText("Please give a few hours to the admins to approve your post. We can't wait " +
+                    "to see your confession post on the main page. Thank you!");
+            alert.showAndWait();
 
-            if (!postIdField.getText().isBlank()) {
-                postID = postIdField.getText(2, postIdField.getLength());
-                if (!isNumeric(postID)) {
-                    false_postid_warning.setVisible(true);
-                } else {
-                    content = "Reply UM" + postID + "\n\n" + contentField.getText();
-                }
+            String picFilePath = filePath;
+            String postQueryIndex = "";
+
+            if (picFilePath == null || picFilePath.isBlank()) {
+                postQueryIndex = submitPost(content);
             } else {
-                content = contentField.getText();
+                postQueryIndex = submitPost(content, picFilePath);
             }
 
-            if (!detectSpam(contentField.getText())) {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Error in Submission");
-                alert.setHeaderText("Your submission has been rejected!");
-                alert.setContentText("Due to in violation of our community standards, your submission is not approved "+
-                        "by our system. Please alter your confession content so that it is not a spam, " +
-                        "has a minimum length of 20 and not a copy of previous confession posts.");
-                alert.showAndWait();
-
-            } else {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Success in Submission");
-                alert.setHeaderText("Your submission has been accepted!");
-                alert.setContentText("Please give a few hours to the admins to approve your post. We can't wait " +
-                        "to see your confession post on the main page. Thank you!");
-                alert.showAndWait();
-
-                String picFilePath = filePath;
-
-                //submit method (Currently thinking for reply post)
-                if (picFilePath == null || picFilePath.isBlank()) {
-                    submitPost(content);
-                } else {
-                    submitPost(content, picFilePath);
-                }
-
-                postIdField.clear();
-                contentField.clear();
-                imagePane.setImage(null);
-                deleteImageButton.setVisible(false);
-                filePath = null;
+            if (!postID.isBlank()) {
+                insertReplyPostID(postQueryIndex, postID);
             }
+
+            postIdField.clear();
+            contentField.clear();
+            imagePane.setImage(null);
+            deleteImageButton.setVisible(false);
+            filePath = null;
         }
     }
 
@@ -473,4 +533,140 @@ public class SubmitPostController implements Initializable {
         return 1;
     }
 
+    private void insertReplyPostID(String queryIndex, String replyPostID) {
+        Connection connectDB = null;
+
+        try {
+            DatabaseConnection connection = new DatabaseConnection();
+            connectDB = connection.getConnection();
+            String sql = "UPDATE post SET replyTo = " + replyPostID + " WHERE queryIndex = " + queryIndex;
+            PreparedStatement statement = connection.databaseLink.prepareStatement(sql);
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        } finally {
+            if (connectDB != null) {
+                try {
+                    connectDB.close();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    @FXML
+    void findPostExist(MouseEvent event) {
+        false_postid_warning.setVisible(false);
+        String postID = "";
+
+        if (!postIdField.getText().isBlank()) {
+            try {
+                postID = postIdField.getText(2, postIdField.getLength());
+                if (postID.isBlank()) {
+                    false_postid_warning.setVisible(true);
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Invalid Post ID");
+                    alert.setHeaderText("Please follow the correct format!");
+                    alert.setContentText("Please check again that your input has the correct format!");
+                    alert.showAndWait();
+
+                }else if (!isNumeric(postID)) {
+                    false_postid_warning.setVisible(true);
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Invalid Post ID");
+                    alert.setHeaderText("Please follow the correct format!");
+                    alert.setContentText("Please check again that your input has the correct format!");
+                    alert.showAndWait();
+
+                } else if (!postIdField.getText().contains("UM")) {
+                    false_postid_warning.setVisible(true);
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Invalid Post ID");
+                    alert.setHeaderText("Please follow the correct format!");
+                    alert.setContentText("Please check again that your input has the correct format!");
+                    alert.showAndWait();
+
+                } else if (!checkIfPostIDExist(postID)) {
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Invalid Post ID");
+                    alert.setHeaderText("The post with such post id is not exist!");
+                    alert.setContentText("Please check again the post id that you want to reply to!");
+                    alert.showAndWait();
+
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Valid Post ID");
+                    alert.setHeaderText("The post id is valid!");
+                    alert.setContentText("You can proceed to submit your confession post by clicking the Submit button");
+                    alert.showAndWait();
+                }
+
+            } catch (IllegalArgumentException e) {
+                false_postid_warning.setVisible(true);
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Invalid Post ID");
+                alert.setHeaderText("Please follow the correct format!");
+                alert.setContentText("Please check again that your input has the correct format!");
+                alert.showAndWait();
+            }
+        }
+    }
+
+    private boolean checkIfPostIDExist(String postID) {
+        Connection connectDB = null;
+        Statement statement = null;
+        ResultSet queryResult = null;
+
+        boolean isExist = false;
+
+        try {
+            DatabaseConnection connection = new DatabaseConnection();
+            connectDB = connection.getConnection();
+            statement = connectDB.createStatement();
+            String sql = "SELECT * FROM post WHERE find_in_set(" + postID + ", tagid)";
+
+            try {
+                queryResult = statement.executeQuery(sql);
+                if (queryResult.next()) {
+                    isExist = true;
+                }
+            } catch (SQLSyntaxErrorException e) {
+                isExist = false;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        } finally {
+            if (queryResult != null) {
+                try {
+                    queryResult.close();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (statement != null) {
+                try {
+                    statement.close();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (connectDB != null) {
+                try {
+                    connectDB.close();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return isExist;
+    }
 }

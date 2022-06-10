@@ -16,7 +16,6 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Objects;
 
 public class ViewPostPageController {
@@ -155,7 +154,14 @@ public class ViewPostPageController {
         // Fill the post content and its information into view-post-page
         postTagID.setText("#UM " + currentPost.getTagID());
         postedDate.setText((currentPost.getDatetime().toString().substring(0,19)));
-        postContent.setText(currentPost.getContent());
+
+        if (currentPost.getReplyToPostID() != 0) {
+            String content = "\nReply to #UM" + currentPost.getReplyToPostID() + "\n\n" + currentPost.getContent();
+            postContent.setText(content);
+        } else {
+            postContent.setText("\n" + currentPost.getContent());
+        }
+
         postContent.setWrapText(true);
         numOfLikes.setText(String.valueOf(currentPost.getLike()));
         numOfDislikes.setText(String.valueOf(currentPost.getDislike()));

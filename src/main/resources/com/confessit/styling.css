@@ -144,6 +144,36 @@
     -fx-effect: innershadow( gaussian , white , 7 , 1 , 1 , 1 );
 }
 
+.submit-find-btn {
+    -fx-font-family: 'Lato', sans-serif;
+    -fx-font-weight: bold;
+    -fx-font-size: 25;
+    -fx-background-color: #bdd5ea;
+    -fx-background-radius:10;
+    -fx-text-fill: #577399;
+}
+
+.submit-find-btn:hover {
+    -fx-font-family: 'Lato', sans-serif;
+    -fx-font-weight: bold;
+    -fx-background-color: #1a3d51;
+    -fx-background-radius:10;
+    -fx-text-fill: white;
+    -fx-border-color: #1a3d51;
+    -fx-border-radius:10;
+    -fx-border-width:2;
+}
+
+.submit-find-btn:pressed {
+    -fx-font-family: 'Lato', sans-serif;
+    -fx-font-weight:bold;
+    -fx-background-color:#30b1c6;
+    -fx-background-radius:10;
+    -fx-border-color: #30b1c6;
+    -fx-border-radius:10;
+    -fx-border-width:3;
+}
+
 /* Profile page */}
 .profile-username {
     -fx-font-family: 'Lato', sans-serif;

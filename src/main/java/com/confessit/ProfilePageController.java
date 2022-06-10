@@ -475,14 +475,15 @@ public class ProfilePageController implements Initializable {
                     Date approvalTime = queryResult.getTimestamp("approvalTime");
                     boolean displayStatus = queryResult.getBoolean("displayStatus");
                     String reply = queryResult.getString("replyPosts");
+                    int replyToPostID = queryResult.getInt("replyTo");
 
                     Post newPost = null;
                     if (filePath == null) {
                         newPost = new Post(index, tagID, datetime, content, like, dislike, comment, approval,
-                                approvalTime, displayStatus, reply);
+                                approvalTime, displayStatus, reply, replyToPostID);
                     } else {
                         newPost = new Post(index, tagID, datetime, content, filePath, like, dislike, comment, approval,
-                                approvalTime, displayStatus, reply);
+                                approvalTime, displayStatus, reply, replyToPostID);
                     }
                     postList.add(newPost);
                 }

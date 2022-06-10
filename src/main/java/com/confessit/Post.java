@@ -17,6 +17,7 @@ public class Post {
     private Date approvalTime;
     private boolean isDisplayed;
     private String reply;
+    private int replyToPostID = 0;
 
     /**
      * Constructor for a submitted post with picture
@@ -32,9 +33,10 @@ public class Post {
      * @param approvalTime is the time when the post is approved
      * @param isDisplayed is the status of the approved has been displayed or not
      * @param reply is the string consists of the tag id of the posts that are replying to this post
+     * @param replyToPostID is the postID that the post is replying to
      */
     public Post(int index, int tagID, Date datetime, String content, String picturePath, int like, int dislike,
-                String comment, boolean isApproved, Date approvalTime, boolean isDisplayed, String reply) {
+                String comment, boolean isApproved, Date approvalTime, boolean isDisplayed, String reply, int replyToPostID) {
         this.index = index;
         this.tagID = tagID;
         this.datetime = datetime;
@@ -47,6 +49,7 @@ public class Post {
         this.approvalTime = approvalTime;
         this.isDisplayed = isDisplayed;
         this.reply = reply;
+        this.replyToPostID = replyToPostID;
     }
 
     /**
@@ -62,9 +65,10 @@ public class Post {
      * @param approvalTime is the time when the post is approved
      * @param isDisplayed is the status of the approved has been displayed or not
      * @param reply is the string consists of the tag id of the posts that are replying to this post
+     * @param replyToPostID is the postID that the post is replying to
      */
     public Post(int index, int tagID, Date datetime, String content, int like, int dislike, String comment,
-                boolean isApproved, Date approvalTime, boolean isDisplayed, String reply) {
+                boolean isApproved, Date approvalTime, boolean isDisplayed, String reply, int replyToPostID) {
         this.index = index;
         this.tagID = tagID;
         this.datetime = datetime;
@@ -76,6 +80,7 @@ public class Post {
         this.approvalTime = approvalTime;
         this.isDisplayed = isDisplayed;
         this.reply = reply;
+        this.replyToPostID = replyToPostID;
     }
 
     /**
@@ -270,6 +275,14 @@ public class Post {
      */
     public void setApproved(boolean approved) {
         isApproved = approved;
+    }
+
+    public int getReplyToPostID() {
+        return replyToPostID;
+    }
+
+    public void setReplyToPostID(int replyToPostID) {
+        this.replyToPostID = replyToPostID;
     }
 
     public String toString() {

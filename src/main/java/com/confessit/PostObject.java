@@ -2,10 +2,6 @@ package com.confessit;
 
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -30,7 +26,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.*;
 import java.util.Calendar;
-import java.util.concurrent.Callable;
 
 public class PostObject {
     /**
@@ -67,7 +62,16 @@ public class PostObject {
     public void setPost(Post pendingPost) throws FileNotFoundException {
         postGrid.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
         postDate.setText("   Posted at " + pendingPost.getDatetime().toString());
-        CustomTextArea contentField = new CustomTextArea(pendingPost.getContent());
+
+        CustomTextArea contentField = null;
+        if (pendingPost.getReplyToPostID() != 0) {
+            String content = "Reply to #UM" + pendingPost.getReplyToPostID() + "\n\n" + pendingPost.getContent();
+            contentField = new CustomTextArea(content);
+            contentField.setText(content);
+        } else {
+            contentField = new CustomTextArea(pendingPost.getContent());
+        }
+
         contentField.setStyle("-fx-focus-color: transparent; -fx-text-box-border: transparent;");
         postGrid.add(contentField, 0, 2);
 

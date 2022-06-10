@@ -212,7 +212,7 @@
          </font>
       </TextField>
       <ImageView fx:id="imagePane" fitHeight="150.0" fitWidth="200.0" layoutX="917.0" layoutY="582.0" pickOnBounds="true" preserveRatio="true" />
-      <Button fx:id="submitButton" contentDisplay="RIGHT" layoutX="266.0" layoutY="627.0" mnemonicParsing="false" onMouseClicked="#submitPost" prefHeight="60.0" prefWidth="206.0" styleClass="submit-post-btn" stylesheets="@styling.css" text="Submit  ">
+      <Button fx:id="submitButton" contentDisplay="RIGHT" layoutX="266.0" layoutY="627.0" mnemonicParsing="false" onMouseClicked="#submit" prefHeight="60.0" prefWidth="206.0" styleClass="submit-post-btn" stylesheets="@styling.css" text="Submit  ">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -277,6 +277,24 @@
          </cursor>
          <tooltip>
             <Tooltip text="Remove Image" />
+         </tooltip>
+      </Button>
+      <Button fx:id="findButton" alignment="CENTER" contentDisplay="RIGHT" focusTraversable="false" layoutX="352.0" layoutY="285.0" mnemonicParsing="false" onMouseClicked="#findPostExist" prefHeight="43.0" prefWidth="51.0" styleClass="submit-find-btn" stylesheets="@styling.css">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <font>
+            <Font size="25.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="22.0" fitWidth="22.0" preserveRatio="true">
+               <image>
+                  <Image url="@../fxml-resources/search-bar-icon.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <tooltip>
+            <Tooltip text="Find if the post exists or not" />
          </tooltip>
       </Button>
    </children>
