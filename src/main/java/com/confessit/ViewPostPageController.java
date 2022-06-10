@@ -11,7 +11,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -96,6 +95,36 @@ public class ViewPostPageController {
     private Button removeFromArchiveButton;
 
     /**
+     * A button that used to like a post
+     */
+    @FXML
+    private Button likeButton;
+
+    /**
+     * A button that used to dislike a post
+     */
+    @FXML
+    private Button dislikeButton;
+
+    /**
+     * A label that used to display number of comments
+     */
+    @FXML
+    private Label numOfComments;
+
+    /**
+     * A label that used to display number of dislikes
+     */
+    @FXML
+    private Label numOfDislikes;
+
+    /**
+     * A label that used to display number of likes
+     */
+    @FXML
+    private Label numOfLikes;
+
+    /**
      * An array list that used to store sub-posts of a post
      */
     private ArrayList<Post> subPostList = new ArrayList<>();
@@ -127,6 +156,9 @@ public class ViewPostPageController {
         postedDate.setText((currentPost.getDatetime().toString().substring(0,19)));
         postContent.setText(currentPost.getContent());
         postContent.setWrapText(true);
+        numOfLikes.setText(String.valueOf(currentPost.getLike()));
+        numOfDislikes.setText(String.valueOf(currentPost.getDislike()));
+
         if (currentPost.getPicturePath() != null) {
             Image image = new Image(new File("src/main/resources/com/postImages/" + currentPost.getPicturePath() + ".png").toURI().toString());
             postImagePane.setImage(image);
@@ -256,6 +288,7 @@ public class ViewPostPageController {
             CommentObject commentObject = fxmlLoader.getController();
             commentObject.setComment(username,comment,currentPost.getTagID(),currentPost);
             vBox.getChildren().add(anchorPane);
+            numOfComments.setText(String.valueOf(storeComment.size()));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -282,10 +315,12 @@ public class ViewPostPageController {
      * @param event Mouse click
      */
     @FXML
-    void sendCommentButtonPressed(MouseEvent event) {
+    void sendCommentButtonPressed(ActionEvent event) {
         if (!commentTextField.getText().isBlank()) {
             Json json = new Json();
             json.addUserComment(currentPost.getTagID(),UserHolder.getInstance().getUser().getUsername(),commentTextField.getText());
+            storeUsername.add(UserHolder.getInstance().getUser().getUsername());
+            storeComment.add(commentTextField.getText());
             fillComment(UserHolder.getInstance().getUser().getUsername(),commentTextField.getText());
             commentTextField.clear();
         } else {
@@ -320,5 +355,15 @@ public class ViewPostPageController {
         json.deleteArchive(UserHolder.getInstance().getUser().getUsername(),currentPost.getTagID());
         removeFromArchiveButton.setVisible(false);
         addToArchiveButton.setVisible(true);
+    }
+
+    @FXML
+    void dislikeButtonPressed(MouseEvent event) {
+
+    }
+
+    @FXML
+    void likeButtonPressed(MouseEvent event) {
+
     }
 }
