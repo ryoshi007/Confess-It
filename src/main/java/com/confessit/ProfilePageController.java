@@ -321,7 +321,6 @@ public class ProfilePageController implements Initializable {
                 throw new RuntimeException(e);
             }
         }
-        scrollPane.setContent(displayBox);
         mainPane.getChildren().add(scrollPane);
 
         AnchorPane.setTopAnchor(scrollPane, 0.0);

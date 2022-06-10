@@ -15,7 +15,12 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Objects;
 
 public class ViewPostPageController {
@@ -124,6 +129,9 @@ public class ViewPostPageController {
     @FXML
     private Label numOfLikes;
 
+    @FXML
+    private ScrollPane relatedPostPane;
+
     /**
      * An array list that used to store sub-posts of a post
      */
@@ -197,6 +205,10 @@ public class ViewPostPageController {
             for (int i = 0; i < storeComment.size(); i++) {
                 fillComment(storeUsername.get(i), storeComment.get(i));
             }
+        }
+
+        if (currentPost.getReplyToPostID() != 0) {
+            fillRelatedPost();
         }
 
 
@@ -301,6 +313,25 @@ public class ViewPostPageController {
         }
     }
 
+    public void fillRelatedPost() {
+        HBox displayBox = new HBox();
+        displayBox.setSpacing(10);
+
+        StackPane container = new StackPane();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Related-Post.fxml"));
+        try {
+            Parent currentPane = loader.load();
+            ViewPostObject viewPostObjectController = loader.getController();
+            viewPostObjectController.setViewPost(findPostByTagID(String.valueOf(currentPost.getReplyToPostID())));
+            container.getChildren().add(currentPane);
+            displayBox.getChildren().add(container);
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        relatedPostPane.setContent(displayBox);
+    }
+
     @FXML
     void backToPreviousPage(MouseEvent event) throws IOException {
         if (UserHolder.getInstance().getCurrentPage() == "MainPage") {
@@ -399,4 +430,74 @@ public class ViewPostPageController {
             numOfDislikes.setText(String.valueOf(Integer.parseInt(numOfDislikes.getText()) - 1));
         }
     }
+
+    private Post findPostByTagID(String targetTagID) {
+        Post post = null;
+        Connection connectDB = null;
+        Statement statement = null;
+        ResultSet queryResult = null;
+
+        try {
+            DatabaseConnection connection = new DatabaseConnection();
+            connectDB = connection.getConnection();
+            statement = connectDB.createStatement();
+            String sql = "SELECT * FROM post WHERE tagid = " + targetTagID;
+            queryResult = statement.executeQuery(sql);
+
+            while(queryResult.next()) {
+                int index = queryResult.getInt("queryIndex");
+                int tagID = queryResult.getInt("tagid");
+                Date datetime = queryResult.getTimestamp("datetime");
+                String content = queryResult.getString("content");
+                String filePath = queryResult.getString("picfilepath");
+                int like = queryResult.getInt("likeNum");
+                int dislike = queryResult.getInt("dislikeNum");
+                String comment = queryResult.getString("comment");
+                boolean approval = queryResult.getBoolean("approval");
+                Date approvalTime = queryResult.getTimestamp("approvalTime");
+                boolean displayStatus = queryResult.getBoolean("displayStatus");
+                String reply = queryResult.getString("replyPosts");
+                int replyToPostID = queryResult.getInt("replyTo");
+
+                if (filePath == null) {
+                    post = new Post(index, tagID, datetime, content, like, dislike, comment, approval,
+                            approvalTime, displayStatus, reply, replyToPostID);
+                } else {
+                    post = new Post(index, tagID, datetime, content, filePath, like, dislike, comment, approval,
+                            approvalTime, displayStatus, reply, replyToPostID);
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        } finally {
+            if (queryResult != null) {
+                try {
+                    queryResult.close();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (statement != null) {
+                try {
+                    statement.close();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (connectDB != null) {
+                try {
+                    connectDB.close();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return post;
+    }
+
 }
