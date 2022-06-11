@@ -61,12 +61,6 @@ public class ProfilePageController implements Initializable {
     private TextField emailField;
 
     @FXML
-    private Button historyButton;
-
-    @FXML
-    private Line historyLine;
-
-    @FXML
     private Line passwordLine;
 
     @FXML
@@ -81,15 +75,39 @@ public class ProfilePageController implements Initializable {
     @FXML
     private AnchorPane mainPane;
 
+    @FXML
+    private AnchorPane profileMenuBar;
+
+    @FXML
+    private AnchorPane profilePage;
+
+    @FXML
+    private Line selectionLine;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         UserHolder.getInstance().setCurrentPage("ProfilePage");
+
+        if (UserHolder.getInstance().isAdmin()) {
+            profileMenuBar.getChildren().clear();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Admin-Bar.fxml"));
+            try {
+                AnchorPane adminMenuBar = loader.load();
+                adminMenuBar.setLayoutX(321);
+                adminMenuBar.setLayoutY(-23);
+
+                selectionLine.setLayoutX(828);
+                selectionLine.setLayoutY(61);
+                profilePage.getChildren().add(adminMenuBar);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
 
         Image profile = new Image("com/fxml-resources/default-profile-picture.png", false);
         mainPane.getChildren().clear();
         profileImage.setFill(new ImagePattern(profile));
         archiveLine.setVisible(false);
-        historyLine.setVisible(false);
 
         birthdayField.setDisable(true);
         birthdayField.setStyle("-fx-opacity: 1");
@@ -108,43 +126,6 @@ public class ProfilePageController implements Initializable {
         }
 
         displayArchivePage();
-    }
-
-    /**
-     * Change user username and update it in database
-     * @param user a User object
-     * @param username new username entered by the user
-     */
-    public void editUsername(User user, String username) {
-        if (user.getUsername().equals(username)) {
-            System.out.println("Please enter a different username");
-        } else {
-            Connection connectDB = null;
-
-            try {
-                DatabaseConnection connection = new DatabaseConnection();
-                connectDB = connection.getConnection();
-                String sql = "UPDATE user SET username = ? WHERE email = ?";
-                PreparedStatement statement = connectDB.prepareStatement(sql);
-
-                statement.setString(1, username);
-                statement.setString(2, user.getEmail());
-                statement.executeUpdate();
-
-            } catch (SQLException e) {
-                e.printStackTrace();
-
-            } finally {
-                if (connectDB != null) {
-                    try {
-                        connectDB.close();
-
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }
     }
 
     /**
@@ -281,7 +262,6 @@ public class ProfilePageController implements Initializable {
         mainPane.getChildren().clear();
 
         archiveLine.setVisible(true);
-        historyLine.setVisible(false);
         passwordLine.setVisible(false);
 
         ScrollPane scrollPane = new ScrollPane();
@@ -306,8 +286,6 @@ public class ProfilePageController implements Initializable {
                 }
             }
         }
-
-
 
         ArrayList<Post> archivePost = obtainArchive(archiveList);
         for (Post post: archivePost) {
@@ -335,15 +313,6 @@ public class ProfilePageController implements Initializable {
     }
 
     @FXML
-    void checkHistory(MouseEvent mouseEvent) {
-        mainPane.getChildren().clear();
-
-        historyLine.setVisible(true);
-        archiveLine.setVisible(false);
-        passwordLine.setVisible(false);
-    }
-
-    @FXML
     void changePassword(MouseEvent mouseEvent) throws IOException {
         mainPane.getChildren().clear();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Change-Password-Object.fxml"));
@@ -351,7 +320,6 @@ public class ProfilePageController implements Initializable {
         mainPane.getChildren().setAll(changePssPane.getChildren());
 
         passwordLine.setVisible(true);
-        historyLine.setVisible(false);
         archiveLine.setVisible(false);
     }
 

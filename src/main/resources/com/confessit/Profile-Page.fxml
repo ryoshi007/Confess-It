@@ -21,12 +21,12 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: aecee9;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.confessit.ProfilePageController">
+<AnchorPane fx:id="profilePage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: aecee9;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.confessit.ProfilePageController">
    <stylesheets>
       <URL value="@styling.css" />
    </stylesheets>
    <children>
-      <fx:include fx:id="" layoutX="-184.0" layoutY="-13.0" source="Menu-Bar.fxml" />
+      <fx:include fx:id="profileMenuBar" layoutX="-184.0" layoutY="-13.0" source="Menu-Bar.fxml" />
       <Group layoutX="287.0" layoutY="-20.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#495867" height="31.0" layoutX="-3.0" layoutY="84.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1284.0" />
       <ImageView fitHeight="276.0" fitWidth="276.0" layoutX="-42.0" layoutY="-38.0">
@@ -177,33 +177,8 @@
             <Tooltip text="Check archieved post" />
          </tooltip>
       </Button>
-      <Button fx:id="historyButton" layoutX="691.0" layoutY="210.0" mnemonicParsing="false" onMouseClicked="#checkHistory" prefHeight="47.0" styleClass="profile-option-btn" stylesheets="@styling.css">
-         <graphic>
-            <HBox alignment="CENTER" prefHeight="47.0" prefWidth="140.0" spacing="15.0">
-               <children>
-                  <ImageView fitHeight="36.0" fitWidth="36.0">
-                     <image>
-                        <Image url="@../fxml-resources/history-icon.png" />
-                     </image>
-                  </ImageView>
-                  <Label styleClass="text" stylesheets="@styling.css" text="History" textFill="#163f7c">
-                     <font>
-                        <Font name="System Bold" size="15.0" />
-                     </font>
-                  </Label>
-               </children>
-            </HBox>
-         </graphic>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-         <tooltip>
-            <Tooltip text="Check previously-viewed post" />
-         </tooltip>
-      </Button>
-      <Line endX="-42.5" layoutX="852.0" layoutY="70.0" startX="-100.0" stroke="#22758a" strokeLineCap="ROUND" strokeWidth="5.0" />
+      <Line fx:id="selectionLine" endX="-42.5" layoutX="852.0" layoutY="70.0" startX="-100.0" stroke="#22758a" strokeLineCap="ROUND" strokeWidth="5.0" />
       <Line fx:id="archiveLine" endX="33.0" layoutX="624.0" layoutY="262.0" startX="-100.0" stroke="#22758a" strokeLineCap="ROUND" strokeWidth="5.0" visible="false" />
-      <Line fx:id="historyLine" endX="33.0" layoutX="809.0" layoutY="262.0" startX="-100.0" stroke="#22758a" strokeLineCap="ROUND" strokeWidth="5.0" visible="false" />
       <AnchorPane fx:id="mainPane" layoutX="494.0" layoutY="275.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="470.0" prefWidth="691.0" />
       <Button fx:id="saveButton" contentDisplay="CENTER" layoutX="96.0" layoutY="730.0" mnemonicParsing="false" onMouseClicked="#saveChanges" prefHeight="50.0" prefWidth="179.0" styleClass="save-btn" stylesheets="@styling.css" visible="false">
          <graphic>
@@ -253,7 +228,7 @@
             <Tooltip text="Discard the changes made" />
          </tooltip>
       </Button>
-      <Button fx:id="changePasswordButton" layoutX="881.0" layoutY="210.0" mnemonicParsing="false" onMouseClicked="#changePassword" prefHeight="48.0" prefWidth="210.0" styleClass="profile-option-btn" stylesheets="@styling.css">
+      <Button fx:id="changePasswordButton" layoutX="682.0" layoutY="210.0" mnemonicParsing="false" onMouseClicked="#changePassword" prefHeight="48.0" prefWidth="210.0" styleClass="profile-option-btn" stylesheets="@styling.css">
          <graphic>
             <HBox alignment="CENTER" prefHeight="47.0" prefWidth="140.0" spacing="15.0">
                <children>
@@ -277,6 +252,6 @@
             <Tooltip text="Check previously-viewed post" />
          </tooltip>
       </Button>
-      <Line fx:id="passwordLine" endX="130.5" layoutX="949.0" layoutY="262.0" startX="-65.5" stroke="#22758a" strokeLineCap="ROUND" strokeWidth="5.0" visible="false" />
+      <Line fx:id="passwordLine" endX="130.5" layoutX="753.0" layoutY="262.0" startX="-65.5" stroke="#22758a" strokeLineCap="ROUND" strokeWidth="5.0" visible="false" />
    </children>
 </AnchorPane>

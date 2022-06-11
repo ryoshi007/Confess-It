@@ -90,12 +90,14 @@ public class LogInController implements Initializable {
                 // If email address and password entered by the user are correct
                 // Check whether this account is a user account or an admin account (user = 0, admin = 1)
                 if (checkRole == 0) {
+                    UserHolder.getInstance().setAdmin(false);
                     root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Main-Page.fxml")));
                     stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     scene = new Scene(root);
                     stage.setScene(scene);
                     stage.show();
                 } else {
+                    UserHolder.getInstance().setAdmin(true);
                     root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("admin-page.fxml")));
                     stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     scene = new Scene(root);

@@ -9,6 +9,7 @@ public class UserHolder {
     private String searchCategory = "";
 
     private String userSearchInput = "";
+    private boolean isAdmin = false;
 
     UserHolder() {};
 
@@ -64,11 +65,20 @@ public class UserHolder {
         this.userSearchInput = userSearchInput;
     }
 
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
+    }
+
     public void clearInfo() {
         this.user = null;
         currentPageNumber = -1;
         currentPage = "";
         correctSearchInput = "";
         userSearchInput = "";
+        isAdmin = false;
     }
 }
