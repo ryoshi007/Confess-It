@@ -54,6 +54,9 @@ public class ViewPostObject {
      */
     private Post currentPost;
 
+    @FXML
+    private Label postType;
+
     /**
      * Set a tag ID to viewPostTagID label and display it
      * Set a post content to viewPostContent label and display it
@@ -99,5 +102,10 @@ public class ViewPostObject {
         ViewPostPageController viewPostPageController = loader.getController();
         stage.show();
         viewPostPageController.fillPost(currentPost);
+    }
+
+    @FXML
+    void setPostType(String postType) {
+        this.postType.setText(postType);
     }
 }

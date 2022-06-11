@@ -25,7 +25,7 @@
    </stylesheets>
    <children>
       <Group layoutX="563.0" layoutY="53.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#495867" height="31.0" layoutX="-2.0" layoutY="85.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1284.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#495867" height="31.0" layoutX="-3.0" layoutY="84.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1284.0" />
       <AnchorPane layoutX="116.0" layoutY="148.0" prefHeight="419.0" prefWidth="1042.0" style="-fx-background-color: #f7f7ff; -fx-background-radius: 20px;">
          <children>
             <AnchorPane layoutX="70.0" layoutY="3.0" prefHeight="218.0" prefWidth="725.0">
@@ -168,7 +168,7 @@
       </AnchorPane>
       <ScrollPane fx:id="relatedPostPane" layoutX="61.0" layoutY="599.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="187.0" prefWidth="1160.0" stylesheets="@styling.css" vbarPolicy="NEVER">
          <content>
-            <HBox fx:id="hBox" prefHeight="0.0" prefWidth="0.0" spacing="30.0" />
+            <HBox fx:id="displayBox" prefHeight="0.0" prefWidth="0.0" spacing="10.0" />
          </content>
       </ScrollPane>
       <ImageView fitHeight="276.0" fitWidth="276.0" layoutX="-42.0" layoutY="-38.0">
@@ -191,7 +191,7 @@
             </ImageView>
          </graphic>
          <tooltip>
-            <Tooltip text="Go to Main Page" />
+            <Tooltip text="Back to Previous Page" />
          </tooltip>
       </Button>
       <Label layoutX="61.0" layoutY="569.0" styleClass="title" stylesheets="@styling.css" text="Related Post">

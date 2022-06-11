@@ -15,10 +15,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
@@ -50,7 +47,7 @@ public class ViewPostPageController {
      * A Hbox that used for horizontal scrolling
      */
     @FXML
-    private HBox hBox;
+    private HBox displayBox;
 
     /**
      * A label that used to display post content
@@ -208,91 +205,31 @@ public class ViewPostPageController {
         }
 
         if (currentPost.getReplyToPostID() != 0) {
-            fillRelatedPost();
+            fillRelatedPost(currentPost.getReplyToPostID(),"Replying Post");
+        }
+
+        String responsePost = currentPost.getReply().replace("[", "").replace("]", "");
+        if (!responsePost.isBlank()) {
+            responsePost = responsePost.replace("\"", "");
+            String[] splitResponse = responsePost.split(",");
+
+            for (String id: splitResponse) {
+                fillRelatedPost(Integer.valueOf(id.strip()), "Response From Other Post");
+            }
+
+        }
+
+        int nextPostId = findNextOrPreviousPostByTagID(currentPost.getTagID(), true);
+        int prevPostID = findNextOrPreviousPostByTagID(currentPost.getTagID(), false);
+
+        if (nextPostId != 0) {
+            fillRelatedPost(nextPostId, "Next Post");
+        }
+        if (prevPostID != 0) {
+            fillRelatedPost(prevPostID, "Previous Post");
         }
 
 
-//        // Get sub-posts of a post
-//        Connection connectDB = null;
-//        Statement statement = null;
-//        ResultSet queryResult = null;
-//
-//        try {
-//            DatabaseConnection connection = new DatabaseConnection();
-//            connectDB = connection.getConnection();
-//            statement = connectDB.createStatement();
-//            String sql = "SELECT * FROM post WHERE tagid = '" + 200 + "'";
-//            queryResult = statement.executeQuery(sql);
-//
-//            while (queryResult.next()) {
-//                int index = queryResult.getInt("queryIndex");
-//                int tag = queryResult.getInt("tagid");
-//                Date datetime = queryResult.getTimestamp("datetime");
-//                String content = queryResult.getString("content");
-//                String filePath = queryResult.getString("picfilepath");
-//                int like = queryResult.getInt("likeNum");
-//                int dislike = queryResult.getInt("dislikeNum");
-//                String comment = queryResult.getString("comment");
-//                boolean approval = queryResult.getBoolean("approval");
-//                Date approvalTime = queryResult.getTimestamp("approvalTime");
-//                boolean displayStatus = queryResult.getBoolean("displayStatus");
-//                String reply = queryResult.getString("replyPosts");
-//
-//                Post subPost = new Post(index,tag,datetime,content,filePath,like,dislike,comment,approval,approvalTime,displayStatus,reply);
-//                subPostList.add(subPost);
-//            }
-//
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//
-//        } finally {
-//            if (queryResult != null) {
-//                try {
-//                    queryResult.close();
-//
-//                } catch (SQLException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//            if (statement != null) {
-//                try {
-//                    statement.close();
-//
-//                } catch (SQLException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//            if (connectDB != null) {
-//                try {
-//                    connectDB.close();
-//
-//                } catch (SQLException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }
-//
-//        for (Post subPost1 : subPostList) {
-//            fillSubPost(subPost1);
-//            fillComment(subPost1);
-//        }
-//    }
-//
-//    /**
-//     * Display sub-posts of a post
-//     * @param subPost sub-posts of a post
-//     */
-//    public void fillSubPost(Post subPost) {
-//        try {
-//            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("View-Post-Object.fxml"));
-//            AnchorPane anchorPane = fxmlLoader.load();
-//            ViewPostObject viewPostObject = fxmlLoader.getController();
-//            viewPostObject.setViewPost(subPost);
-//            hBox.getChildren().add(anchorPane);
-//            hBox.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
     }
 
     /**
@@ -313,23 +250,22 @@ public class ViewPostPageController {
         }
     }
 
-    public void fillRelatedPost() {
-        HBox displayBox = new HBox();
-        displayBox.setSpacing(10);
+    @FXML
+    public void fillRelatedPost(int relatedTagID, String typeOfPost) {
 
         StackPane container = new StackPane();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Related-Post.fxml"));
         try {
             Parent currentPane = loader.load();
             ViewPostObject viewPostObjectController = loader.getController();
-            viewPostObjectController.setViewPost(findPostByTagID(String.valueOf(currentPost.getReplyToPostID())));
+            viewPostObjectController.setViewPost(findPostByTagID(String.valueOf(relatedTagID)));
+            viewPostObjectController.setPostType(typeOfPost);
             container.getChildren().add(currentPane);
             displayBox.getChildren().add(container);
 
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        relatedPostPane.setContent(displayBox);
     }
 
     @FXML
@@ -498,6 +434,66 @@ public class ViewPostPageController {
             }
         }
         return post;
+    }
+
+    private int findNextOrPreviousPostByTagID(int targetTagID, boolean isNext) {
+        int postID = 0;
+        Connection connectDB = null;
+        Statement statement = null;
+        ResultSet queryResult = null;
+
+        try {
+            DatabaseConnection connection = new DatabaseConnection();
+            connectDB = connection.getConnection();
+            statement = connectDB.createStatement();
+            String sql = "";
+
+            if (isNext) {
+                sql = "SELECT * from post where tagid > " + targetTagID + " and displayStatus = 1 order by tagid asc limit 1";
+            } else {
+                sql = "SELECT * from post where tagid < " + targetTagID + " and displayStatus = 1 order by tagid desc limit 1";
+            }
+
+            queryResult = statement.executeQuery(sql);
+
+            try {
+                if(queryResult.next()) {
+                    postID = queryResult.getInt("tagid");
+                }
+            } catch (SQLSyntaxErrorException e) {
+                postID = 0;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        } finally {
+            if (queryResult != null) {
+                try {
+                    queryResult.close();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (statement != null) {
+                try {
+                    statement.close();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (connectDB != null) {
+                try {
+                    connectDB.close();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return postID;
     }
 
 }
