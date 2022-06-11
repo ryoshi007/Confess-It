@@ -112,7 +112,8 @@ public class ProfilePageController implements Initializable {
 
     /**
      * Change user username and update it in database
-     * @param user a User object
+     *
+     * @param user     a User object
      * @param username new username entered by the user
      */
     public void editUsername(User user, String username) {
@@ -149,7 +150,8 @@ public class ProfilePageController implements Initializable {
 
     /**
      * Change user account password and update it in database
-     * @param user a User object
+     *
+     * @param user          a User object
      * @param passwordInput new password entered by the user
      */
     public void changeAccountPassword(User user, String passwordInput) {
@@ -158,7 +160,7 @@ public class ProfilePageController implements Initializable {
         //To check the original password is the same as the inputted password
         //If yes, return
         try {
-            if (secure.validatePassword(passwordInput,user.getPassword())) {
+            if (secure.validatePassword(passwordInput, user.getPassword())) {
                 System.out.println("Please use a different password");
                 return;
             }
@@ -204,7 +206,8 @@ public class ProfilePageController implements Initializable {
 
     /**
      * Edit user description and store it in database
-     * @param user a User object
+     *
+     * @param user        a User object
      * @param description user description entered by the user
      */
     public void editUserDescription(User user, String description) {
@@ -237,7 +240,8 @@ public class ProfilePageController implements Initializable {
 
     /**
      * Edit user date of birth and update it in database
-     * @param user a User object
+     *
+     * @param user        a User object
      * @param dateOfBirth user date of birth entered by the user
      */
     public void editUserDateOfBirth(User user, Date dateOfBirth) {
@@ -292,18 +296,22 @@ public class ProfilePageController implements Initializable {
         String userArchive = json.retrieveFromArchive(UserHolder.getInstance().getUser().getUsername());
         ArrayList<String> archiveList = new ArrayList<>();
 
-        if (!userArchive.equals("[]")) {
-            userArchive = userArchive.replace("[","").replace("]","").replace("\"", "");
+        if (userArchive != null) {
+            if (!userArchive.equals("[]")) {
+                userArchive = userArchive.replace("[", "").replace("]", "").replace("\"", "");
 
-            if (userArchive.contains(",")) {
-                String[] splitArchive = userArchive.split(",");
-                for (String id : splitArchive) {
-                    archiveList.add(id.strip());
+                if (userArchive.contains(",")) {
+                    String[] splitArchive = userArchive.split(",");
+                    for (String id : splitArchive) {
+                        archiveList.add(id.strip());
+                    }
+                } else {
+                    archiveList.add(userArchive.strip());
                 }
-            } else {
-                archiveList.add(userArchive.strip());
             }
         }
+
+
 
         ArrayList<Post> archivePost = obtainArchive(archiveList);
         for (Post post: archivePost) {
