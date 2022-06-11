@@ -112,8 +112,7 @@ public class ProfilePageController implements Initializable {
 
     /**
      * Change user username and update it in database
-     *
-     * @param user     a User object
+     * @param user a User object
      * @param username new username entered by the user
      */
     public void editUsername(User user, String username) {
@@ -150,8 +149,7 @@ public class ProfilePageController implements Initializable {
 
     /**
      * Change user account password and update it in database
-     *
-     * @param user          a User object
+     * @param user a User object
      * @param passwordInput new password entered by the user
      */
     public void changeAccountPassword(User user, String passwordInput) {
@@ -206,8 +204,7 @@ public class ProfilePageController implements Initializable {
 
     /**
      * Edit user description and store it in database
-     *
-     * @param user        a User object
+     * @param user a User object
      * @param description user description entered by the user
      */
     public void editUserDescription(User user, String description) {
@@ -240,8 +237,7 @@ public class ProfilePageController implements Initializable {
 
     /**
      * Edit user date of birth and update it in database
-     *
-     * @param user        a User object
+     * @param user a User object
      * @param dateOfBirth user date of birth entered by the user
      */
     public void editUserDateOfBirth(User user, Date dateOfBirth) {
