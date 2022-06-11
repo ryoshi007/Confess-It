@@ -158,7 +158,7 @@ public class ProfilePageController implements Initializable {
         //To check the original password is the same as the inputted password
         //If yes, return
         try {
-            if (secure.validatePassword(passwordInput,user.getPassword())) {
+            if (secure.validatePassword(passwordInput, user.getPassword())) {
                 System.out.println("Please use a different password");
                 return;
             }
@@ -292,18 +292,22 @@ public class ProfilePageController implements Initializable {
         String userArchive = json.retrieveFromArchive(UserHolder.getInstance().getUser().getUsername());
         ArrayList<String> archiveList = new ArrayList<>();
 
-        if (!userArchive.equals("[]")) {
-            userArchive = userArchive.replace("[","").replace("]","").replace("\"", "");
+        if (userArchive != null) {
+            if (!userArchive.equals("[]")) {
+                userArchive = userArchive.replace("[", "").replace("]", "").replace("\"", "");
 
-            if (userArchive.contains(",")) {
-                String[] splitArchive = userArchive.split(",");
-                for (String id : splitArchive) {
-                    archiveList.add(id.strip());
+                if (userArchive.contains(",")) {
+                    String[] splitArchive = userArchive.split(",");
+                    for (String id : splitArchive) {
+                        archiveList.add(id.strip());
+                    }
+                } else {
+                    archiveList.add(userArchive.strip());
                 }
-            } else {
-                archiveList.add(userArchive.strip());
             }
         }
+
+
 
         ArrayList<Post> archivePost = obtainArchive(archiveList);
         for (Post post: archivePost) {
