@@ -419,7 +419,7 @@ public class SubmitPostController implements Initializable {
         String content = contentField.getText();
         String postID = "";
 
-        if (!postID.isBlank()) {
+        if (!postIdField.getText().isBlank()) {
             postID = postIdField.getText(2, postIdField.getLength());
         }
 

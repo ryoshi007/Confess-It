@@ -21,31 +21,31 @@ public class PendingQueue implements Runnable{
         int queueSize = pendingQ.getSize();
 
 //        Based on the question
-        if (queueSize == 0) {
-            try {
-                Thread.sleep(3000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        }else if (queueSize <= 5) {
-            try {
-                Thread.sleep(60000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        } else if (queueSize <= 10) {
-            try {
-                Thread.sleep(40000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        } else {
-            try {
-                Thread.sleep(25000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        }
+//        if (queueSize == 0) {
+//            try {
+//                Thread.sleep(3000);
+//            } catch (InterruptedException e) {
+//                throw new RuntimeException(e);
+//            }
+//        }else if (queueSize <= 5) {
+//            try {
+//                Thread.sleep(60000);
+//            } catch (InterruptedException e) {
+//                throw new RuntimeException(e);
+//            }
+//        } else if (queueSize <= 10) {
+//            try {
+//                Thread.sleep(40000);
+//            } catch (InterruptedException e) {
+//                throw new RuntimeException(e);
+//            }
+//        } else {
+//            try {
+//                Thread.sleep(25000);
+//            } catch (InterruptedException e) {
+//                throw new RuntimeException(e);
+//            }
+//        }
 
         //For testing purpose
         if (queueSize == 0) {
