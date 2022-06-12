@@ -631,7 +631,7 @@ public class SubmitPostController implements Initializable {
             DatabaseConnection connection = new DatabaseConnection();
             connectDB = connection.getConnection();
             statement = connectDB.createStatement();
-            String sql = "SELECT * FROM post WHERE find_in_set(" + postID + ", tagid)";
+            String sql = "SELECT * FROM post WHERE find_in_set(" + postID + ", tagid) and displayStatus = 1";
 
             try {
                 queryResult = statement.executeQuery(sql);
