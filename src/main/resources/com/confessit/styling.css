@@ -651,3 +651,11 @@
    -fx-font-size:14px;
    -fx-font-family: 'Lato', sans-serif;
 }
+
+/** Tree View **/
+
+.tree-view-text {
+    -fx-font-size:25px;
+    -fx-font-family: 'Lato', sans-serif;
+    -fx-font-weight: bold;
+}
