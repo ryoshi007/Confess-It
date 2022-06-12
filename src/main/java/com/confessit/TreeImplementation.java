@@ -89,6 +89,9 @@ public class TreeImplementation<T> {
      */
     public void deleteChildren(int tagIDToDelete) {
         deleteChildHelper1(root, tagIDToDelete);
+        if ((Integer) root.getTagID() == tagIDToDelete) {
+            root = null;
+        }
     }
 
     /**
@@ -172,12 +175,15 @@ public class TreeImplementation<T> {
             }
         }
 
-        String [] storeTagID = stringStoreTagID.replace("[","").replace("]","").replace("\"","").replace(" ","").split(",");
+        if (stringStoreTagID != null) {
+
+            String[] storeTagID = stringStoreTagID.replace("[", "").replace("]", "").replace("\"", "").replace(" ", "").split(",");
 
 
-        for (String s : storeTagID) {
-            if (!s.isBlank()) {
-                deleteChildrenHelper2(Integer.parseInt(s));
+            for (String s : storeTagID) {
+                if (!s.isBlank()) {
+                    deleteChildrenHelper2(Integer.parseInt(s));
+                }
             }
         }
 
