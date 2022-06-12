@@ -417,7 +417,11 @@ public class SubmitPostController implements Initializable {
     @FXML
     void checkOnSubmissionAndSubmitIt() throws SQLException, IOException {
         String content = contentField.getText();
-        String postID = postIdField.getText(2, postIdField.getLength());
+        String postID = "";
+
+        if (!postID.isBlank()) {
+            postID = postIdField.getText(2, postIdField.getLength());
+        }
 
         if (!detectSpam(contentField.getText())) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
