@@ -214,7 +214,10 @@ public class ViewPostPageController {
             String[] splitResponse = responsePost.split(",");
 
             for (String id: splitResponse) {
-                fillRelatedPost(Integer.valueOf(id.strip()), "Response From Other Post");
+                Post response = findPostByTagID(id.strip());
+                if (response.isDisplayed()) {
+                    fillRelatedPost(Integer.valueOf(id.strip()), "Response From Other Post");
+                }
             }
 
         }
