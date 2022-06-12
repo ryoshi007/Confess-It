@@ -40,14 +40,16 @@ public class TreeImplementation<T> {
     private TreeNode<T> searchChildrenHelper(TreeNode<T> parentTagID) {
         Json json = new Json();
         String stringReplyPostTagID = json.retrieveReplyPostTagID((Integer) parentTagID.getTagID());
-        String [] storeReplyPostTagID = stringReplyPostTagID.replace("[","").replace("]","").replace("\"","").replace(" ","").split(",");
+        if (stringReplyPostTagID != null) {
+            String[] storeReplyPostTagID = stringReplyPostTagID.replace("[", "").replace("]", "").replace("\"", "").replace(" ", "").split(",");
 
-        for (int i = 0; i < storeReplyPostTagID.length; i++) {
-            if (!storeReplyPostTagID[i].isBlank()) {
-                TreeNode<T> children = new TreeNode<>((T) (Integer.valueOf(storeReplyPostTagID[i])));
-                children.setParent(parentTagID);
-                children = searchChildrenHelper(children);
-                parentTagID.addChild(children);
+            for (String s : storeReplyPostTagID) {
+                if (!s.isBlank()) {
+                    TreeNode<T> children = new TreeNode<>((T) (Integer.valueOf(s)));
+                    children.setParent(parentTagID);
+                    searchChildrenHelper(children);
+                    parentTagID.addChild(children);
+                }
             }
         }
         return parentTagID;
@@ -173,9 +175,9 @@ public class TreeImplementation<T> {
         String [] storeTagID = stringStoreTagID.replace("[","").replace("]","").replace("\"","").replace(" ","").split(",");
 
 
-        for (int i = 0; i < storeTagID.length; i++) {
-            if (!storeTagID[i].isBlank()) {
-                deleteChildrenHelper2(Integer.parseInt(storeTagID[i]));
+        for (String s : storeTagID) {
+            if (!s.isBlank()) {
+                deleteChildrenHelper2(Integer.parseInt(s));
             }
         }
 
@@ -213,5 +215,13 @@ public class TreeImplementation<T> {
                 }
             }
         }
+    }
+
+    /**
+     * Get the root of a tree
+     * @return return a TreeNode
+     */
+    public TreeNode<T> getRoot() {
+        return root;
     }
 }
