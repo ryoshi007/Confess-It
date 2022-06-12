@@ -18,7 +18,9 @@ public class PendingQueue implements Runnable{
                 containList.add(String.valueOf(tagID));
             }
         }
+
         int queueSize = pendingQ.getSize();
+        System.out.println(queueSize);
 
 //        Based on the question
 //        if (queueSize == 0) {
@@ -168,8 +170,8 @@ public class PendingQueue implements Runnable{
             int dequeueTagID = pendingQ.dequeue();
             changeDisplayStatus(dequeueTagID);
             containList.remove(String.valueOf(dequeueTagID));
-            run();
         }
+        run();
     }
 
 }
