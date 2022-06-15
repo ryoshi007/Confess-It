@@ -10,23 +10,45 @@ import java.util.ArrayList;
 
 public class BatchRemovalController {
 
+    /**
+     * A button that used to delete a post
+     */
     @FXML
     private Button adminDeleteButton;
 
+    /**
+     * A button that used to search a post tag ID
+     */
     @FXML
     private Button adminSearchButton;
 
+    /**
+     * A text field that used to let admin enter a tag ID
+     */
     @FXML
     private TextField adminSearchField;
 
+    /**
+     * A tree view that used to display a list of tag IDs
+     */
     @FXML
     private TreeView<Integer> tagIDTreeView;
 
+    /**
+     * A label that used to display the tag ID to be deleted
+     */
     @FXML
     private Label tagIDToBeDeleted;
 
+    /**
+     * An instance of Tree Implementation
+     */
     private TreeImplementation<Integer> tree = new TreeImplementation<>();
 
+    /**
+     * Display a list of tag ID in tree view
+     * @param tree An instance of TreeImplementation
+     */
     public void setTagIDTreeView(TreeImplementation<Integer> tree) {
         if (tree.getRoot() != null) {
             TreeNode<Integer> root = tree.getRoot();
@@ -48,6 +70,11 @@ public class BatchRemovalController {
         }
     }
 
+    /**
+     * Get all the sub-post tag IDs of a post
+     * @param root An instance of TreeNode
+     * @param treeItemRoot An instance of TreeItem
+     */
     private void getAllChildrenTagID (TreeNode<Integer> root, TreeItem<Integer> treeItemRoot) {
         if (root == null) {
             return;
@@ -60,6 +87,10 @@ public class BatchRemovalController {
         }
     }
 
+    /**
+     * Select a tag ID from tree view
+     * @param event Mouse click
+     */
     @FXML
     void selectTagToBeDeleted(MouseEvent event) {
         TreeItem<Integer> item = tagIDTreeView.getSelectionModel().getSelectedItem();
@@ -69,7 +100,10 @@ public class BatchRemovalController {
         }
     }
 
-
+    /**
+     * Delete a selected tag ID from tree view
+     * @param event Mouse click
+     */
     @FXML
     void adminDeleteTag(ActionEvent event) {
         if (tagIDToBeDeleted.getText() != null && !tagIDToBeDeleted.getText().isBlank() && !tagIDToBeDeleted.getText().equals("xxxx")) {
@@ -96,6 +130,10 @@ public class BatchRemovalController {
         }
     }
 
+    /**
+     * Search a post tag ID from database
+     * @param event Mouse click
+     */
     @FXML
     void adminSearchPost(ActionEvent event) {
             if (adminSearchField.getText().contains("UM")) {
@@ -120,6 +158,11 @@ public class BatchRemovalController {
         }
     }
 
+    /**
+     * Check whether the searched post tag ID is exist
+     * @param tagID tag ID of a post
+     * @return true if post tag ID exist and false if post tag ID is not exist in the database
+     */
     private boolean checkPostTagID(int tagID) {
         Connection connectDB = null;
         Statement statement = null;
@@ -130,7 +173,7 @@ public class BatchRemovalController {
             DatabaseConnection connection = new DatabaseConnection();
             connectDB = connection.getConnection();
             statement = connectDB.createStatement();
-            queryResult = statement.executeQuery("SELECT * FROM post WHERE tagid = '" + adminSearchField.getText().replace("UM","") + "' AND displayStatus = '" + 1 + "'");
+            queryResult = statement.executeQuery("SELECT * FROM post WHERE tagid = '" + adminSearchField.getText().replace("UM","") + "' AND approval = '" + 1 + "'");
             // if the query result is not empty
             if (queryResult.next()) {
                 check = true;
