@@ -20,7 +20,6 @@ public class PendingQueue implements Runnable{
         }
 
         int queueSize = pendingQ.getSize();
-        System.out.println(queueSize);
 
 //        Based on the question
 //        if (queueSize == 0) {
