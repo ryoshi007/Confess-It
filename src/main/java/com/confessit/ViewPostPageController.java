@@ -180,12 +180,32 @@ public class ViewPostPageController {
 
         // Check whether user saves this post in archive before
         String archive = json.retrieveFromArchive(UserHolder.getInstance().getUser().getUsername());
-        if (archive == null || !archive.contains(String.valueOf(currentPost.getTagID()))) {
+        if (archive == null) {
             addToArchiveButton.setVisible(true);
             removeFromArchiveButton.setVisible(false);
         } else {
-            addToArchiveButton.setVisible(false);
-            removeFromArchiveButton.setVisible(true);
+            archive = archive.replace("[", "").replace("]", "");
+            int check = -1;
+            if (!archive.isBlank()) {
+                archive = archive.replace("\"", "");
+                String[] splitArchive = archive.split(",");
+
+                for (String id : splitArchive) {
+                    if (id.equals(String.valueOf(currentPost.getTagID()))) {
+                        addToArchiveButton.setVisible(false);
+                        removeFromArchiveButton.setVisible(true);
+                        check = 1;
+                    }
+                }
+
+                if (check == -1) {
+                    addToArchiveButton.setVisible(true);
+                    removeFromArchiveButton.setVisible(false);
+                }
+            } else {
+                addToArchiveButton.setVisible(true);
+                removeFromArchiveButton.setVisible(false);
+            }
         }
 
         // Get comments from database
