@@ -129,61 +129,6 @@ public class ProfilePageController implements Initializable {
     }
 
     /**
-     * Change user account password and update it in database
-     * @param user a User object
-     * @param passwordInput new password entered by the user
-     */
-    public void changeAccountPassword(User user, String passwordInput) {
-        SecurePassword secure = new SecurePassword();
-
-        //To check the original password is the same as the inputted password
-        //If yes, return
-        try {
-            if (secure.validatePassword(passwordInput, user.getPassword())) {
-                System.out.println("Please use a different password");
-                return;
-            }
-        } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
-            throw new RuntimeException(e);
-        }
-
-        //Encrypt the inputted password
-        String securePassword = null;
-        try {
-            securePassword = secure.generateSecurePassword(passwordInput);
-        } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
-            throw new RuntimeException(e);
-        }
-
-
-        Connection connectDB = null;
-
-        try {
-            DatabaseConnection connection = new DatabaseConnection();
-            connectDB = connection.getConnection();
-            String sql = "UPDATE user SET password = ? WHERE email = ?";
-            PreparedStatement statement = connectDB.prepareStatement(sql);
-
-            statement.setString(1, securePassword);
-            statement.setString(2, user.getEmail());
-            statement.executeUpdate();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-
-        } finally {
-            if (connectDB != null) {
-                try {
-                    connectDB.close();
-
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
-
-    /**
      * Edit user description and store it in database
      * @param user a User object
      * @param description user description entered by the user

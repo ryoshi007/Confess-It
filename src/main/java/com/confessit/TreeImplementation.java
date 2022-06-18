@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class TreeImplementation<T> {
 
@@ -220,6 +221,53 @@ public class TreeImplementation<T> {
                     e.printStackTrace();
                 }
             }
+        }
+
+        // Delete tag ID that user has saved in archive
+        ArrayList<String> usernameList = new ArrayList<>();
+
+        try {
+            DatabaseConnection connection = new DatabaseConnection();
+            connectDB = connection.getConnection();
+            statement = connectDB.createStatement();
+            queryResult = statement.executeQuery("SELECT username FROM user WHERE archive LIKE '%" + tagIDToDelete + "%'");
+            while (queryResult.next()) {
+                usernameList.add(queryResult.getString("username"));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        } finally {
+            if (queryResult != null) {
+                try {
+                    queryResult.close();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (statement != null) {
+                try {
+                    statement.close();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (connectDB != null) {
+                try {
+                    connectDB.close();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        Json json = new Json();
+        for (String username : usernameList) {
+            json.deleteArchive(username,tagIDToDelete);
         }
     }
 
