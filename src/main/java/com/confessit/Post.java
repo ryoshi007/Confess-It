@@ -4,19 +4,76 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * A class that used to store post information
+ */
 public class Post {
+
+    /**
+     * Index of a post
+     */
     private int index;
+
+    /**
+     * tag ID of a post
+     */
     private int tagID;
+
+    /**
+     * Submitted time of a post
+     */
     private Date datetime;
+
+    /**
+     * Post content
+     */
     private String content;
+
+    /**
+     * Picture path of a post image
+     */
     private String picturePath;
+
+    /**
+     * Number of likes of a post
+     */
     private int like;
+
+    /**
+     * Number of dislikes of a post
+     */
     private int dislike;
+
+    /**
+     * Post's comment
+     */
     private String comment;
+
+    /**
+     * True if the post is approved
+     * False if the post is not approved yet
+     */
     private boolean isApproved;
+
+    /**
+     * Approval time of a post
+     */
     private Date approvalTime;
+
+    /**
+     * True if the post is displayed on the confession page
+     * False if the post is not displayed yet
+     */
     private boolean isDisplayed;
+
+    /**
+     * Consists of the tag id of the posts that are replying to this post
+     */
     private String reply;
+
+    /**
+     * The postID that the post is replying to
+     */
     private int replyToPostID = 0;
 
     /**

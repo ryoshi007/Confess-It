@@ -26,6 +26,9 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * A controller for Admin-List-Page
+ */
 public class AdminListController extends CreateAccount implements Initializable {
 
     /**
@@ -108,6 +111,11 @@ public class AdminListController extends CreateAccount implements Initializable 
      */
     ObservableList<User> adminList = FXCollections.observableArrayList();
 
+    /**
+     * Add admin username and email to the adminListTable
+     * @param location location
+     * @param resourceBundle resource bundle
+     */
     @Override
     public void initialize(URL location, ResourceBundle resourceBundle) {
         storeAdminInformation();
@@ -358,6 +366,10 @@ public class AdminListController extends CreateAccount implements Initializable 
         }
     }
 
+    /**
+     * Move to confirm password field after user presses ENTER button
+     * @param event ENTER
+     */
     @FXML
     void moveToAdminConfirmPasswordField(KeyEvent event) {
         if (event.getCode().equals(KeyCode.ENTER)) {
@@ -365,6 +377,10 @@ public class AdminListController extends CreateAccount implements Initializable 
         }
     }
 
+    /**
+     * Move to confirm password field after user presses ENTER
+     * @param event ENTER
+     */
     @FXML
     void moveToAdminEmailField(KeyEvent event) {
         if (event.getCode().equals(KeyCode.ENTER)) {
@@ -372,6 +388,10 @@ public class AdminListController extends CreateAccount implements Initializable 
         }
     }
 
+    /**
+     * Move to password field after user presses ENTER
+     * @param event ENTER
+     */
     @FXML
     void moveToAdminPasswordField(KeyEvent event) {
         if (event.getCode().equals(KeyCode.ENTER)) {
@@ -379,6 +399,10 @@ public class AdminListController extends CreateAccount implements Initializable 
         }
     }
 
+    /**
+     * Move to admin agree policy check box after user presses ENTER
+     * @param event ENTER
+     */
     @FXML
     void moveToAdminAgreePolicy_SignUp(KeyEvent event) {
         if (event.getCode().equals(KeyCode.ENTER)) {
@@ -386,6 +410,10 @@ public class AdminListController extends CreateAccount implements Initializable 
         }
     }
 
+    /**
+     * Try to sign up after user presses ENTER
+     * @param event ENTER
+     */
     @FXML
     void moveToAdminSignUpButtonPressed(KeyEvent event) {
         if (event.getCode().equals(KeyCode.ENTER)) {

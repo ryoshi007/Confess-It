@@ -6,6 +6,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+/**
+ * A class that used to implement tree graph data structure
+ * @param <T> Integer (tag ID)
+ */
 public class TreeImplementation<T> {
 
     /**
@@ -223,7 +227,7 @@ public class TreeImplementation<T> {
             }
         }
 
-        // Delete tag ID that user has saved in archive
+        // Delete tag ID that user has saved in archive as well
         ArrayList<String> usernameList = new ArrayList<>();
 
         try {

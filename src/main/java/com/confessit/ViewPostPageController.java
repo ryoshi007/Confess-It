@@ -20,6 +20,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
 
+/**
+ * A controller for View-Post-Page
+ */
 public class ViewPostPageController {
 
     /**
@@ -126,6 +129,9 @@ public class ViewPostPageController {
     @FXML
     private Label numOfLikes;
 
+    /**
+     * A scroll panel that used to display related posts
+     */
     @FXML
     private ScrollPane relatedPostPane;
 
@@ -251,8 +257,6 @@ public class ViewPostPageController {
         if (prevPostID != 0) {
             fillRelatedPost(prevPostID, "Previous Post");
         }
-
-
     }
 
     /**
@@ -273,6 +277,11 @@ public class ViewPostPageController {
         }
     }
 
+    /**
+     * Fill related post into the scroll pane
+     * @param relatedTagID tag ID of related posts
+     * @param typeOfPost post type
+     */
     @FXML
     public void fillRelatedPost(int relatedTagID, String typeOfPost) {
 
@@ -291,6 +300,12 @@ public class ViewPostPageController {
         }
     }
 
+    /**
+     * A button that directs user to the previous page depends on different case
+     * Three cases (MainPage, SearchPage and ProfilePage)
+     * @param event Mouse click
+     * @throws IOException Error
+     */
     @FXML
     void backToPreviousPage(MouseEvent event) throws IOException {
         if (UserHolder.getInstance().getCurrentPage() == "MainPage") {
@@ -390,6 +405,12 @@ public class ViewPostPageController {
         }
     }
 
+    /**
+     * A method that used to get a post information from database by using its tag ID
+     * Store the post information into a post object and return it
+     * @param targetTagID tag ID of a post
+     * @return A post
+     */
     private Post findPostByTagID(String targetTagID) {
         Post post = null;
         Connection connectDB = null;

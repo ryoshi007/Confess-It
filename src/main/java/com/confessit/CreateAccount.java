@@ -7,6 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/**
+ * A controller that used to create an account
+ */
 public class CreateAccount {
 
     /***

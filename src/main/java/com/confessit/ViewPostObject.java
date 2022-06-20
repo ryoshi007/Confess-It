@@ -11,6 +11,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * A controller for View-Post-Object
+ */
 public class ViewPostObject {
 
     /**
@@ -40,12 +43,21 @@ public class ViewPostObject {
     @FXML
     private Label viewPostTagID;
 
+    /**
+     * A label that used to display number of dislikes
+     */
     @FXML
     private Label dislikeLabel;
 
+    /**
+     * A label that used to display number of likes
+     */
     @FXML
     private Label likeLabel;
 
+    /**
+     * A label that used to display "No comment..."
+     */
     @FXML
     private Label messageLabel;
 
@@ -54,6 +66,9 @@ public class ViewPostObject {
      */
     private Post currentPost;
 
+    /**
+     * A label that used to display post type
+     */
     @FXML
     private Label postType;
 
@@ -104,6 +119,10 @@ public class ViewPostObject {
         viewPostPageController.fillPost(currentPost);
     }
 
+    /**
+     * Set type of post
+     * @param postType type of post
+     */
     @FXML
     void setPostType(String postType) {
         this.postType.setText(postType);

@@ -24,6 +24,9 @@ import java.sql.*;
 import java.sql.Date;
 import java.util.*;
 
+/**
+ * A controller for login_page
+ */
 public class LogInController implements Initializable {
 
     /**
@@ -59,20 +62,32 @@ public class LogInController implements Initializable {
     @FXML
     private Label messageLabel_Login;
 
+    /**
+     * A sign-up button
+     */
     @FXML
     private Button signUpButton;
 
+    /**
+     * A forgot password button
+     */
     @FXML
     private Button forgotPassword;
 
+    /**
+     * A login button
+     */
     @FXML
     private Button loginButton;
 
-
+    /**
+     * Set login message
+     * @param url url
+     * @param rb resource bundle
+     */
     public void initialize(URL url, ResourceBundle rb) {
         messageLabel_Login.setVisible(false);
     }
-
 
     /**
      * Direct user to the main page if the email address and password entered by the user are correct
@@ -112,6 +127,11 @@ public class LogInController implements Initializable {
         }
     }
 
+    /**
+     * A forgot password button that used to reset user account password after clicking it
+     * @param event Mouse click
+     * @throws MessagingException Error
+     */
     @FXML
     void forgotPasswordButtonPressed(MouseEvent event) throws MessagingException {
 
@@ -394,6 +414,10 @@ public class LogInController implements Initializable {
         return -1;
     }
 
+    /**
+     * Move to password field after user presses ENTER
+     * @param event
+     */
     @FXML
     void moveToPasswordField(KeyEvent event) {
         if(event.getCode().equals(KeyCode.ENTER)) {

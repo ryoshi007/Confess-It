@@ -24,6 +24,10 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * A controller for signup_page
+ * Child class of CreateAccount class
+ */
 public class SignUpController extends CreateAccount {
 
     /**
@@ -267,6 +271,10 @@ public class SignUpController extends CreateAccount {
         super.createAccount(email, username, password, 0);
     }
 
+    /**
+     * Move to confirm password field after user presses ENTER
+     * @param event ENTER
+     */
     @FXML
     void moveToConfirmPasswordField(KeyEvent event) {
         if(event.getCode().equals(KeyCode.ENTER)) {
@@ -274,6 +282,10 @@ public class SignUpController extends CreateAccount {
         }
     }
 
+    /**
+     * Move to email field after user presses ENTER
+     * @param event ENTER
+     */
     @FXML
     void moveToEmailField(KeyEvent event) {
         if(event.getCode().equals(KeyCode.ENTER)) {
@@ -281,6 +293,10 @@ public class SignUpController extends CreateAccount {
         }
     }
 
+    /**
+     * Move to password field after user presses ENTER
+     * @param event ENTER
+     */
     @FXML
     void moveToPasswordField(KeyEvent event) {
         if(event.getCode().equals(KeyCode.ENTER)) {

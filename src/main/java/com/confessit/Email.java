@@ -17,6 +17,9 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
+/**
+ * A controller that used to send verification code to user by using gmail
+ */
 public class Email {
 
     /**
