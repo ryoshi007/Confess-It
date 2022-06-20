@@ -190,7 +190,7 @@ public class ViewPostPageController {
             addToArchiveButton.setVisible(true);
             removeFromArchiveButton.setVisible(false);
         } else {
-            archive = archive.replace("[", "").replace("]", "");
+            archive = archive.replace("[", "").replace("]", "").replace(" ","");
             int check = -1;
             if (!archive.isBlank()) {
                 archive = archive.replace("\"", "");
