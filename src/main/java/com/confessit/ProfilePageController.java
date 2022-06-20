@@ -257,6 +257,12 @@ public class ProfilePageController implements Initializable {
         scrollPane.setContent(displayBox);
     }
 
+    /**
+     * Display Change-Password-Object after user clicks this button
+     * User is allowed to change password in this page
+     * @param mouseEvent Mouse click
+     * @throws IOException Error
+     */
     @FXML
     void changePassword(MouseEvent mouseEvent) throws IOException {
         mainPane.getChildren().clear();

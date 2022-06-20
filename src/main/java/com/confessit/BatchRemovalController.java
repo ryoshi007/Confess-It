@@ -8,6 +8,9 @@ import javafx.scene.input.MouseEvent;
 import java.sql.*;
 import java.util.ArrayList;
 
+/**
+ * A controller for Batch-Removal-Page
+ */
 public class BatchRemovalController {
 
     /**

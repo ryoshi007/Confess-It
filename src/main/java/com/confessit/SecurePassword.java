@@ -7,6 +7,9 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 
+/**
+ * A controller that used to generate, encode, decode and check the secure password
+ */
 public class SecurePassword {
 
     /***

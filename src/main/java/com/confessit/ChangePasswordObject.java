@@ -6,7 +6,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 
 import javax.mail.MessagingException;
 import java.net.URL;
@@ -15,6 +14,9 @@ import java.security.spec.InvalidKeySpecException;
 import java.sql.*;
 import java.util.*;
 
+/**
+ * A controller for Change-Password-Object
+ */
 public class ChangePasswordObject implements Initializable {
     /**
      * A label that used to display "Confirm Password"
@@ -71,8 +73,16 @@ public class ChangePasswordObject implements Initializable {
     @FXML
     private Button changePssSaveButton;
 
+    /**
+     * A user object that used to store current user information
+     */
     private User currentUser = UserHolder.getInstance().getUser();
 
+    /**
+     * Set password fields
+     * @param url url
+     * @param resourceBundle resource bundle
+     */
     public void initialize(URL url, ResourceBundle resourceBundle) {
         currentPasswordField.setEditable(false);
         newPassword.setVisible(false);
@@ -81,6 +91,10 @@ public class ChangePasswordObject implements Initializable {
         confirmPasswordField.setVisible(false);
     }
 
+    /**
+     * User will be able to change the account password after clicking this button
+     * @param event Mouse click
+     */
     @FXML
     void changePssButtonPressed(ActionEvent event) {
         newPassword.setVisible(true);
@@ -97,6 +111,11 @@ public class ChangePasswordObject implements Initializable {
         confirmPasswordField.getStyleClass().addAll("text-input", "text-field", "password-field", "input-field");
     }
 
+    /**
+     * Discard the changes after user clicks this button
+     * The user account password won't be changed
+     * @param event Mouse click
+     */
     @FXML
     void changePssDiscardButtonPressed(ActionEvent event) {
         newPassword.setVisible(false);
@@ -116,6 +135,11 @@ public class ChangePasswordObject implements Initializable {
         confirmPasswordField.getStyleClass().addAll("text-input", "text-field", "password-field", "profile-input-field");
     }
 
+    /**
+     * Save new password to user account
+     * @param event Mouse click
+     * @throws MessagingException Error
+     */
     @FXML
     void changePssSaveButtonPressed(ActionEvent event) throws MessagingException {
         // Check whether the new password entered by the user is the same as old password
@@ -319,6 +343,10 @@ public class ChangePasswordObject implements Initializable {
         }
     }
 
+    /**
+     * Move to confirm password field after user presses ENTER
+     * @param event
+     */
     @FXML
     void moveToChangePssConfirmPasswordField(KeyEvent event) {
         if(event.getCode().equals(KeyCode.ENTER)) {

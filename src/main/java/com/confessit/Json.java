@@ -4,6 +4,10 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+/**
+ * A class that used to insert, remove and fetch json data in database
+ */
 public class Json {
 
     /**

@@ -15,6 +15,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Optional;
 
+/**
+ * A controller for Comment-Object
+ */
 public class CommentObject {
 
     /**

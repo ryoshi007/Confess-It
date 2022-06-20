@@ -8,15 +8,40 @@ import java.util.Date;
  */
 public class User {
 
+    /**
+     * Account username
+     */
     private String username;
+
+    /**
+     * Account email address
+     */
     private String email;
+
+    /**
+     * Account password
+     */
     private String password;
+
+    /**
+     * User's date of birth
+     */
     private Date dateOfBirth;
+
+    /**
+     * User's description
+     */
     private String description;
+
+    /**
+     * User's role (0 = user, 1 = admin)
+     */
     private int role;
 
+    /**
+     * A no-arg constructor
+     */
     public User() {
-
     }
 
     /**
