@@ -22,6 +22,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
 
+/**
+ * Controller for search post
+ */
 public class SearchPostController implements Initializable {
 
     /**
@@ -39,26 +42,52 @@ public class SearchPostController implements Initializable {
      */
     private Parent root;
 
+    /**
+     * Choice box that contains the options for user to choose for
+     */
     @FXML
     private ChoiceBox<String> categoryBox;
 
+    /**
+     * Label that shows the number of posts found
+     */
     @FXML
     private Label resultLabel;
 
+    /**
+     * A button that searches the post
+     */
     @FXML
     private Button searchButton;
 
+    /**
+     * A text field that allows user to input the search term
+     */
     @FXML
     private TextField searchField;
 
+    /**
+     * A VBox that displays post's content
+     */
     @FXML
     private VBox contentBox;
 
+    /**
+     * A ScrollPane that displayed the search results
+     */
     @FXML
     private ScrollPane resultPane;
 
+    /**
+     * Choices given to the user when searching for the post
+     */
     private String[] choices = {"Keyword", "Date Time", "Date", "Post ID"};
 
+    /**
+     * Load the category box
+     * @param url url
+     * @param resourceBundle resource bundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         UserHolder currentInfo = UserHolder.getInstance();
@@ -103,7 +132,7 @@ public class SearchPostController implements Initializable {
 
     }
 
-    /***
+    /**
      * Search post based on selected category and given input
      * @param columnName the category selected by the user
      * @param value the user-inputted value
@@ -191,6 +220,10 @@ public class SearchPostController implements Initializable {
         return postList;
     }
 
+    /**
+     * Search the post based on search term and chosen category
+     * @param event is Mouse Click
+     */
     @FXML
     void searchPost(ActionEvent event) {
         resultPane.setContent(null);
@@ -272,6 +305,10 @@ public class SearchPostController implements Initializable {
         }
     }
 
+    /**
+     * Display the search results on the ScrollPane
+     * @param results is an array list of posts that matched with the search term
+     */
     @FXML
     private void displayResult(ArrayList<Post> results) {
         if (results == null) {
@@ -299,6 +336,12 @@ public class SearchPostController implements Initializable {
         }
     }
 
+    /**
+     * Check the date given by user is valid or not
+     * @param format is the format that will be matched against the user's input
+     * @param givenDate is the data inputted by the user
+     * @return whether the given data is valid or not
+     */
     private boolean checkDate(String format, String givenDate) {
         SimpleDateFormat dateFormat = new SimpleDateFormat(format);
         dateFormat.setLenient(false);

@@ -1,6 +1,5 @@
 package com.confessit;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 /**

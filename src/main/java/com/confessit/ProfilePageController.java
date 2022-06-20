@@ -5,8 +5,6 @@ import javafx.fxml.FXML;
 
 import java.io.IOException;
 import java.net.URL;
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
 import java.sql.*;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -30,60 +28,118 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 
-
+/**
+ * A controller for the profile page
+ */
 public class ProfilePageController implements Initializable {
 
+    /**
+     * A button to show the archived posts
+     */
     @FXML
     private Button archiveButton;
 
+    /**
+     * A line that displays current selected option is Archive
+     */
     @FXML
     private Line archiveLine;
 
+    /**
+     * A picker for choosing the date
+     */
     @FXML
     private DatePicker birthdayField;
 
+    /**
+     * A text area that displays the description
+     */
     @FXML
     private TextArea descriptionField;
 
+    /**
+     * A button to edit the profile
+     */
     @FXML
     private Button editProfileButton;
 
+    /**
+     * A button to discard the edits on the profile
+     */
     @FXML
     private Button discardButton;
 
+    /**
+     * A button to save the edits on the profles
+     */
     @FXML
     private Button saveButton;
 
+    /**
+     * A button to change the password
+     */
     @FXML
     private Button changePasswordButton;
 
+    /**
+     * A text field to display the email
+     */
     @FXML
     private TextField emailField;
 
+    /**
+     * A line that shows current selection is Change Password
+     */
     @FXML
     private Line passwordLine;
 
+    /**
+     * A password that displays the password in dots
+     */
     @FXML
     private PasswordField passwordField;
 
+    /**
+     * A container to display the profile image in rounded frame
+     */
     @FXML
     private Circle profileImage;
 
+    /**
+     * A text field that displays the username
+     */
     @FXML
     private TextField usernameField;
 
+    /**
+     * An anchor pane that will change based on selection
+     */
     @FXML
     private AnchorPane mainPane;
 
+    /**
+     * Menu bar of the profile page
+     */
     @FXML
     private AnchorPane profileMenuBar;
 
+    /**
+     * An anchor pane for the profile page
+     */
     @FXML
     private AnchorPane profilePage;
 
+    /**
+     * A line that displays the current page is Profile Page
+     */
     @FXML
     private Line selectionLine;
 
+    /**
+     * Set up the menu bar based on the user's role and display user's information
+     * @param url url
+     * @param resourceBundle resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         UserHolder.getInstance().setCurrentPage("ProfilePage");
@@ -197,11 +253,18 @@ public class ProfilePageController implements Initializable {
         }
     }
 
+    /**
+     * Show the archive posts when the button is clicked
+     * @param event Mouse Click
+     */
     @FXML
     void checkArchive(ActionEvent event) {
         displayArchivePage();
     }
 
+    /**
+     * Display the archived post on the anchor pane
+     */
     @FXML
     private void displayArchivePage() {
         mainPane.getChildren().clear();
@@ -274,6 +337,10 @@ public class ProfilePageController implements Initializable {
         archiveLine.setVisible(false);
     }
 
+    /**
+     * Allow the user to change the profile when the button is clicked
+     * @param mouseEvent Mouse Click
+     */
     @FXML
     void editProfile(MouseEvent mouseEvent) {
 
@@ -292,6 +359,10 @@ public class ProfilePageController implements Initializable {
         discardButton.setVisible(true);
     }
 
+    /**
+     * Save the changes made by user to database
+     * @param event Mouse Click
+     */
     @FXML
     void saveChanges(MouseEvent event) {
         User user = UserHolder.getInstance().getUser();
@@ -336,6 +407,10 @@ public class ProfilePageController implements Initializable {
     }
 
 
+    /**
+     * Discard the changes made by the user
+     * @param event Mouse Click
+     */
     @FXML
     void discardChanges(MouseEvent event) {
         revertChanges();
@@ -353,6 +428,9 @@ public class ProfilePageController implements Initializable {
         discardButton.setVisible(false);
     }
 
+    /**
+     * Reset the page look back to original
+     */
     void revertChanges() {
         descriptionField.setEditable(false);
         descriptionField.getStyleClass().clear();
@@ -370,6 +448,11 @@ public class ProfilePageController implements Initializable {
         birthdayField.setCursor(Cursor.DEFAULT);
     }
 
+    /**
+     * Obtain the archived posts
+     * @param idList is a list of tag ids for the archived post
+     * @return an array list consists of archived posts
+     */
     private ArrayList<Post> obtainArchive(ArrayList<String> idList) {
         ArrayList<Post> postList = new ArrayList<>();
         Connection connectDB = null;

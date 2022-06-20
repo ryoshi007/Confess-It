@@ -21,16 +21,38 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.*;
 
+/**
+ * Controller for the homepage / main page when users log in
+ */
 public class MainPageController implements Initializable {
+
+    /**
+     * Container for display the confession post
+     */
     private Stack<Post> displayStack = new Stack<>();
+
+    /**
+     * Store the confession post
+     */
     private List<ArrayList<Post>> storedPosts = new ArrayList<ArrayList<Post>>();
 
+    /**
+     * Allow user to switch page
+     */
     @FXML
     private Pagination pagePane;
 
+    /**
+     * Label that display when there is no confession post
+     */
     @FXML
     private HBox emptyLabel;
 
+    /**
+     * Load all the displayed posts
+     * @param url url
+     * @param resourceBundle resource bundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         UserHolder.getInstance().setCurrentPage("MainPage");
@@ -87,9 +109,9 @@ public class MainPageController implements Initializable {
         }
     }
 
-    /***
+    /**
      * Retrieve recent posts that will be displayed on the main page
-     * @return an array list of posts
+     *
      */
     private void retrieveRecentPost() {
         Connection connectDB = null;
@@ -160,6 +182,10 @@ public class MainPageController implements Initializable {
         }
     }
 
+    /**
+     * Get the number of displayed post
+     * @return the number of the post that is displayed
+     */
     private int getNumberOfDisplayedPost() {
         int numberOfDisplayedPost = 0;
         Connection connectDB = null;
@@ -208,6 +234,11 @@ public class MainPageController implements Initializable {
         return numberOfDisplayedPost;
     }
 
+    /**
+     * Create each page for the home page
+     * @param post is an array list of displayed posts
+     * @return the StackPane which consists of all displayed page
+     */
     private StackPane createPage(ArrayList<Post> post) {
         StackPane page = new StackPane();
         GridPane grid = new GridPane();

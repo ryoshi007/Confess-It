@@ -3,6 +3,9 @@ package com.confessit;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+/**
+ * Class for own implementation of queue
+ */
 public class Queue {
     private LinkedList<Integer> list;
 
@@ -32,7 +35,7 @@ public class Queue {
         list.add(e);
     }
 
-    /***
+    /**
      * Enqueue multiple elements into the queue
      * @param tagList is an array list of tag id consisting all approved but not yet displayed posts
      */

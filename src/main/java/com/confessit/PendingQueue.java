@@ -2,13 +2,17 @@ package com.confessit;
 
 import java.sql.*;
 import java.util.*;
-import java.util.concurrent.*;
 
-
+/**
+ * Class for handling the pending queue
+ */
 public class PendingQueue implements Runnable{
     private Queue pendingQ = new Queue();
     private ArrayList<String> containList = new ArrayList<>();
 
+    /**
+     * Start the queueing process
+     */
     @Override
     public void run() {
         ArrayList<Integer> postList = obtainApprovedPost();
@@ -161,7 +165,7 @@ public class PendingQueue implements Runnable{
         }
     }
 
-    /***
+    /**
      * Display the submitted post from the pending queue
      */
     public void deployPost() {

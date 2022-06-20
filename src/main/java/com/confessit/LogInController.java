@@ -1,11 +1,9 @@
 package com.confessit;
 
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -333,7 +331,7 @@ public class LogInController implements Initializable {
         stage.show();
     }
 
-    /***
+    /**
      * To validate the information inputted by the user for log in purpose
      * @param email is the email inputted by the user
      * @param password is the password inputted by the user
@@ -425,7 +423,7 @@ public class LogInController implements Initializable {
         }
     }
 
-    /***
+    /**
      * Verify the password inputted by the user is strong
      * @param passwordInput the password inputted by the user
      * @return a boolean value to verify the password is strong

@@ -29,24 +29,47 @@ public class MenuBarControlller {
      * Root provides a solution to the issue of defining a reusable component with FXML
      */
     private Parent root;
+
+    /**
+     * A button that directs user to the home page
+     */
     @FXML
     private Button homepageButton;
 
+    /**
+     * A button that directs user to log in page
+     */
     @FXML
     private Button logOutButton;
 
+    /**
+     * A button that directs user to the profile page
+     */
     @FXML
     private Button profilePageButton;
 
+    /**
+     * A button that directs user to the search page
+     */
     @FXML
     private Button searchButton;
 
+    /**
+     * A button that directs user to submit confessions page
+     */
     @FXML
     private Button writeConfessionButton;
 
+    /**
+     * Container to display the menu bar buttons
+     */
     @FXML
     private HBox menubar;
 
+    /**
+     * Direct user to the home page
+     * @param event Mouse Click
+     */
     @FXML
     void goToHomepage(MouseEvent event) throws IOException {
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Main-Page.fxml")));
@@ -56,6 +79,10 @@ public class MenuBarControlller {
         stage.show();
     }
 
+    /**
+     * Direct user to sign up page
+     * @param event Mouse Click
+     */
     @FXML
     void goToLogOut(MouseEvent event) throws IOException {
         UserHolder.getInstance().clearInfo();
@@ -67,6 +94,10 @@ public class MenuBarControlller {
         stage.show();
     }
 
+    /**
+     * Direct user to the profile page
+     * @param event Mouse Click
+     */
     @FXML
     void goToProfilePage(MouseEvent event) throws IOException {
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Profile-Page.fxml")));
@@ -76,6 +107,10 @@ public class MenuBarControlller {
         stage.show();
     }
 
+    /**
+     * Direct user to the search page
+     * @param event Mouse Click
+     */
     @FXML
     void goToSearchPage(MouseEvent event) throws IOException {
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Search-Page.fxml")));
@@ -85,6 +120,10 @@ public class MenuBarControlller {
         stage.show();
     }
 
+    /**
+     * Direct user to submit confession post page
+     * @param event Mouse Click
+     */
     @FXML
     void goToSubmitPage(MouseEvent event) throws IOException {
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Submit-Post.fxml")));

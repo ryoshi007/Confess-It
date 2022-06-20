@@ -27,6 +27,9 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.Calendar;
 
+/**
+ * A class for controlling FXML that responsible for displaying post in approval page and search page
+ */
 public class PostObject {
     /**
      * Stage is used to represent a window in a JavaFX desktop application
@@ -43,21 +46,40 @@ public class PostObject {
      */
     private Parent root;
 
+    /**
+     * Label that displayed the date
+     */
     @FXML
     private Label postDate;
 
+    /**
+     * GridPane for containing the post content
+     */
     @FXML
     private GridPane postGrid;
 
+    /**
+     * A button that allows admin to approve the post
+     */
     @FXML
     private Button approveButton;
 
+    /**
+     * A button that allows admin to delete the post
+     */
     @FXML
     private Button deleteButton;
 
+    /**
+     * Containter for displaying the post
+     */
     @FXML
     private FlowPane adjustPane;
 
+    /**
+     * Set the post content in the gridpane
+     * @param pendingPost is the post object that needs to be displayed
+     */
     @FXML
     public void setPost(Post pendingPost) throws FileNotFoundException {
         postGrid.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
@@ -91,10 +113,17 @@ public class PostObject {
         }
     }
 
+    /**
+     * Get the container for displaying the post
+     * @return FlowPane of the post
+     */
     public FlowPane getAdjustPane() {
         return this.adjustPane;
     }
 
+    /**
+     * Calculate the text field that needs to display all text in the post
+     */
     class CustomTextArea extends TextArea {
         CustomTextArea(String content) {
             setWrapText(true);
@@ -119,6 +148,10 @@ public class PostObject {
         }
     }
 
+    /**
+     * Approve the post to be displayed
+     * @param index is the queryIndex of the post in the database, used for identify its location
+     */
     void approve(int index) {
         scene = approveButton.getScene();
         scene.setCursor(Cursor.WAIT);
@@ -177,6 +210,10 @@ public class PostObject {
         window.setScene(new Scene(loader));
     }
 
+    /**
+     * Delete the post from being approved
+     * @param index is the queryIndex of the post in the database, used for identify its place
+     */
     void delete(int index) {
         scene = deleteButton.getScene();
         scene.setCursor(Cursor.WAIT);
@@ -223,10 +260,9 @@ public class PostObject {
         window.setScene(new Scene(loader));
     }
 
-    /***
+    /**
      * Return the next tag id (latest tag id + 1) for the post
      * @return the next tag id
-     * @throws SQLException
      */
     private int retrieveNewTagID() throws SQLException {
 
@@ -278,6 +314,11 @@ public class PostObject {
         return retrievedTagID;
     }
 
+    /**
+     * Obtain the replyTo value of the post
+     * @param currentPostTagID is the tagid of the post
+     * @return the integer value of the replyTo corresponding to the current post
+     */
     private int obtainReplyToTagID(int currentPostTagID) {
         Connection connectDB = null;
         Statement statement = null;

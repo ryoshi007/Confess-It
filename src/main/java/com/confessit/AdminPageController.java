@@ -20,6 +20,9 @@ import java.sql.*;
 import java.util.*;
 import java.util.Date;
 
+/**
+ * A controller for approving posts
+ */
 public class AdminPageController implements Initializable {
 
     /**
@@ -37,12 +40,23 @@ public class AdminPageController implements Initializable {
      */
     private Parent root;
 
+    /**
+     * A button for enabling Vacation Mode
+     */
     @FXML
     private Button vacationButton;
 
+    /**
+     * Container for display the pending posts
+     */
     @FXML
     private VBox contentBox;
 
+    /**
+     * Add the pending posts when the page is loaded
+     * @param url url
+     * @param resourceBundle resource bundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         contentBox.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
@@ -67,9 +81,9 @@ public class AdminPageController implements Initializable {
         contentBox.getChildren().add(new FlowPane(100, 100));
     }
 
-    /***
-     * Retrieve all submitted post
-     * @return an array list consists of submitted post
+    /**
+     * Retrieve the submitted post from the database
+     * @return an array list of submitted posts
      */
     public ArrayList<Post> retrieveSubmittedPost() {
         ArrayList<Post> postList = new ArrayList<>();
@@ -142,8 +156,9 @@ public class AdminPageController implements Initializable {
         return postList;
     }
 
-    /***
-     * Automatically approve or disapprove a submitted post based on the sentiment analysis
+    /**
+     * Automatically approve the post
+     * @param event Mouse click
      */
     @FXML
     void vacationMode(MouseEvent event) {

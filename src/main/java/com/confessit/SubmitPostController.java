@@ -26,6 +26,9 @@ import java.nio.file.Files;
 import java.sql.*;
 import java.util.*;
 
+/**
+ * Controller for submit post
+ */
 public class SubmitPostController implements Initializable {
     private String filePath;
 
@@ -44,36 +47,71 @@ public class SubmitPostController implements Initializable {
      */
     private Parent root;
 
+    /**
+     * A button to go back to home page
+     */
     @FXML
     private Button backButton;
 
+    /**
+     * A button to choose the image
+     */
     @FXML
     private Button chooseImageButton;
 
+    /**
+     * A button to delete the image
+     */
     @FXML
     private Button deleteImageButton;
 
+    /**
+     * A text area that allows the user to write content
+     */
     @FXML
     private TextArea contentField;
 
+    /**
+     * An ImageView to display the chosen image
+     */
     @FXML
     private ImageView imagePane;
 
+    /**
+     * A text field that allows the user to write post id that he wants to reply
+     */
     @FXML
     private TextField postIdField;
 
+    /**
+     * A button to submit the post
+     */
     @FXML
     private Button submitButton;
 
+    /**
+     * A label that will give warning if user does not write any content
+     */
     @FXML
     private Label empty_warning;
 
+    /**
+     * A label that will give warning if user write the post id in the wrong format
+     */
     @FXML
     private Label false_postid_warning;
 
+    /**
+     * A button that allows user to find if the post id that he wants to reply exists or not
+     */
     @FXML
     private Button findButton;
 
+    /**
+     * Load the initial look of the page
+     * @param url url
+     * @param resourceBundle resource bundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         empty_warning.setVisible(false);
@@ -83,7 +121,7 @@ public class SubmitPostController implements Initializable {
         deleteImageButton.setVisible(false);
     }
 
-    /***
+    /**
      * Submit a post without picture for approval
      * @param content is the content from the submitted post
      */
@@ -121,7 +159,7 @@ public class SubmitPostController implements Initializable {
         return postQueryIndex;
     }
 
-    /***
+    /**
      * Submit a post with picture for approval
      * @param content is the content from the submitted post
      * @param imageName is the name of the picture
@@ -167,7 +205,7 @@ public class SubmitPostController implements Initializable {
         return postQueryIndex;
     }
 
-    /***
+    /**
      * A method consists of serial steps to determine whether the content is meaningful and not a spam.
      * The first if statement checks whether the length of string reach the minimum 20 or not.
      * The second if statement checks for the entropy score of the content.
@@ -186,7 +224,7 @@ public class SubmitPostController implements Initializable {
         return !isSimilar(content);
     }
 
-    /***
+    /**
      * Retrieve contents of each approved post in an array list of string
      * @return string array that consists of contents of each approved post
      */
@@ -240,7 +278,7 @@ public class SubmitPostController implements Initializable {
         return contentList;
     }
 
-    /***
+    /**
      * This is a method that will check the repetition of each string in a sentence and give score based on it.
      * The method applies the concept of Shannon's Entropy - a measure of uncertainty associated with random variables.
      * The more randomness the sentence is, the higher the score will be returned.
@@ -270,7 +308,7 @@ public class SubmitPostController implements Initializable {
         return result;
     }
 
-    /***
+    /**
      * This is a method that will compare the submitted content with the contents from approved posts.
      * It utilises FuzzySearch library from me.xdrop.fuzzywuzzy repository.
      * weightedRatio will compare two strings and return score above 90 if both strings have highly-similar contents.
@@ -289,6 +327,10 @@ public class SubmitPostController implements Initializable {
         return false;
     }
 
+    /**
+     * Allow user to back to the home page
+     * @param event Mouse Click
+     */
     @FXML
     void backToMainPage(MouseEvent event) throws IOException {
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Main-Page.fxml")));
@@ -298,6 +340,9 @@ public class SubmitPostController implements Initializable {
         stage.show();
     }
 
+    /**
+     * Allow user to choose the image
+     */
     @FXML
     void chooseImage() {
         try {
@@ -340,6 +385,9 @@ public class SubmitPostController implements Initializable {
         }
     }
 
+    /**
+     * Check for the validity of the post after submit button is clicked
+     */
     @FXML
     void submit() throws SQLException, IOException {
         empty_warning.setVisible(false);
@@ -414,6 +462,9 @@ public class SubmitPostController implements Initializable {
         }
     }
 
+    /**
+     * Check if the submission is passed or not
+     */
     @FXML
     void checkOnSubmissionAndSubmitIt() throws SQLException, IOException {
         String content = contentField.getText();
@@ -461,6 +512,11 @@ public class SubmitPostController implements Initializable {
         }
     }
 
+    /**
+     * Check if the given tag id is numeric or not
+     * @param postID is the input from the postID field
+     * @return the postID is integer or not
+     */
     private boolean isNumeric(String postID) {
         boolean isNumeric = true;
         char[] arrChar = postID.toCharArray();
@@ -472,6 +528,9 @@ public class SubmitPostController implements Initializable {
         return isNumeric;
     }
 
+    /**
+     * Allow user to delete the displayed image
+     */
     @FXML
     void deleteImage() {
         imagePane.setImage(null);
@@ -479,6 +538,10 @@ public class SubmitPostController implements Initializable {
         deleteImageButton.setVisible(false);
     }
 
+    /**
+     * Allow user to move to the content field is Enter button is pressed
+     * @param event
+     */
     @FXML
     void moveToContentField(KeyEvent event) {
         if(event.getCode().equals(KeyCode.ENTER)) {
@@ -486,6 +549,10 @@ public class SubmitPostController implements Initializable {
         }
     }
 
+    /**
+     * Retrieve the latest query index from the database for identification purpose of the newly submitted post
+     * @return the latest query index in the form of integer
+     */
     private int retrieveNewQueryIndex() throws SQLException {
 
         Connection connectDB = null;
@@ -537,6 +604,11 @@ public class SubmitPostController implements Initializable {
         return 1;
     }
 
+    /**
+     * Insert the postId that the post replies to the database
+     * @param queryIndex is the queryIndex of the submitted post in the database
+     * @param replyPostID is the post id that the post wants to reply
+     */
     private void insertReplyPostID(String queryIndex, String replyPostID) {
         Connection connectDB = null;
 
@@ -562,6 +634,10 @@ public class SubmitPostController implements Initializable {
         }
     }
 
+    /**
+     * Find if the post that user wants to reply exists or not
+     * @param event Mouse Click
+     */
     @FXML
     void findPostExist(MouseEvent event) {
         false_postid_warning.setVisible(false);
@@ -620,6 +696,11 @@ public class SubmitPostController implements Initializable {
         }
     }
 
+    /**
+     * Check if the post ID that user wants to reply exist in the database
+     * @param postID is the postId input from the user
+     * @return the boolean value depends on the existence of the post in the database
+     */
     private boolean checkIfPostIDExist(String postID) {
         Connection connectDB = null;
         Statement statement = null;

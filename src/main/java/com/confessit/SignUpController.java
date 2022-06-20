@@ -12,7 +12,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import org.controlsfx.control.action.Action;
 
 import javax.mail.MessagingException;
 import java.io.IOException;
@@ -304,7 +303,7 @@ public class SignUpController extends CreateAccount {
         }
     }
 
-    /***
+    /**
      * Validate the email inputted by the user is in correct format
      * @param emailInput the email inputted by the user
      * @return a boolean value to verify the email has the correct format
@@ -316,7 +315,7 @@ public class SignUpController extends CreateAccount {
         return matcher.find();
     }
 
-    /***
+    /**
      * Verify the password inputted by the user is strong
      * @param passwordInput the password inputted by the user
      * @return a boolean value to verify the password is strong

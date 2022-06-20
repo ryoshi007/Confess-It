@@ -24,6 +24,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+/**
+ * A controller for displaying the search results
+ */
 public class SearchResultObject {
     /**
      * Stage is used to represent a window in a JavaFX desktop application
@@ -40,22 +43,40 @@ public class SearchResultObject {
      */
     private Parent root;
 
+    /**
+     * A FlowPane that displays the post's content
+     */
     @FXML
     private FlowPane adjustPane;
 
+    /**
+     * A label that displays the approved date for the post
+     */
     @FXML
     private Label postDateLabel;
 
+    /**
+     * A GridPane for displaying the post's content
+     */
     @FXML
     private GridPane postGrid;
 
+    /**
+     * A label that displays the tag id of the post
+     */
     @FXML
     private Label tagIDLabel;
 
+    /**
+     * A button to view the post
+     */
     @FXML
     private Button viewButton;
 
-
+    /**
+     * Set the post content on the GridPane
+     * @param pendingPost is the post object
+     */
     @FXML
     public void setPostContent(Post pendingPost) throws FileNotFoundException {
         postGrid.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
@@ -87,10 +108,17 @@ public class SearchResultObject {
         });
     }
 
+    /**
+     * Get the container for displaying the post
+     * @return the FlowPane of the post
+     */
     public FlowPane getAdjustPane() {
         return this.adjustPane;
     }
 
+    /**
+     * Calculate the text field that needs to display all text in the post
+     */
     class CustomTextArea extends TextArea {
         CustomTextArea(String content) {
             setWrapText(true);

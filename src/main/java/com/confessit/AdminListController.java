@@ -421,7 +421,7 @@ public class AdminListController extends CreateAccount implements Initializable 
         }
     }
 
-    /***
+    /**
      * Create an admin account (role = 1)
      * Insert the information entered by the user into database
      * @param email email address entered by the user
@@ -471,7 +471,7 @@ public class AdminListController extends CreateAccount implements Initializable 
         }
     }
 
-    /***
+    /**
      * Validate the email inputted by the user is in correct format
      * @param emailInput the email inputted by the user
      * @return a boolean value to verify the email has the correct format
@@ -483,7 +483,7 @@ public class AdminListController extends CreateAccount implements Initializable 
         return matcher.find();
     }
 
-    /***
+    /**
      * Verify the password inputted by the user is strong
      * @param passwordInput the password inputted by the user
      * @return a boolean value to verify the password is strong

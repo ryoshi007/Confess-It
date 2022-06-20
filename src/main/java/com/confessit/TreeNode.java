@@ -3,7 +3,7 @@ package com.confessit;
 import java.util.ArrayList;
 import java.util.List;
 
-/***
+/**
  * Data Structure for handling batch-post removal
  * A tree graph structure of related posts are constructed
  */
@@ -12,7 +12,7 @@ public class TreeNode<T> {
     private List<TreeNode<T>> children = new ArrayList<>();
     private TreeNode<T> parent = null;
 
-    /***
+    /**
      * Constructor of the TreeNode
      * @param tagid is the id of the post
      */
@@ -20,7 +20,7 @@ public class TreeNode<T> {
         this.tagid = tagid;
     }
 
-    /***
+    /**
      * Add a child node to the tree
      * @param tagid is the id of the post
      */
@@ -37,7 +37,7 @@ public class TreeNode<T> {
         this.children.add(child);
     }
 
-    /***
+    /**
      * Add multiple child nodes to the tree
      * @param children is a list of child node
      */
@@ -48,7 +48,7 @@ public class TreeNode<T> {
         this.children.addAll(children);
     }
 
-    /***
+    /**
      * Get the children of the tree
      * @return a list of child nodes
      */
@@ -64,7 +64,7 @@ public class TreeNode<T> {
         children = null;
     }
 
-    /***
+    /**
      * Get the tag id of the child node
      * @return tag id of the post
      */
@@ -72,7 +72,7 @@ public class TreeNode<T> {
         return tagid;
     }
 
-    /***
+    /**
      * Set the tag id of the child node
      * @param tagid is the id of the post
      */
@@ -80,7 +80,7 @@ public class TreeNode<T> {
         this.tagid = tagid;
     }
 
-    /***
+    /**
      * Set the parent of the child nodes
      * @param parent is the node with higher hierarchy
      */
@@ -88,7 +88,7 @@ public class TreeNode<T> {
         this.parent = parent;
     }
 
-    /***
+    /**
      * Get the parent of the child nodes
      * @return the higher hierarchy node of the children nodes
      */
@@ -96,7 +96,7 @@ public class TreeNode<T> {
         return parent;
     }
 
-    /***
+    /**
      * Get the number of the child nodes in a parent node
      * @return the size of the array list consisting of child node
      */
@@ -104,7 +104,7 @@ public class TreeNode<T> {
         return children.size();
     }
 
-    /***
+    /**
      * Check the parent node has child nodes or not
      * @return boolean value of parent node having child nodes or not
      */
@@ -112,7 +112,7 @@ public class TreeNode<T> {
         return children.isEmpty();
     }
 
-    /***
+    /**
      * Get the child of the node by index
      * @param i is the index position of the child node in the array list
      * @return the child node

@@ -13,6 +13,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Objects;
 
+/**
+ * A controller for the menu bar
+ */
 public class AdminMenuBarController {
     /**
      * Stage is used to represent a window in a JavaFX desktop application
@@ -29,24 +32,46 @@ public class AdminMenuBarController {
      */
     private Parent root;
 
+    /**
+     * A button that directs admin to add admin page
+     */
     @FXML
     private Button addUserButton;
 
+    /**
+     * A button that directs admin to remove post page
+     */
     @FXML
     private Button batchRemovalButton;
 
+    /**
+     * A button that allows admin to log out from the account
+     */
     @FXML
     private Button logOutButton;
 
+    /**
+     * A container for displaying the buttons
+     */
     @FXML
     private HBox menubar;
 
+    /**
+     * A button that directs admin to approve post
+     */
     @FXML
     private Button pendingPageButton;
 
+    /**
+     * A button that directs admin to profile page
+     */
     @FXML
     private Button profilePageButton;
 
+    /**
+     * Direct admin to add admin page
+     * @param event Mouse click
+     */
     @FXML
     void goToAdminListPage(MouseEvent event) throws IOException {
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Admin-List-Page.fxml")));
@@ -56,6 +81,10 @@ public class AdminMenuBarController {
         stage.show();
     }
 
+    /**
+     * Direct admin to remove posts page
+     * @param event Mouse Click
+     */
     @FXML
     void goToBatchRemovalPage(MouseEvent event) throws IOException {
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Batch-Removal-Page.fxml")));
@@ -66,6 +95,10 @@ public class AdminMenuBarController {
 
     }
 
+    /**
+     * Direct admin to log in page
+     * @param event Mouse Click
+     */
     @FXML
     void goToLogOut(MouseEvent event) throws IOException {
         UserHolder.getInstance().clearInfo();
@@ -77,6 +110,10 @@ public class AdminMenuBarController {
         stage.show();
     }
 
+    /**
+     * Direct admin to approve post page
+     * @param event Mouse Click
+     */
     @FXML
     void goToPendingPanel(MouseEvent event) throws IOException {
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("admin-page.fxml")));
@@ -86,6 +123,10 @@ public class AdminMenuBarController {
         stage.show();
     }
 
+    /**
+     * Direct admin to profile page
+     * @param event Mouse Click
+     */
     @FXML
     void goToProfilePage(MouseEvent event) throws IOException {
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Profile-Page.fxml")));

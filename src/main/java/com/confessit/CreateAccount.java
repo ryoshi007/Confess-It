@@ -12,7 +12,7 @@ import java.sql.Statement;
  */
 public class CreateAccount {
 
-    /***
+    /**
      * Create an account
      * Insert the information inputted by the user into database for creating account
      * @param email is the email inputted by the user

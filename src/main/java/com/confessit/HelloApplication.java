@@ -7,10 +7,16 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * A controller to start the application
+ */
 public class HelloApplication extends Application {
+    /**
+     *
+     * @param stage is used to represent a window in a JavaFX desktop application
+     */
     @Override
     public void start(Stage stage) throws IOException {
         Runnable pendingQueue = new PendingQueue();
@@ -30,6 +36,9 @@ public class HelloApplication extends Application {
         stage.show();
     }
 
+    /**
+     * Launch the application
+     */
     public static void main(String[] args) {
         launch();
     }

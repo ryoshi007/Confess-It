@@ -480,6 +480,12 @@ public class ViewPostPageController {
         return post;
     }
 
+    /**
+     * Find the next or previous post based on the current post id
+     * @param targetTagID is the current post id
+     * @param isNext is whether the post id that wanted to be searched is next post or previous post
+     * @return the post id of the next or previous post
+     */
     private int findNextOrPreviousPostByTagID(int targetTagID, boolean isNext) {
         int postID = 0;
         Connection connectDB = null;

@@ -12,7 +12,7 @@ import java.security.spec.InvalidKeySpecException;
  */
 public class SecurePassword {
 
-    /***
+    /**
      * Generate a secure password by implementing PBKDF2 algorithm
      * @param originalPassword the password inputted by the user
      * @return an encrypted password
@@ -31,7 +31,7 @@ public class SecurePassword {
         return iterations + ":" + toHex(salt) + ":" + toHex(hash);
     }
 
-    /***
+    /**
      * Generate the salt for the encrypted password
      * @return the salt for the encrypted password
      * @throws NoSuchAlgorithmException
@@ -43,7 +43,7 @@ public class SecurePassword {
         return salt;
     }
 
-    /***
+    /**
      * Convert array of bits into hex string
      * @param array consists of bytes of elements
      * @return hex string
@@ -60,7 +60,7 @@ public class SecurePassword {
         }
     }
 
-    /***
+    /**
      * Validate the user-inputted password with the retrieved password from the database
      * @param inputPassword is the password inputted by the user
      * @param correctPassword is the password retrieved from the database
@@ -84,7 +84,7 @@ public class SecurePassword {
         return diff == 0;
     }
 
-    /***
+    /**
      * Convert hex string into byte array
      * @param hex is the string that made up of hex values
      * @return the byte array
