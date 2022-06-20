@@ -13,6 +13,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Objects;
 
+/**
+ * Controller for the user's menu bar
+ */
 public class MenuBarControlller {
 
     /**

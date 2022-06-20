@@ -18,6 +18,7 @@ public class CreateAccount {
      * @param email is the email inputted by the user
      * @param username is the username inputted by the user
      * @param password is the password inputted by the user
+     * @param role is the integer value that reflects the user's role
      */
     public void createAccount(String email, String username, String password, int role) {
         String securePassword = null;

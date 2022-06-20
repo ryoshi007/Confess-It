@@ -79,6 +79,7 @@ public class PostObject {
     /**
      * Set the post content in the gridpane
      * @param pendingPost is the post object that needs to be displayed
+     * @throws FileNotFoundException file is not found
      */
     @FXML
     public void setPost(Post pendingPost) throws FileNotFoundException {

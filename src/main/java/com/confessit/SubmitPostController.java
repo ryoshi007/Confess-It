@@ -124,6 +124,8 @@ public class SubmitPostController implements Initializable {
     /**
      * Submit a post without picture for approval
      * @param content is the content from the submitted post
+     * @return the queryIndex in the form of String
+     * @throws SQLException is when there is error with the sql statement
      */
     public String submitPost(String content) throws SQLException {
         Connection connectDB = null;
@@ -163,6 +165,9 @@ public class SubmitPostController implements Initializable {
      * Submit a post with picture for approval
      * @param content is the content from the submitted post
      * @param imageName is the name of the picture
+     * @return the queryIndex in the form of String
+     * @throws SQLException is when there is error with sql statement
+     * @throws IOException is when there is error when executing the code
      */
     public String submitPost(String content, String imageName) throws SQLException, IOException {
         Connection connectDB = null;

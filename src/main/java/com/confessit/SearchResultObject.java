@@ -76,6 +76,7 @@ public class SearchResultObject {
     /**
      * Set the post content on the GridPane
      * @param pendingPost is the post object
+     * @throws FileNotFoundException file is not found
      */
     @FXML
     public void setPostContent(Post pendingPost) throws FileNotFoundException {

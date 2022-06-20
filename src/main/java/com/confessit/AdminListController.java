@@ -427,6 +427,7 @@ public class AdminListController extends CreateAccount implements Initializable 
      * @param email email address entered by the user
      * @param username username entered by the user
      * @param password password entered by the user
+     * @param role is the integer value that reflects the user's role
      */
     public void createAdminAccount(String email, String username, String password, int role) {
         String securePassword = null;

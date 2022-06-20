@@ -78,6 +78,8 @@ public class CommentObject {
      * Set a comment to userComment label and display it
      * @param username username of a user who comments a post
      * @param comment comment of the user
+     * @param tagID is the tag id of the post
+     * @param currentPost is the current Post object
      */
     public void setComment(String username, String comment, int tagID, Post currentPost) {
         this.username = username;

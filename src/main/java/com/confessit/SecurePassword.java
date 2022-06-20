@@ -16,8 +16,8 @@ public class SecurePassword {
      * Generate a secure password by implementing PBKDF2 algorithm
      * @param originalPassword the password inputted by the user
      * @return an encrypted password
-     * @throws NoSuchAlgorithmException
-     * @throws InvalidKeySpecException
+     * @throws NoSuchAlgorithmException is when the algorithm is not found
+     * @throws InvalidKeySpecException is when the key spec is invalid
      */
     public String generateSecurePassword(String originalPassword) throws NoSuchAlgorithmException, InvalidKeySpecException {
         int iterations = 1000;
@@ -65,6 +65,8 @@ public class SecurePassword {
      * @param inputPassword is the password inputted by the user
      * @param correctPassword is the password retrieved from the database
      * @return the boolean value whether the user-inputted password matches with the retrieved password
+     * @throws NoSuchAlgorithmException is when the algorithm is not found
+     * @throws InvalidKeySpecException is when the key spec is not found
      */
     public boolean validatePassword(String inputPassword, String correctPassword) throws NoSuchAlgorithmException, InvalidKeySpecException {
         String[] parts = correctPassword.split(":");

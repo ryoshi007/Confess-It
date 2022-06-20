@@ -27,6 +27,7 @@ public class TreeImplementation<T> {
 
     /**
      * Return the root that contains a bunch of children
+     * @param tagID is the tag id of the post id that wanted to be searched
      * @return root
      */
     public TreeNode<T> searchChildren(T tagID) {
