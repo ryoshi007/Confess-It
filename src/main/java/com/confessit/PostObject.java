@@ -84,7 +84,7 @@ public class PostObject {
     @FXML
     public void setPost(Post pendingPost) throws FileNotFoundException {
         postGrid.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
-        postDate.setText("   Posted at " + pendingPost.getDatetime().toString());
+        postDate.setText("   Posted at " + pendingPost.getDatetime().toString().substring(0,19));
 
         CustomTextArea contentField = null;
         if (pendingPost.getReplyToPostID() != 0) {

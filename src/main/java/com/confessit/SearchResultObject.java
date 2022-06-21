@@ -82,7 +82,7 @@ public class SearchResultObject {
     public void setPostContent(Post pendingPost) throws FileNotFoundException {
         postGrid.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
         tagIDLabel.setText("   #UM" + pendingPost.getTagID());
-        postDateLabel.setText("   Posted at " + pendingPost.getApprovalTime().toString());
+        postDateLabel.setText("   Posted at " + pendingPost.getApprovalTime().toString().substring(0,19));
         CustomTextArea contentField = new CustomTextArea(pendingPost.getContent());
         contentField.setStyle("-fx-focus-color: transparent; -fx-text-box-border: transparent;");
         postGrid.add(contentField, 0, 3);

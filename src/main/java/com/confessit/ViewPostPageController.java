@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.effect.BlendMode;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -177,12 +178,23 @@ public class ViewPostPageController {
         numOfLikes.setText(String.valueOf(currentPost.getLike()));
         numOfDislikes.setText(String.valueOf(currentPost.getDislike()));
 
+        Json json = new Json();
+        String like = json.retrieveLikeUser(currentPost.getTagID());
+        if (like != null && like.contains(UserHolder.getInstance().getUser().getUsername())) {
+            dislikeButton.setDisable(true);
+            dislikeButton.setBlendMode(BlendMode.DARKEN);
+        }
+
+        String dislike = json.retrieveDislikeUser(currentPost.getTagID());
+        if (like != null && dislike.contains(UserHolder.getInstance().getUser().getUsername())) {
+            likeButton.setDisable(true);
+            likeButton.setBlendMode(BlendMode.DARKEN);
+        }
+
         if (currentPost.getPicturePath() != null) {
             Image image = new Image(new File("src/main/resources/com/postImages/" + currentPost.getPicturePath() + ".png").toURI().toString());
             postImagePane.setImage(image);
         }
-
-        Json json = new Json();
 
         // Check whether user saves this post in archive before
         String archive = json.retrieveFromArchive(UserHolder.getInstance().getUser().getUsername());
@@ -381,9 +393,13 @@ public class ViewPostPageController {
         if (like == null || !like.contains(UserHolder.getInstance().getUser().getUsername())) {
             json.addLike(currentPost.getTagID(),UserHolder.getInstance().getUser().getUsername());
             numOfLikes.setText(String.valueOf(Integer.parseInt(numOfLikes.getText()) + 1));
+            dislikeButton.setDisable(true);
+            dislikeButton.setBlendMode(BlendMode.DARKEN);
         } else {
             json.deleteLike(currentPost.getTagID(),UserHolder.getInstance().getUser().getUsername());
             numOfLikes.setText(String.valueOf(Integer.parseInt(numOfLikes.getText()) - 1));
+            dislikeButton.setDisable(false);
+            dislikeButton.setBlendMode(BlendMode.SRC_ATOP);
         }
     }
 
@@ -399,9 +415,14 @@ public class ViewPostPageController {
         if (dislike == null || !dislike.contains(UserHolder.getInstance().getUser().getUsername())) {
             json.addDislike(currentPost.getTagID(),UserHolder.getInstance().getUser().getUsername());
             numOfDislikes.setText(String.valueOf(Integer.parseInt(numOfDislikes.getText()) + 1));
+            likeButton.setDisable(true);
+            likeButton.setBlendMode(BlendMode.DARKEN);
         } else {
             json.deleteDislike(currentPost.getTagID(),UserHolder.getInstance().getUser().getUsername());
             numOfDislikes.setText(String.valueOf(Integer.parseInt(numOfDislikes.getText()) - 1));
+            likeButton.setDisable(false);
+            likeButton.setBlendMode(BlendMode.SRC_ATOP);
+
         }
     }
 

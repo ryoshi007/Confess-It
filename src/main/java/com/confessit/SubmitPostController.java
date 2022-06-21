@@ -24,6 +24,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.*;
 
 /**
@@ -497,7 +499,11 @@ public class SubmitPostController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Success in Submission");
             alert.setHeaderText("Your submission has been accepted!");
-            alert.setContentText("Please give a few hours to the admins to approve your post. We can't wait " +
+
+            String date = LocalDate.now().toString();
+            String time = LocalTime.now().toString().substring(0,8);
+            String dateTime = "Submission Date:\t" + date + "\nSubmission Time:\t" + time;
+            alert.setContentText(dateTime + "\n\nPlease give a few hours to the admins to approve your post. We can't wait " +
                     "to see your confession post on the main page. Thank you!");
             alert.showAndWait();
 
