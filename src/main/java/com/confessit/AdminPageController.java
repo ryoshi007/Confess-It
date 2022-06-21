@@ -41,12 +41,6 @@ public class AdminPageController implements Initializable {
     private Parent root;
 
     /**
-     * A button for enabling Vacation Mode
-     */
-    @FXML
-    private Button vacationButton;
-
-    /**
      * Container for display the pending posts
      */
     @FXML
