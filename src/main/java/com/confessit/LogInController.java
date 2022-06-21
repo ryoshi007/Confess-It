@@ -117,7 +117,13 @@ public class LogInController implements Initializable {
                     stage.setScene(scene);
                     stage.show();
                 }
-
+            } else {
+                // Pop up a "Please enter correct email address or password." message
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Please enter correct email address or password.");
+                alert.showAndWait();
             }
         } else {
             // Set "Please enter email address and password" label as visible
@@ -363,20 +369,8 @@ public class LogInController implements Initializable {
                 SecurePassword secure = new SecurePassword();
                 if (retrievedEmail.equals(email) && secure.validatePassword(password, retrievedPassword)) {
                     // If email and password match
-
-                    User user = new User(retrievedUsername, retrievedEmail, retrievedPassword, dateOfBirth,
-                            retrievedDescription, retrievedRole);
-                    UserHolder holder = UserHolder.getInstance();
-                    holder.setUser(user);
-
                     return retrievedRole;
                 } else {
-                    // Pop up a "Please enter correct email address or password." message
-                    Alert alert = new Alert(Alert.AlertType.WARNING);
-                    alert.setTitle("Error");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Please enter correct email address or password.");
-                    alert.showAndWait();
                     return -1;
                 }
             }
