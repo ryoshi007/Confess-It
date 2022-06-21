@@ -14,6 +14,8 @@ module com.example.confessit {
     requires java.desktop;
     requires javafx.swing;
     requires activation;
+    requires restfb;
+    requires weka.stable;
 
     opens com.confessit to javafx.fxml;
     exports com.confessit;

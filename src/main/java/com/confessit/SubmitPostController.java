@@ -18,6 +18,9 @@ import me.xdrop.fuzzywuzzy.FuzzySearch;
 
 import java.awt.image.BufferedImage;
 import javafx.embed.swing.SwingFXUtils;
+import weka.core.pmml.jaxbbindings.False;
+import weka.core.pmml.jaxbbindings.True;
+
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
@@ -228,6 +231,16 @@ public class SubmitPostController implements Initializable {
         if (calculateEntropy(content) < 2.55) {
             return false;
         }
+
+        String MODEL = "src/main/resources/com/models/sms.dat";
+        SpamClassifier wt = new SpamClassifier();
+        wt.loadModel(MODEL);
+
+        if (wt.predict(content).equals("spam")) {
+            System.out.println("Here");
+            return false;
+        }
+
         return !isSimilar(content);
     }
 
@@ -733,7 +746,11 @@ public class SubmitPostController implements Initializable {
             try {
                 queryResult = statement.executeQuery(sql);
                 if (queryResult.next()) {
-                    isExist = true;
+                    if (queryResult.getBoolean("displayStatus") == true) {
+                        isExist = true;
+                    } else {
+                        isExist = false;
+                    }
                 }
             } catch (SQLSyntaxErrorException e) {
                 isExist = false;

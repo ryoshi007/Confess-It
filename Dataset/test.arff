@@ -1,0 +1,6 @@
+@relation 'SMS spam'
+
+@attribute label {spam,ham}
+@attribute text string
+
+@data

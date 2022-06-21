@@ -186,7 +186,7 @@ public class ViewPostPageController {
         }
 
         String dislike = json.retrieveDislikeUser(currentPost.getTagID());
-        if (like != null && dislike.contains(UserHolder.getInstance().getUser().getUsername())) {
+        if (dislike != null && dislike.contains(UserHolder.getInstance().getUser().getUsername())) {
             likeButton.setDisable(true);
             likeButton.setBlendMode(BlendMode.DARKEN);
         }
