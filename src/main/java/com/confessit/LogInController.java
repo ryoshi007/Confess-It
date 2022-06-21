@@ -365,10 +365,13 @@ public class LogInController implements Initializable {
                 String retrievedDescription = queryResult.getString("description");
                 int retrievedRole = queryResult.getInt("role");
 
-
                 SecurePassword secure = new SecurePassword();
                 if (retrievedEmail.equals(email) && secure.validatePassword(password, retrievedPassword)) {
                     // If email and password match
+                    User user = new User(retrievedUsername, retrievedEmail, retrievedPassword, dateOfBirth,
+                            retrievedDescription, retrievedRole);
+                    UserHolder holder = UserHolder.getInstance();
+                    holder.setUser(user);
                     return retrievedRole;
                 } else {
                     return -1;
