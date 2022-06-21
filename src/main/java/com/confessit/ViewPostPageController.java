@@ -257,7 +257,6 @@ public class ViewPostPageController {
                     fillRelatedPost(Integer.valueOf(id.strip()), "Response From Other Post");
                 }
             }
-
         }
 
         int nextPostId = findNextOrPreviousPostByTagID(currentPost.getTagID(), true);

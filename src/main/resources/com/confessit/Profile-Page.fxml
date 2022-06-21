@@ -249,9 +249,33 @@
             <Cursor fx:constant="HAND" />
          </cursor>
          <tooltip>
-            <Tooltip text="Check previously-viewed post" />
+            <Tooltip text="Change password" />
          </tooltip>
       </Button>
       <Line fx:id="passwordLine" endX="130.5" layoutX="753.0" layoutY="262.0" startX="-65.5" stroke="#22758a" strokeLineCap="ROUND" strokeWidth="5.0" visible="false" />
+      <Button contentDisplay="CENTER" layoutX="1077.0" layoutY="126.0" mnemonicParsing="false" onAction="#deleteAccountButtonPressed" prefHeight="50.0" prefWidth="179.0" styleClass="discard-btn" stylesheets="@styling.css">
+         <graphic>
+            <HBox alignment="CENTER" prefHeight="41.0" prefWidth="162.0" spacing="15.0">
+               <children>
+                  <ImageView fitHeight="38.0" fitWidth="38.0">
+                     <image>
+                        <Image url="@../fxml-resources/discard-icon.png" />
+                     </image>
+                  </ImageView>
+                  <Label prefHeight="22.0" prefWidth="110.0" styleClass="text" stylesheets="@styling.css" text="Delete account" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+         </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <tooltip>
+            <Tooltip text="Delete account" />
+         </tooltip>
+      </Button>
    </children>
 </AnchorPane>
