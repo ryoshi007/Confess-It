@@ -354,7 +354,7 @@ public class ChangePasswordObject implements Initializable {
         }
     }
 
-    /***
+    /**
      * Verify the password inputted by the user is strong
      * @param passwordInput the password inputted by the user
      * @return a boolean value to verify the password is strong

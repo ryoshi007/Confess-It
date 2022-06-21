@@ -92,7 +92,7 @@ public class ProfilePageController implements Initializable {
     private Button discardButton;
 
     /**
-     * A button to save the edits on the profles
+     * A button to save the edits on the profile
      */
     @FXML
     private Button saveButton;
@@ -166,22 +166,6 @@ public class ProfilePageController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         UserHolder.getInstance().setCurrentPage("ProfilePage");
 
-        if (UserHolder.getInstance().isAdmin()) {
-            profileMenuBar.getChildren().clear();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Admin-Bar.fxml"));
-            try {
-                AnchorPane adminMenuBar = loader.load();
-                adminMenuBar.setLayoutX(321);
-                adminMenuBar.setLayoutY(-23);
-
-                selectionLine.setLayoutX(828);
-                selectionLine.setLayoutY(61);
-                profilePage.getChildren().add(adminMenuBar);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-
         Image profile = new Image("com/fxml-resources/default-profile-picture.png", false);
         mainPane.getChildren().clear();
         profileImage.setFill(new ImagePattern(profile));
@@ -195,7 +179,7 @@ public class ProfilePageController implements Initializable {
         usernameField.setText(user.getUsername());
         descriptionField.setText(user.getDescription());
         emailField.setText(user.getEmail());
-        passwordField.setText(user.getPassword());
+        passwordField.setText("secret");
 
         Date date = user.getDateOfBirth();
         if (date != null) {
@@ -204,6 +188,32 @@ public class ProfilePageController implements Initializable {
         }
 
         displayArchivePage();
+
+        if (UserHolder.getInstance().isAdmin()) {
+            profileMenuBar.getChildren().clear();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Admin-Bar.fxml"));
+            try {
+                AnchorPane adminMenuBar = loader.load();
+                adminMenuBar.setLayoutX(321);
+                adminMenuBar.setLayoutY(-23);
+
+                archiveLine.setVisible(false);
+                archiveButton.setVisible(false);
+                changePasswordButton.setLayoutX(520);
+                loader = new FXMLLoader(getClass().getResource("Change-Password-Object.fxml"));
+                AnchorPane changePssPane = loader.load();
+                mainPane.getChildren().setAll(changePssPane.getChildren());
+                passwordLine.setLayoutX(590);
+                passwordLine.setVisible(true);
+                selectionLine.setLayoutX(828);
+                selectionLine.setLayoutY(61);
+                profilePage.getChildren().add(adminMenuBar);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            displayArchivePage();
+        }
     }
 
     /**
