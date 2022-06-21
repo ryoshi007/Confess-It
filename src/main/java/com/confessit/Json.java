@@ -142,6 +142,8 @@ public class Json {
      * @param comment  user's comment
      */
     public void addUserComment(int tagID, String username, String comment) {
+        comment = comment.replaceAll("\'","");
+
         Connection connectDB = null;
         Statement statement = null;
         ResultSet queryResult = null;
