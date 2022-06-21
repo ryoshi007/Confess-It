@@ -217,10 +217,11 @@ public class SubmitPostController implements Initializable {
 
     /**
      * A method consists of serial steps to determine whether the content is meaningful and not a spam.
-     * The first if statement checks whether the length of string reach the minimum 20 or not.
-     * The second if statement checks for the entropy score of the content.
+     * Firstly, if statement checks whether the length of string reach the minimum 20 or not.
+     * Secondly, if statement checks for the entropy score of the content.
      * Basically if the entropy score is lower than 2.55, the content is classified as a spam.
-     * The third if statement checks whether there is a similar content that has been posted before.
+     * Thirdly, if the statement contains typical spam content, it will be rejected.
+     * Fourthly, if statement checks whether there is a similar content that has been posted before.
      * @param content the strings of the submission post
      * @return boolean value, true if content is non-spam and meaning, false otherwise.
      */
@@ -237,7 +238,6 @@ public class SubmitPostController implements Initializable {
         wt.loadModel(MODEL);
 
         if (wt.predict(content).equals("spam")) {
-            System.out.println("Here");
             return false;
         }
 

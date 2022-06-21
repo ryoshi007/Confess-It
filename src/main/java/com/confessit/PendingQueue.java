@@ -95,7 +95,7 @@ public class PendingQueue implements Runnable{
             DatabaseConnection connection = new DatabaseConnection();
             connectDB = connection.getConnection();
             statement = connectDB.createStatement();
-            String sql = "SELECT * FROM post WHERE approval = 1 and displayStatus = 0";
+            String sql = "SELECT * FROM post WHERE approval = 1 and displayStatus = 0 ORDER BY tagid ASC";
             queryResult = statement.executeQuery(sql);
 
             while(queryResult.next()) {

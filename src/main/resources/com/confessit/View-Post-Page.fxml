@@ -30,7 +30,7 @@
          <children>
             <AnchorPane layoutX="70.0" layoutY="3.0" prefHeight="218.0" prefWidth="725.0">
                <children>
-                  <Text layoutX="414.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Posted at: " wrappingWidth="89.45605278015137">
+                  <Text layoutX="386.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Submitted at: " wrappingWidth="116.78936576843262" y="4.0">
                      <font>
                         <Font size="18.0" />
                      </font>
