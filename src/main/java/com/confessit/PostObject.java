@@ -126,6 +126,10 @@ public class PostObject {
      * Calculate the text field that needs to display all text in the post
      */
     class CustomTextArea extends TextArea {
+        /**
+         * Create the custom text area
+         * @param content is the content of the post
+         */
         CustomTextArea(String content) {
             setWrapText(true);
             setFocusTraversable(false);

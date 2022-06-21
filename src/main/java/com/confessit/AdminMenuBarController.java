@@ -71,6 +71,7 @@ public class AdminMenuBarController {
     /**
      * Direct admin to add admin page
      * @param event Mouse click
+     * @throws IOException when there is error running the code
      */
     @FXML
     void goToAdminListPage(MouseEvent event) throws IOException {
@@ -84,6 +85,7 @@ public class AdminMenuBarController {
     /**
      * Direct admin to remove posts page
      * @param event Mouse Click
+     * @throws IOException when there is error running the code
      */
     @FXML
     void goToBatchRemovalPage(MouseEvent event) throws IOException {
@@ -98,6 +100,7 @@ public class AdminMenuBarController {
     /**
      * Direct admin to log in page
      * @param event Mouse Click
+     * @throws IOException when there is error running the code
      */
     @FXML
     void goToLogOut(MouseEvent event) throws IOException {
@@ -113,6 +116,7 @@ public class AdminMenuBarController {
     /**
      * Direct admin to approve post page
      * @param event Mouse Click
+     * @throws IOException when there is error running the code
      */
     @FXML
     void goToPendingPanel(MouseEvent event) throws IOException {
@@ -126,6 +130,7 @@ public class AdminMenuBarController {
     /**
      * Direct admin to profile page
      * @param event Mouse Click
+     * @throws IOException when there is error running the code
      */
     @FXML
     void goToProfilePage(MouseEvent event) throws IOException {

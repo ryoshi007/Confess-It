@@ -414,7 +414,7 @@ public class LogInController implements Initializable {
 
     /**
      * Move to password field after user presses ENTER
-     * @param event
+     * @param event is when the Enter key is pressed
      */
     @FXML
     void moveToPasswordField(KeyEvent event) {

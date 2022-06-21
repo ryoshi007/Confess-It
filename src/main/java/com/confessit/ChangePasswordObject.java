@@ -345,7 +345,7 @@ public class ChangePasswordObject implements Initializable {
 
     /**
      * Move to confirm password field after user presses ENTER
-     * @param event
+     * @param event is when the Enter key is pressed
      */
     @FXML
     void moveToChangePssConfirmPasswordField(KeyEvent event) {

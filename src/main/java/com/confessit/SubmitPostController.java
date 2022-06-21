@@ -335,6 +335,7 @@ public class SubmitPostController implements Initializable {
     /**
      * Allow user to back to the home page
      * @param event Mouse Click
+     * @throws IOException when there is error running the code
      */
     @FXML
     void backToMainPage(MouseEvent event) throws IOException {
@@ -392,6 +393,8 @@ public class SubmitPostController implements Initializable {
 
     /**
      * Check for the validity of the post after submit button is clicked
+     * @throws SQLException is when there is error with the sql statement
+     * @throws IOException when there is error running the code
      */
     @FXML
     void submit() throws SQLException, IOException {
@@ -469,6 +472,8 @@ public class SubmitPostController implements Initializable {
 
     /**
      * Check if the submission is passed or not
+     * @throws SQLException is when there is error with the sql statement
+     * @throws IOException when there is error running the code
      */
     @FXML
     void checkOnSubmissionAndSubmitIt() throws SQLException, IOException {
@@ -545,7 +550,7 @@ public class SubmitPostController implements Initializable {
 
     /**
      * Allow user to move to the content field is Enter button is pressed
-     * @param event
+     * @param event is when Enter key is pressed
      */
     @FXML
     void moveToContentField(KeyEvent event) {

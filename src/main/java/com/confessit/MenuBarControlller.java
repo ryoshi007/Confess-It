@@ -72,6 +72,7 @@ public class MenuBarControlller {
     /**
      * Direct user to the home page
      * @param event Mouse Click
+     * @throws IOException when there is error running the code
      */
     @FXML
     void goToHomepage(MouseEvent event) throws IOException {
@@ -85,6 +86,7 @@ public class MenuBarControlller {
     /**
      * Direct user to sign up page
      * @param event Mouse Click
+     * @throws IOException when there is error running the code
      */
     @FXML
     void goToLogOut(MouseEvent event) throws IOException {
@@ -100,6 +102,7 @@ public class MenuBarControlller {
     /**
      * Direct user to the profile page
      * @param event Mouse Click
+     * @throws IOException when there is error running the code
      */
     @FXML
     void goToProfilePage(MouseEvent event) throws IOException {
@@ -113,6 +116,7 @@ public class MenuBarControlller {
     /**
      * Direct user to the search page
      * @param event Mouse Click
+     * @throws IOException when there is error running the code
      */
     @FXML
     void goToSearchPage(MouseEvent event) throws IOException {
@@ -126,6 +130,7 @@ public class MenuBarControlller {
     /**
      * Direct user to submit confession post page
      * @param event Mouse Click
+     * @throws IOException when there is error running the code
      */
     @FXML
     void goToSubmitPage(MouseEvent event) throws IOException {
