@@ -5,18 +5,24 @@ import javafx.fxml.FXML;
 
 import java.io.IOException;
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.sql.*;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.Optional;
 
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.image.Image;
@@ -27,11 +33,27 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.stage.Stage;
 
 /**
  * A controller for the profile page
  */
 public class ProfilePageController implements Initializable {
+
+    /**
+     * Stage is used to represent a window in a JavaFX desktop application
+     */
+    private Stage stage;
+
+    /**
+     * Scene is the container for all content in a scene graph
+     */
+    private Scene scene;
+
+    /**
+     * Root provides a solution to the issue of defining a reusable component with FXML
+     */
+    private Parent root;
 
     /**
      * A button to show the archived posts
@@ -524,6 +546,59 @@ public class ProfilePageController implements Initializable {
             }
         }
         return postList;
+    }
+
+    @FXML
+    void deleteAccountButtonPressed(ActionEvent event) throws IOException {
+
+        Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+        alert1.setTitle("Delete Account");
+        alert1.setHeaderText("This action cannot be undone. Are you sure you want to delete your account?");
+        alert1.setContentText("Click OK to delete.");
+        alert1.getButtonTypes().setAll(ButtonType.OK, ButtonType.CANCEL);
+
+        Optional<ButtonType> button = alert1.showAndWait();
+        if (button.isPresent() && button.get() == ButtonType.OK) {
+
+            Connection connectDB = null;
+            PreparedStatement statement = null;
+
+            try {
+                DatabaseConnection connection = new DatabaseConnection();
+                connectDB = connection.getConnection();
+                statement = connectDB.prepareStatement("DELETE FROM user WHERE email = '" + UserHolder.getInstance().getUser().getEmail() + "'");
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+
+            } finally {
+                if (statement != null) {
+                    try {
+                        statement.close();
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (connectDB != null) {
+                    try {
+                        connectDB.close();
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            // Forward user to the login page
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("login_page.fxml")));
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        }
+
+
     }
 
 }
