@@ -26,25 +26,50 @@ import weka.filters.unsupervised.attribute.StringToWordVector;
  */
 public class SpamClassifier {
 
+    /**
+     * Logger is to show the current progress in the console terminal
+     */
     private static Logger LOGGER = Logger.getLogger("WekaClassifier");
 
+    /**
+     * A classifier type in WEKA used for filter
+     */
     private FilteredClassifier classifier;
 
-    //declare train and test data Instances
+    /**
+     * Declare train and test data Instances
+     */
     private Instances trainData;
 
-
-    //declare attributes of Instance
+    /**
+     * Declare attributes of Instance
+     */
     private ArrayList < Attribute > wekaAttributes;
 
-    //declare and initialize file locations
+    /**
+     * Declare file location for train data
+     */
     private static final String TRAIN_DATA = "C:\\Users\\Freyr\\IdeaProjects\\Confess-It\\src\\main\\java\\com\\confessit\\Dataset\\train.txt";
+
+    /**
+     * Declare file location for train.arff data
+     */
     private static final String TRAIN_ARFF_ARFF = "C:\\Users\\Freyr\\IdeaProjects\\Confess-It\\src\\main\\java\\com\\confessit\\Dataset\\train.arff";
+
+    /**
+     * Declare file location for test data
+     */
     private static final String TEST_DATA = "C:\\Users\\Freyr\\IdeaProjects\\Confess-It\\src\\main\\java\\com\\confessit\\Dataset\\test.arff";
+
+    /**
+     * Declare file location for test.arff data
+     */
     private static final String TEST_DATA_ARFF = "C:\\Users\\Freyr\\IdeaProjects\\Confess-It\\src\\main\\java\\com\\confessit\\Dataset\\test.arff";
 
+    /**
+     * Constructor for itself to set up the classifier and the attributes
+     */
     SpamClassifier() {
-
         /*
          * Class for running an arbitrary classifier on data that has been passed through an arbitrary filter
          * Training data and test instances will be processed by the filter without changing their structure
@@ -67,7 +92,6 @@ public class SpamClassifier {
         wekaAttributes = new ArrayList < > ();
         wekaAttributes.add(classAttribute);
         wekaAttributes.add(attributeText);
-
     }
 
     /**
@@ -190,7 +214,6 @@ public class SpamClassifier {
      * simple serialization of the classifier object.
      * @param fileName The name of the file that will store the trained model.
      */
-
     public void saveModel(String fileName) throws IOException {
         ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(fileName));
         out.writeObject(classifier);
@@ -292,9 +315,6 @@ public class SpamClassifier {
         SpamClassifier wt = new SpamClassifier();
         wt.loadModel(MODEL);
         System.out.println(wt.predict("Good Morning to you."));
-
-
-
 
 //        if (new File(MODEL).exists()) {
 //            wt.loadModel(MODEL);
