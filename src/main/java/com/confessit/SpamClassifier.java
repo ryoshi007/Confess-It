@@ -213,6 +213,7 @@ public class SpamClassifier {
      * This method saves the trained model into a file. This is done by
      * simple serialization of the classifier object.
      * @param fileName The name of the file that will store the trained model.
+     * @throws IOException when the app cannot run the code
      */
     public void saveModel(String fileName) throws IOException {
         ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(fileName));
@@ -226,14 +227,9 @@ public class SpamClassifier {
     /**
      * Loads a dataset in space seperated text file and convert it to Arff format.
      * @param filename The name of the file.
+     * @return the dataset in the Instances class
      */
     public Instances loadRawDataset(String filename) {
-        /*
-         *  Create an empty training set
-         *  name the relation “Rel”.
-         *  set intial capacity of 10*
-         */
-
         Instances dataset = new Instances("SMS spam", wekaAttributes, 10);
 
         // Set class index
@@ -274,6 +270,7 @@ public class SpamClassifier {
      * Loads a dataset in ARFF format. If the file does not exist, or
      * it has a wrong format, the attribute trainData is null.
      * @param fileName The name of the file that stores the dataset.
+     * @return the dataset that in thr arff format to an Instance object
      */
     public Instances loadArff(String fileName) {
         try {
@@ -308,6 +305,8 @@ public class SpamClassifier {
 
     /**
      * Main method. With an example usage of this class.
+     * @param args is the statement to auto run the code
+     * @throws Exception is the error when running the app
      */
     public static void main(String[] args) throws Exception {
 

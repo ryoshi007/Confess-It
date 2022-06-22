@@ -558,6 +558,11 @@ public class ProfilePageController implements Initializable {
         return postList;
     }
 
+    /**
+     * To delete the account
+     * @param event Mouse Click
+     * @throws IOException when the app cannot run the code
+     */
     @FXML
     void deleteAccountButtonPressed(ActionEvent event) throws IOException {
 
